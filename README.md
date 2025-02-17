@@ -7,7 +7,7 @@
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=jcp-tech" alt="jcp-tech" /></a> </p>
 -->
 
-- 🔭 I’m currently working on [Smooth-Ocean](https://smooth-ocean.tech/)
+- 🔭 I’m currently [working](https://www.linkedin.com/in/jcp-tech/details/experience/) on [Smooth-Ocean](https://smooth-ocean.tech/)
 
 - 🌱 I’m currently learning **Power BI, Video Editing, KNIME, etc...**
 
