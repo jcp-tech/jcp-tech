@@ -6,6 +6,10 @@
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=jcp-tech&label=Profile%20views&color=0e75b6&style=flat-square" alt="jcp-tech" /> </p>
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=jcp-tech" alt="jcp-tech" /></a> </p>
 -->
+
+## What im Listening to
+[![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify?background_color=0d1117&border_color=ffffff)](https://open.spotify.com/user/j.c.p..rocker)
+<!--
 ---
 
 ## About Me
@@ -19,9 +23,6 @@
 - **Learning:** Power BI, Video Editing, KNIME
 - **Interests:** Python, Mobile Programming in Java, Automation, and IT training
 - **Fun Fact:** I’m also a professional IT trainer who loves sharing knowledge
-
-## What im Listening to
-[![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify?background_color=0d1117&border_color=ffffff)](https://open.spotify.com/user/j.c.p..rocker)
 
 ---
 
@@ -99,7 +100,7 @@
 - **Bachelor of Computer Applications (BCA):** Symbiosis Institute of Computer Studies and Research, Pune, India (2023)
 
 ---
-
+-->
 ## Connect with Me
 
 - **LinkedIn:** [Jonathan Chacko](https://www.linkedin.com/in/jcp-tech/)
