@@ -7,7 +7,28 @@
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=jcp-tech" alt="jcp-tech" /></a> </p>
 -->
 
-## What im Listening to
+- 🔭 I’m currently working on [Smooth-Ocean](https://smooth-ocean.tech/)
+
+- 🌱 I’m currently learning **Power BI, Video Editing, KNIME, etc...**
+
+- 👯 I’m looking to collaborate on [Home Automation Systems](https://github.com/jcp-tech/Home-Automation-System)
+
+- 🤝 I’m looking for help with [Recreating my CV as a Dynamic Website](https://cv-jonathan-chacko.web.app/)
+
+- 👨‍💻 Im Currently working at [Maritime Support Solutions](linkedin.com/company/maritime-support-solutions/)
+
+- 📝 Im Currently Doing an AI Graduate Course at Seneca Polytechnic in Ontario Canada 
+
+- 💬 Ask me about **Python, Java, Django, etc...**
+
+- 📫 How to reach me at [jonathanchacko1805@gmail.com](jonathanchacko1805+git@gmail.com)
+
+- 😄 Hobbies <a href="https://www.instagram.com/noxic.gamers/">Enjoy Gaming, Content Creation & Video Editing</a>
+
+- ⚡ Fun fact **Was a Professional IT Trainer <a href="https://www.linkedin.com/company/rogersoft-com/">@Rogersoft_Technologies_PVT_LTD</a>**
+
+- 🎶 What im Listening to:
+
 [![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify)](https://open.spotify.com/user/j.c.p..rocker)
 
 
@@ -102,7 +123,7 @@
 - **Bachelor of Computer Applications (BCA):** Symbiosis Institute of Computer Studies and Research, Pune, India (2023)
 
 ---
--->
+
 ## Connect with Me
 
 - **LinkedIn:** [Jonathan Chacko](https://www.linkedin.com/in/jcp-tech/)
@@ -111,9 +132,8 @@
 - **Email:** [jonathanchacko1805@gmail.com](mailto:jonathanchacko1805+git@gmail.com)
 
 ---
-
+-->
 ## GitHub Stats
 
 ![jcp-tech's GitHub stats](https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&show_icons=true&title_color=000000&locale=en)
-
 ![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact)
