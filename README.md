@@ -17,7 +17,7 @@
 
 - 👨‍💻 Im Currently working at [Maritime Support Solutions](linkedin.com/company/maritime-support-solutions/)
 
-- 📝 Im Currently Doing an AI Graduate Course at Seneca Polytechnic in Ontario Canada 
+- 📝 Im Currently Doing an AI Graduate [Course](https://www.linkedin.com/in/jcp-tech/details/education/) at Seneca Polytechnic in Ontario Canada 
 
 - 💬 Ask me about **Python, Java, Django, etc...**
 
