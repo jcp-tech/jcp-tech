@@ -8,7 +8,9 @@
 -->
 
 ## What im Listening to
-[![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify?background_color=0d1117&border_color=ffffff)](https://open.spotify.com/user/j.c.p..rocker)
+[![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify)](https://open.spotify.com/user/j.c.p..rocker)
+
+
 <!--
 ---
 
