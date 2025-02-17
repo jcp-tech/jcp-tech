@@ -7,7 +7,7 @@
 <p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=jcp-tech" alt="jcp-tech" /></a> </p>
 -->
 
-- 🔭 I’m currently [working](https://www.linkedin.com/in/jcp-tech/details/experience/) on [Smooth-Ocean](https://smooth-ocean.tech/)
+- 🔭 I’m currently [working](https://www.linkedin.com/in/jcp-tech/details/projects/) on [Smooth-Ocean](https://smooth-ocean.tech/)
 
 - 🌱 I’m currently learning **Power BI, Video Editing, KNIME, etc...**
 
@@ -15,7 +15,7 @@
 
 - 🤝 I’m looking for help with [Recreating my CV as a Dynamic Website](https://cv-jonathan-chacko.web.app/)
 
-- 👨‍💻 Im Currently working at [Maritime Support Solutions](linkedin.com/company/maritime-support-solutions/)
+- 👨‍💻 Im Currently [working](https://www.linkedin.com/in/jcp-tech/details/experience/) at [Maritime Support Solutions](linkedin.com/company/maritime-support-solutions/)
 
 - 📝 Im Currently Doing an AI Graduate [Course](https://www.linkedin.com/in/jcp-tech/details/education/) at Seneca Polytechnic in Ontario Canada 
 
