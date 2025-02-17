@@ -107,3 +107,5 @@ Welcome to my GitHub profile! I’m a passionate IT professional with a strong b
 ![jcp-tech's GitHub stats](https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&show_icons=true&theme=radical)
 
 ![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs/?username=jcp-tech&layout=compact&theme=radical)
+
+[![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify?background_color=0d1117&border_color=ffffff)](https://open.spotify.com/user/j.c.p..rocker)
