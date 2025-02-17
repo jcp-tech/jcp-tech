@@ -19,7 +19,7 @@
 
 - 📝 Im Currently Doing an AI Graduate [Course](https://www.linkedin.com/in/jcp-tech/details/education/) at Seneca Polytechnic in Ontario Canada 
 
-- 💬 Ask me about **Python, Java, Django, etc...**
+- 💬 Ask me about **Python, Java, Django, [etc](https://www.linkedin.com/in/jcp-tech/details/skills/)...**
 
 - 📫 How to reach me at [jonathanchacko1805@gmail.com](jonathanchacko1805+git@gmail.com)
 
