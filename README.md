@@ -135,5 +135,16 @@
 -->
 ## GitHub Stats
 
+<!-- 
+![GitHub Trophies](https://github-profile-trophy.vercel.app/?username=jcp-tech&theme=algolia&margin-w=15&column=7)
+### 💻 Tech Stack:
+![Python](https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Django](https://img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)
+### 🌍 Connect with Me:
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
+[![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat&logo=github&logoColor=white)](https://github.com/jcp-tech)
+-->
+
 ![jcp-tech's GitHub stats](https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&include_all_commits=true&show_icons=true&title_color=000000&locale=en)
 ![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact)
