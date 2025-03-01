@@ -1,4 +1,4 @@
-
+<!-- ![Profile Image](https://avatars.githubusercontent.com/u/66247724?v=4) -->
 <h1 align="center">Hi 👋, I'm Jonathan Chacko</h1>
 <h3 align="center">Welcome to my GitHub profile! I’m a passionate IT professional with a strong background in software development, automation, data science, and mobile programming. I love tackling challenging projects and continuously expanding my skillset.</h3>
 
