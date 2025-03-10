@@ -1,5 +1,8 @@
 <!-- ![Profile Image](https://avatars.githubusercontent.com/u/66247724?v=4) -->
 <h1 align="center">Hi 👋, I'm Jonathan Chacko</h1>
+<!-- <div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Architects+Daughter&color=7AF79A&size=40&center=true&vCenter=true&width=600&lines=Hi+There!+👋;I'm+Jonathan+Chacko!;Automation+%26+Data+Science+Specialist" alt="Title" />
+</div> -->
 <h3 align="center">Welcome to my GitHub profile! I’m a passionate IT professional with a strong background in software development, automation, data science, and mobile programming. I love tackling challenging projects and continuously expanding my skillset.</h3>
 
 <!--
