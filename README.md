@@ -31,6 +31,8 @@
 
 [![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify)](https://open.spotify.com/user/j.c.p..rocker)
 
+![discord status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)
+
 
 <!--
 ---
@@ -148,3 +150,4 @@
 
 ![jcp-tech's GitHub stats](https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&include_all_commits=true&show_icons=true&title_color=000000&locale=en)
 ![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact)
+<!-- <a href="https://github.com/vn7n24fzkq/github-profile-summary-cards"><img align="center" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=jcp-tech&theme=tokyonight" alt="Zo-Bro-23's github stats" /></a> -->
