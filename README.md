@@ -21,17 +21,19 @@
 
 - 💬 Ask me about **Python, Java, Django, [etc](https://www.linkedin.com/in/jcp-tech/details/skills/)...**
 
-- 📫 How to reach me at [jonathanchacko1805@gmail.com](jonathanchacko1805+git@gmail.com)
-
 - 😄 Hobbies <a href="https://www.instagram.com/noxic.gamers/">Enjoy Gaming, Content Creation & Video Editing</a>
 
 - ⚡ Fun fact **Was a Professional IT Trainer <a href="https://www.linkedin.com/company/rogersoft-com/">@Rogersoft_Technologies_PVT_LTD</a>**
 
+- 📫 How to reach me at [jonathanchacko1805@gmail.com](jonathanchacko1805+git@gmail.com)
+
+- 🎮 Let Connect on Discord
+
+[![Discord Status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)](https://discordapp.com/users/686190428634349751/)
+
 - 🎶 What im Listening to:
 
 [![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify)](https://open.spotify.com/user/j.c.p..rocker)
-
-![discord status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)
 
 
 <!--
