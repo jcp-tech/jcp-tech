@@ -1,5 +1,9 @@
 # 👨‍💻 Jonathan Chacko
-
+<!--
+<div align="center">
+  <img src="https://readme-typing-svg.herokuapp.com?font=Architects+Daughter&color=7AF79A&size=40&center=true&vCenter=true&width=600&lines=Hi+There!+👋;I'm+Jonathan+Chacko!;Automation+%26+Data+Science+Specialist" alt="Title" />
+</div>
+-->
 > *Python/Java Developer*
 
 I specialize in automation and data science. My expertise includes developing automation scripts that have reduced manual processing time and analyzing large datasets to identify trends, informing strategic decisions. I thrive in dynamic environments, quickly adapting to new technologies and methodologies, and excel both independently and within teams. I am passionate about leveraging data-driven solutions to drive business success and am eager to connect with professionals who share this interest.
