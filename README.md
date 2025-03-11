@@ -4,21 +4,24 @@
 
 I specialize in automation and data science. My expertise includes developing automation scripts that have reduced manual processing time and analyzing large datasets to identify trends, informing strategic decisions. I thrive in dynamic environments, quickly adapting to new technologies and methodologies, and excel both independently and within teams. I am passionate about leveraging data-driven solutions to drive business success and am eager to connect with professionals who share this interest.
 
+
 ## 📫 Connect With Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-jcp--tech-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
 [![GitHub](https://img.shields.io/badge/GitHub-jcp--tech-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jcp-tech)
-[![WhatsApp](https://img.shields.io/badge/WhatsApp-Chat-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/13653842257)
 <!--
+[![WhatsApp](https://img.shields.io/badge/WhatsApp-Chat-25D366?style=for-the-badge&logo=whatsapp&logoColor=white)](https://wa.me/13653842257)
 [![Discord](https://img.shields.io/badge/Discord-Connect-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discordapp.com/users/686190428634349751/)
 [![Gmail](https://img.shields.io/badge/Gmail-JONATHAN-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jonathanchacko1805+git@gmail.com)
 [![Instagram](https://img.shields.io/badge/Instagram-noxic.gamers-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/noxic.gamers/)
 -->
 [![Discord Status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)](https://discordapp.com/users/686190428634349751/)
 
+
 ## 🎵 Currently Listening To
 
 [![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify)](https://open.spotify.com/user/j.c.p..rocker)
+
 
 ## 📊 GitHub Stats
 
@@ -36,6 +39,7 @@ I specialize in automation and data science. My expertise includes developing au
 ![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact)
 <!-- <a href="https://github.com/vn7n24fzkq/github-profile-summary-cards"><img align="center" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=jcp-tech&theme=tokyonight" alt="Zo-Bro-23's github stats" /></a> -->
 
+
 ## 🚀 Current Focus
 
 - 🔭 Working on [Smooth-Ocean](https://smooth-ocean.tech/) - an innovative tech solution
@@ -43,6 +47,7 @@ I specialize in automation and data science. My expertise includes developing au
 - 🤝 Seeking help with [converting my CV to a Dynamic Website](https://cv-jonathan-chacko.web.app/)
 - 💬 Ask me about **Python**, **Java**, **Django**, and [more](https://www.linkedin.com/in/jcp-tech/details/skills/)
 - 😄 Hobbies include **Gaming**, **Content Creation** & **Video Editing** as [Noxic Gamers](https://www.instagram.com/noxic.gamers/)
+
 
 ## 💡 Skills
 
@@ -104,6 +109,7 @@ I specialize in automation and data science. My expertise includes developing au
 ![Video Editing](https://img.shields.io/badge/Video_Editing-9999FF?style=for-the-badge&logo=adobe-premiere-pro&logoColor=white)
 ![KNIME](https://img.shields.io/badge/KNIME-FFC000?style=for-the-badge&logo=knime&logoColor=white)
 
+
 ## 💼 Professional Experience
 
 - 💻 **Software Developer Consultant** at MÖBEL Cabinetry, Hamilton, Canada (September 2024 - February 2025)
@@ -137,10 +143,12 @@ I specialize in automation and data science. My expertise includes developing au
   - Served as liaison between college administration and external gaming organizations
   - Created opportunities for students to engage with emerging esports ecosystem
 
+
 ## 🎓 Educational Journey
 
 - 📚 Pursuing an **AI Graduate Program** at [Seneca Polytechnic](https://www.senecacollege.ca/) in Ontario, Canada
 - 🎓 Completed **Bachelor of Computer Applications** at [Symbiosis Institute of Computer Studies and Research](https://www.sicsr.ac.in/)
+
 
 ## 🏆 Certifications
 
