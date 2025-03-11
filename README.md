@@ -1,3 +1,4 @@
+<!-- ![Profile Image](https://avatars.githubusercontent.com/u/66247724?v=4) -->
 # 👨‍💻 Jonathan Chacko
 <!--
 <div align="center">
@@ -29,20 +30,13 @@ I specialize in automation and data science. My expertise includes developing au
 
 ## 📊 GitHub Stats
 
-<!-- 
-![GitHub Trophies](https://github-profile-trophy.vercel.app/?username=jcp-tech&theme=algolia&margin-w=15&column=7)
-### 💻 Tech Stack:
-![Python](https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white)
-![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Django](https://img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)
-### 🌍 Connect with Me:
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
-[![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat&logo=github&logoColor=white)](https://github.com/jcp-tech)
--->
 ![jcp-tech's GitHub stats](https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&include_all_commits=true&show_icons=true&title_color=000000&locale=en)
 ![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact)
-<!-- <a href="https://github.com/vn7n24fzkq/github-profile-summary-cards"><img align="center" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=jcp-tech&theme=tokyonight" alt="Zo-Bro-23's github stats" /></a> -->
-
+<!-- 
+<a href="https://github.com/vn7n24fzkq/github-profile-summary-cards"><img align="center" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=jcp-tech&theme=tokyonight" alt="Zo-Bro-23's github stats" /></a>
+<p align="left"> <img src="https://komarev.com/ghpvc/?username=jcp-tech&label=Profile%20views&color=0e75b6&style=flat-square" alt="jcp-tech" /> </p>
+<p align="left"> <a href="https://github.com/ryo-ma/github-profile-trophy"><img src="https://github-profile-trophy.vercel.app/?username=jcp-tech" alt="jcp-tech" /></a> </p>
+-->
 
 ## 🚀 Current Focus
 
