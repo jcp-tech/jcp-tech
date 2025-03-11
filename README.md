@@ -181,7 +181,8 @@ I specialize in automation and data science. My expertise includes developing au
 <div align="left">
   <img src="https://img.shields.io/badge/Certified-Business%20Ethics-3A5FCD?style=for-the-badge&logo=bookstack&logoColor=white" alt="Business Ethics Certificate"/>
   <img src="https://img.shields.io/badge/Certified-Database%20and%20Cloud%20Services-3A5FCD?style=for-the-badge&logo=microsoftazure&logoColor=white" alt="Database and Cloud Services Certificate"/>
+  <img src="https://img.shields.io/badge/Certified-Artificial%20Intelligence%20%26%20Machine%20Learning-3A5FCD?style=for-the-badge&logo=ai&logoColor=white" alt="AI & ML Certificate"/>
   <br/>
-  <img src="https://img.shields.io/badge/Certified-Python-FFDE05?style=for-the-badge&logo=python&logoColor=darkblue" alt="Python Certificate"/>
+  <img src="https://img.shields.io/badge/Certified-Python-FFDE05?style=for-the-badge&logo=python&logoColor=white" alt="Python Certificate"/>
   <img src="https://img.shields.io/badge/Certified-C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++ Certificate"/>
 </div>
