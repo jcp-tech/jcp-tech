@@ -4,7 +4,6 @@
 
 I specialize in automation and data science. My expertise includes developing automation scripts that have reduced manual processing time and analyzing large datasets to identify trends, informing strategic decisions. I thrive in dynamic environments, quickly adapting to new technologies and methodologies, and excel both independently and within teams. I am passionate about leveraging data-driven solutions to drive business success and am eager to connect with professionals who share this interest.
 
-
 ## 📫 Connect With Me
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-jcp--tech-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
@@ -17,62 +16,25 @@ I specialize in automation and data science. My expertise includes developing au
 -->
 [![Discord Status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)](https://discordapp.com/users/686190428634349751/)
 
-
 ## 🎵 Currently Listening To
 
 [![Spotify](https://novatorem-zeta-eosin.vercel.app/api/spotify)](https://open.spotify.com/user/j.c.p..rocker)
 
+## 📊 GitHub Stats
 
-## 💼 Professional Experience
-
-- 💻 **Software Developer Consultant** at MÖBEL Cabinetry, Hamilton, Canada (September 2024 - February 2025)
-  - Diagnosed and resolved critical bugs in Version 1, improving system stability and user experience
-  - Contributed to feature development that expanded product functionality and met evolving client needs
-  - Participated in full development lifecycle of Version 2, from initial design through implementation and testing
-  - Collaborated closely with cross-functional teams to ensure alignment with business requirements
-
-- 🏢 **Lead Software Developer - Automation** at [Maritime Support Solutions](https://www.linkedin.com/company/maritime-support-solutions/) (June 2023 - Present)
-  - Architected and developed [Smooth-Ocean.tech](https://smooth-ocean.tech/), a comprehensive automation platform for shipping liner agencies
-  - Engineered data processing pipeline that handles multi-format sources (PDF, Excel, CSV) with advanced error detection
-  - Implemented API integrations enabling seamless data exchange with Power BI and third-party systems
-  - Served as Global IT lead across partner organizations, managing infrastructure and securing ISO 27001 certification
-  - Reduced manual processing time by 70% and nearly eliminated human input errors through intelligent automation
-
-- 👨‍🏫 **Professional IT Trainer** at [Rogersoft Technologies PVT LTD](https://www.linkedin.com/company/rogersoft-com/) (January 2023 - August 2023)
-  - Designed and delivered comprehensive curriculum for Python, Django, Data Science, SQL, and Statistics
-  - Developed personalized learning paths for students based on individual skill levels and career goals
-  - Mentored students through real-world projects that demonstrated practical application of technical skills
-  - Created extensive documentation and training materials that became company standard resources
-
-- 📱 **Mobile Application Developer** at Bohanee, Pune, India (January 2022 - July 2023)
-  - Designed and built an affordable inventory management solution for small business owners across India
-  - Implemented barcode scanning functionality and automated product identification to streamline operations
-  - Created data collection infrastructure that provided valuable market insights for wholesale opportunities
-  - Developed user-friendly interface that required minimal technical knowledge from end users
-
-- 🎮 **Campus Coordinator** at Viral Fission, Pune, India (April 2022 - June 2022)
-  - Coordinated competitive gaming events in partnership with Good Game Nation (GGN)
-  - Managed logistics, scheduling, and promotion to drive student participation
-  - Served as liaison between college administration and external gaming organizations
-  - Created opportunities for students to engage with emerging esports ecosystem
-
-
-## 🎓 Educational Journey
-
-- 📚 Pursuing an **AI Graduate Program** at [Seneca Polytechnic](https://www.senecacollege.ca/) in Ontario, Canada
-- 🎓 Completed **Bachelor of Computer Applications** at [Symbiosis Institute of Computer Studies and Research](https://www.sicsr.ac.in/)
-
-
-## 🏆 Certifications
-
-<div align="left">
-  <img src="https://img.shields.io/badge/Certified-Business%20Ethics-3A5FCD?style=for-the-badge&logo=bookstack&logoColor=white" alt="Business Ethics Certificate"/>
-  <img src="https://img.shields.io/badge/Certified-Database%20and%20Cloud%20Services-3A5FCD?style=for-the-badge&logo=microsoftazure&logoColor=white" alt="Database and Cloud Services Certificate"/>
-  <br/>
-  <img src="https://img.shields.io/badge/Certified-Python-FFDE05?style=for-the-badge&logo=python&logoColor=darkblue" alt="Python Certificate"/>
-  <img src="https://img.shields.io/badge/Certified-C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++ Certificate"/>
-</div>
-
+<!-- 
+![GitHub Trophies](https://github-profile-trophy.vercel.app/?username=jcp-tech&theme=algolia&margin-w=15&column=7)
+### 💻 Tech Stack:
+![Python](https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white)
+![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![Django](https://img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)
+### 🌍 Connect with Me:
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
+[![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat&logo=github&logoColor=white)](https://github.com/jcp-tech)
+-->
+![jcp-tech's GitHub stats](https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&include_all_commits=true&show_icons=true&title_color=000000&locale=en)
+![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact)
+<!-- <a href="https://github.com/vn7n24fzkq/github-profile-summary-cards"><img align="center" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=jcp-tech&theme=tokyonight" alt="Zo-Bro-23's github stats" /></a> -->
 
 ## 🚀 Current Focus
 
@@ -81,7 +43,6 @@ I specialize in automation and data science. My expertise includes developing au
 - 🤝 Seeking help with [converting my CV to a Dynamic Website](https://cv-jonathan-chacko.web.app/)
 - 💬 Ask me about **Python**, **Java**, **Django**, and [more](https://www.linkedin.com/in/jcp-tech/details/skills/)
 - 😄 Hobbies include **Gaming**, **Content Creation** & **Video Editing** as [Noxic Gamers](https://www.instagram.com/noxic.gamers/)
-
 
 ## 💡 Skills
 
@@ -143,18 +104,50 @@ I specialize in automation and data science. My expertise includes developing au
 ![Video Editing](https://img.shields.io/badge/Video_Editing-9999FF?style=for-the-badge&logo=adobe-premiere-pro&logoColor=white)
 ![KNIME](https://img.shields.io/badge/KNIME-FFC000?style=for-the-badge&logo=knime&logoColor=white)
 
+## 💼 Professional Experience
 
-## 📊 GitHub Stats
-<!-- 
-![GitHub Trophies](https://github-profile-trophy.vercel.app/?username=jcp-tech&theme=algolia&margin-w=15&column=7)
-### 💻 Tech Stack:
-![Python](https://img.shields.io/badge/-Python-3776AB?style=flat&logo=python&logoColor=white)
-![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Django](https://img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)
-### 🌍 Connect with Me:
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-blue?style=flat&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
-[![GitHub](https://img.shields.io/badge/-GitHub-black?style=flat&logo=github&logoColor=white)](https://github.com/jcp-tech)
--->
-![jcp-tech's GitHub stats](https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&include_all_commits=true&show_icons=true&title_color=000000&locale=en)
-![Top Languages](https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact)
-<!-- <a href="https://github.com/vn7n24fzkq/github-profile-summary-cards"><img align="center" src="http://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=jcp-tech&theme=tokyonight" alt="Zo-Bro-23's github stats" /></a> -->
+- 💻 **Software Developer Consultant** at MÖBEL Cabinetry, Hamilton, Canada (September 2024 - February 2025)
+  - Diagnosed and resolved critical bugs in Version 1, improving system stability and user experience
+  - Contributed to feature development that expanded product functionality and met evolving client needs
+  - Participated in full development lifecycle of Version 2, from initial design through implementation and testing
+  - Collaborated closely with cross-functional teams to ensure alignment with business requirements
+
+- 🏢 **Lead Software Developer - Automation** at [Maritime Support Solutions](https://www.linkedin.com/company/maritime-support-solutions/) (June 2023 - Present)
+  - Architected and developed [Smooth-Ocean.tech](https://smooth-ocean.tech/), a comprehensive automation platform for shipping liner agencies
+  - Engineered data processing pipeline that handles multi-format sources (PDF, Excel, CSV) with advanced error detection
+  - Implemented API integrations enabling seamless data exchange with Power BI and third-party systems
+  - Served as Global IT lead across partner organizations, managing infrastructure and securing ISO 27001 certification
+  - Reduced manual processing time by 70% and nearly eliminated human input errors through intelligent automation
+
+- 👨‍🏫 **Professional IT Trainer** at [Rogersoft Technologies PVT LTD](https://www.linkedin.com/company/rogersoft-com/) (January 2023 - August 2023)
+  - Designed and delivered comprehensive curriculum for Python, Django, Data Science, SQL, and Statistics
+  - Developed personalized learning paths for students based on individual skill levels and career goals
+  - Mentored students through real-world projects that demonstrated practical application of technical skills
+  - Created extensive documentation and training materials that became company standard resources
+
+- 📱 **Mobile Application Developer** at Bohanee, Pune, India (January 2022 - July 2023)
+  - Designed and built an affordable inventory management solution for small business owners across India
+  - Implemented barcode scanning functionality and automated product identification to streamline operations
+  - Created data collection infrastructure that provided valuable market insights for wholesale opportunities
+  - Developed user-friendly interface that required minimal technical knowledge from end users
+
+- 🎮 **Campus Coordinator** at Viral Fission, Pune, India (April 2022 - June 2022)
+  - Coordinated competitive gaming events in partnership with Good Game Nation (GGN)
+  - Managed logistics, scheduling, and promotion to drive student participation
+  - Served as liaison between college administration and external gaming organizations
+  - Created opportunities for students to engage with emerging esports ecosystem
+
+## 🎓 Educational Journey
+
+- 📚 Pursuing an **AI Graduate Program** at [Seneca Polytechnic](https://www.senecacollege.ca/) in Ontario, Canada
+- 🎓 Completed **Bachelor of Computer Applications** at [Symbiosis Institute of Computer Studies and Research](https://www.sicsr.ac.in/)
+
+## 🏆 Certifications
+
+<div align="left">
+  <img src="https://img.shields.io/badge/Certified-Business%20Ethics-3A5FCD?style=for-the-badge&logo=bookstack&logoColor=white" alt="Business Ethics Certificate"/>
+  <img src="https://img.shields.io/badge/Certified-Database%20and%20Cloud%20Services-3A5FCD?style=for-the-badge&logo=microsoftazure&logoColor=white" alt="Database and Cloud Services Certificate"/>
+  <br/>
+  <img src="https://img.shields.io/badge/Certified-Python-FFDE05?style=for-the-badge&logo=python&logoColor=darkblue" alt="Python Certificate"/>
+  <img src="https://img.shields.io/badge/Certified-C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++ Certificate"/>
+</div>
