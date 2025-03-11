@@ -72,7 +72,7 @@ I specialize in automation and data science. My expertise includes developing au
 ### 🧪 Testing Frameworks & Tools
 ![Selenium](https://img.shields.io/badge/Selenium-43B02A?style=for-the-badge&logo=selenium&logoColor=white)
 ![BeautifulSoup](https://img.shields.io/badge/BeautifulSoup-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![JSoup](https://img.shields.io/badge/JSoup-ED8B00?style=for-the-badge&logo=java&logoColor=white)
+![JSoup](https://img.shields.io/badge/JSoup-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white)
 
 ### 🌐 GUI & Web Development
 ![Django](https://img.shields.io/badge/Django-092E20?style=for-the-badge&logo=django&logoColor=white)
@@ -106,9 +106,9 @@ I specialize in automation and data science. My expertise includes developing au
 ### 🔧 Other Tools & Technologies
 ![Raspberry Pi](https://img.shields.io/badge/Raspberry_Pi-A22846?style=for-the-badge&logo=raspberry-pi&logoColor=white)
 ![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
-![PuTTY](https://img.shields.io/badge/PuTTY-007ACC?style=for-the-badge&logo=putty&logoColor=white)
-![WSL](https://img.shields.io/badge/WSL-0078D6?style=for-the-badge&logo=windows&logoColor=white)
-![Power Automate](https://img.shields.io/badge/Power_Automate-0066FF?style=for-the-badge&logo=microsoft&logoColor=white)
+![PuTTY](https://img.shields.io/badge/PuTTY-007ACC?style=for-the-badge&logo=terminal&logoColor=white)
+![WSL](https://img.shields.io/badge/WSL-4D4D4D?style=for-the-badge&logo=windows-terminal&logoColor=white)
+![Power Automate](https://img.shields.io/badge/Power_Automate-0066FF?style=for-the-badge&logo=power-automate&logoColor=white)
 ![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
