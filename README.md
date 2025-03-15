@@ -186,3 +186,7 @@ I specialize in automation and data science. My expertise includes developing au
   <img src="https://img.shields.io/badge/Certified-Python-FFDE05?style=for-the-badge&logo=python&logoColor=white" alt="Python Certificate"/>
   <img src="https://img.shields.io/badge/Certified-C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++ Certificate"/>
 </div>
+
+<!-- 
+NOTE: Use firebase deploy --only hosting:jcp-tech
+-->
