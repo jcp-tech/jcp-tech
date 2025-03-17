@@ -188,5 +188,15 @@ I specialize in automation and data science. My expertise includes developing au
 </div>
 
 <!-- 
-NOTE: Use firebase deploy --only hosting:jcp-tech
+## 📂 Projects
+#GIST
+Why this works
+[![Gist Card](https://github-readme-stats.vercel.app/api/gist?id=902d273e5f07bdbe3604f5a4fef924bb)](https://gist.github.com/jcp-tech/902d273e5f07bdbe3604f5a4fef924bb/)
+but this Doesnt
+[![Gist Card](https://github-readme-stats-teal-six-35.vercel.app/api/gist?id=902d273e5f07bdbe3604f5a4fef924bb)](https://gist.github.com/jcp-tech/902d273e5f07bdbe3604f5a4fef924bb/)
+#REPOS
+Check
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=jcp-tech&repo=MSS-Automation)](https://github.com/jcp-tech/MSS-Automation)
+Check this Also
+[![Readme Card](https://github-readme-stats-teal-six-35.vercel.app/api/pin/?username=jcp-tech&repo=MSS-Automation)](https://github.com/jcp-tech/MSS-Automation)
 -->
