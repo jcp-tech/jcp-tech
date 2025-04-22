@@ -27,7 +27,7 @@ if %errorlevel% equ 0 (
 )
 
 REM Push changes
-REM git push
+git push
 
 REM Check push status
 if %errorlevel% neq 0 (
