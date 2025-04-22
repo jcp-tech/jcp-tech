@@ -731,52 +731,5 @@
     // Event listener for theme toggle
     toggleSwitch.addEventListener('change', switchTheme, false);
   </script>
-  <!--
-  <script type="module">
-    // Import the functions you need from the SDKs you need
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js";
-    // TODO: Add SDKs for Firebase products that you want to use
-    // https://firebase.google.com/docs/web/setup#available-libraries
-
-    // Your web app's Firebase configuration
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: "AIzaSyDR1fMBfUi2b_cVCLGeS6JrpcpPkSeSMVc",
-      authDomain: "cv-jcp.firebaseapp.com",
-      projectId: "cv-jcp",
-      storageBucket: "cv-jcp.firebasestorage.app",
-      messagingSenderId: "133611191593",
-      appId: "1:133611191593:web:f681a7e03be5e19de7cb38",
-      // firebase.analytics().logEvent('tutorial_completed');
-      // firebase.performance(); // call to activate
-      //
-      // // 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
-
-      try {
-        let app = firebase.app();
-        let features = [
-          'auth', 
-          'database', 
-          'firestore',
-          'functions',
-          'messaging', 
-          'storage', 
-          'analytics', 
-          'remoteConfig',
-          'performance',
-        ].filter(feature => typeof app[feature] === 'function');
-        if (loadEl) {
-          loadEl.textContent = `Firebase SDK loaded with ${features.join(', ')}`;
-        }
-      } catch (e) {
-        console.error(e);
-        if (loadEl) {
-          loadEl.textContent = 'Error loading the Firebase SDK, check the console.';
-        }
-      }
-    });
-  </script>
-  -->
 </body>
 </html>
