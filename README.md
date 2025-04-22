@@ -70,6 +70,18 @@ I specialize in automation and data science. My expertise includes developing au
   </a>
 </p>
 
+<!--
+### 🤖 AI/ML Tools
+<p align="left">
+  <a href="https://skillicons.dev">
+    <img src="https://skillicons.dev/icons?i=tensorflow,pytorch,sklearn,opencv" />
+  </a>
+  <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" />
+  <img src="https://img.shields.io/badge/Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="Hugging Face" />
+  <img src="https://img.shields.io/badge/LangChain-00C65E?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" />
+</p>
+-->
+
 ### 🧪 Testing Frameworks & Tools
 <p align="left">
   <a href="https://skillicons.dev">
@@ -91,6 +103,8 @@ I specialize in automation and data science. My expertise includes developing au
 ### 📊 Visualization Tools
 <p align="left">
   <img src="https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=tableau&logoColor=white" alt="Tableau" />
+  <img src="https://img.shields.io/badge/Matplotlib-3776AB?style=for-the-badge&logo=matplotlib&logoColor=white" alt="Matplotlib" />
+  <img src="https://img.shields.io/badge/Seaborn-3776AB?style=for-the-badge&logo=seaborn&logoColor=white" alt="Seaborn" />
   <!-- <img src="https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=power-bi&logoColor=black" alt="Power BI" /> -->
 </p>
 
@@ -132,6 +146,7 @@ I specialize in automation and data science. My expertise includes developing au
   <img src="https://img.shields.io/badge/KNIME-FFC000?style=for-the-badge&logo=knime&logoColor=white" alt="KNIME" />
   <img src="https://img.shields.io/badge/Video_Editing-9999FF?style=for-the-badge&logo=adobe-premiere-pro&logoColor=white" alt="Video Editing" />
   <img src="https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=power-bi&logoColor=black" alt="Power BI" />
+  <img src="https://img.shields.io/badge/n8n-1A047D?style=for-the-badge&logo=n8n&logoColor=white" alt="n8n" />
 </p>
 
 

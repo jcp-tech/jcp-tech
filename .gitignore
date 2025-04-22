@@ -71,5 +71,8 @@ node_modules/
 # for Copilot Generating
 rules.txt
 
+# # deployment file
+# deploy.bat
+
 # for any folder named ignore
 ignore/
