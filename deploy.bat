@@ -38,6 +38,8 @@ if %errorlevel% neq 0 (
 :DeployFirebase
 REM Firebase Deploy Second
 echo Deploying to Firebase...
+firebase use --project cv-jcp
+REM firebase deploy --only hosting
 firebase deploy
 
 REM Check Firebase deploy status
