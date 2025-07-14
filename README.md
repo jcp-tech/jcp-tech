@@ -41,8 +41,7 @@ I specialize in automation and data science. My expertise includes developing au
 ## 🚀 Current Focus
 
 - 🔭 Working on [Smooth-Ocean](https://smooth-ocean.tech/) - an innovative tech solution
-- 👯 Looking to collaborate on [Home Automation Systems](https://github.com/jcp-tech/Home-Automation-System)
-- 🤝 Seeking help with [converting my CV to a Dynamic Website](https://cv-jonathan-chacko.web.app/)
+- 🤖 Looking to collaborate on [Spendify](https://github.com/jcp-tech/Spendify) - AI-powered expense optimization platform integrating Discord bot image uploads, GCP Vertex AI OCR, and a structured GCP ADK (Agent Development Kit) pipeline for automated receipt classification. Replaces traditional LLM-based approaches with a multi-agent system enforcing strict schemas for explainable, validated results. Automates the end-to-end flow from receipt capture to structured storage, enabling predictive analytics and dashboard visualization. Fully containerized and CI/CD-deployed for scalability.
 - 💬 Ask me about **Python**, **Java**, **Django**, and [more](https://www.linkedin.com/in/jcp-tech/details/skills/)
 - 😄 Hobbies include **Gaming**, **Content Creation** & **Video Editing** as [Noxic Gamers](https://www.instagram.com/noxic.gamers/)
 
@@ -70,17 +69,17 @@ I specialize in automation and data science. My expertise includes developing au
   </a>
 </p>
 
-<!--
 ### 🤖 AI/ML Tools
 <p align="left">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=tensorflow,pytorch,sklearn,opencv" />
   </a>
+  <img src="https://img.shields.io/badge/GCP_ADK-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="GCP ADK" />
+  <img src="https://img.shields.io/badge/Google_Vertex_Tools-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Vertex Tools" />
   <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" />
   <img src="https://img.shields.io/badge/Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="Hugging Face" />
   <img src="https://img.shields.io/badge/LangChain-00C65E?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" />
 </p>
--->
 
 ### 🧪 Testing Frameworks & Tools
 <p align="left">
@@ -139,6 +138,7 @@ I specialize in automation and data science. My expertise includes developing au
   </a>
   <img src="https://img.shields.io/badge/WSL-4D4D4D?style=for-the-badge&logo=windows-terminal&logoColor=white" alt="WSL" />
   <img src="https://img.shields.io/badge/Power_Automate-0066FF?style=for-the-badge&logo=power-automate&logoColor=white" alt="Power Automate" />
+  <img src="https://img.shields.io/badge/ROS-22314E?style=for-the-badge&logo=ros&logoColor=white" alt="ROS (Robot Operating System)" />
 </p>
 
 ### 📚 Currently Learning
@@ -147,6 +147,8 @@ I specialize in automation and data science. My expertise includes developing au
   <img src="https://img.shields.io/badge/Video_Editing-9999FF?style=for-the-badge&logo=adobe-premiere-pro&logoColor=white" alt="Video Editing" />
   <img src="https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=power-bi&logoColor=black" alt="Power BI" />
   <img src="https://img.shields.io/badge/n8n-1A047D?style=for-the-badge&logo=n8n&logoColor=white" alt="n8n" />
+  <img src="https://img.shields.io/badge/GCP_A2A-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="GCP A2A" />
+  <img src="https://img.shields.io/badge/GCP_MCP-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="GCP MCP" />
 </p>
 
 
