@@ -221,7 +221,7 @@ but this Doesnt
 [![Gist Card](https://github-readme-stats-teal-six-35.vercel.app/api/gist?id=902d273e5f07bdbe3604f5a4fef924bb)](https://gist.github.com/jcp-tech/902d273e5f07bdbe3604f5a4fef924bb/)
 #REPOS
 Check
-[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=jcp-tech&repo=MSS-Automation)](https://github.com/jcp-tech/MSS-Automation)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?username=jcp-tech&repo=smooth-ocean.ai)](https://github.com/jcp-tech/smooth-ocean.ai)
 Check this Also
-[![Readme Card](https://github-readme-stats-teal-six-35.vercel.app/api/pin/?username=jcp-tech&repo=MSS-Automation)](https://github.com/jcp-tech/MSS-Automation)
+[![Readme Card](https://github-readme-stats-teal-six-35.vercel.app/api/pin/?username=jcp-tech&repo=smooth-ocean.ai)](https://github.com/jcp-tech/smooth-ocean.ai)
 -->
