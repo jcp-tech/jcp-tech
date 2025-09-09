@@ -41,8 +41,11 @@ I specialize in automation and data science. My expertise includes developing au
 ## 🚀 Current Focus
 
 - 🔭 Worked on [Spendify](https://github.com/jcp-tech/Spendify) - AI-powered expense optimizer using Discord uploads, GCP Vertex AI OCR, and a multi-agent ADK pipeline for explainable receipt classification. End-to-end automated, schema-validated, and fully containerized with CI/CD.
-- 🤖 Looking to collaborate on [smooth-ocean.ai](https://github.com/jcp-tech/smooth-ocean.ai) - AI-powered Developer Support System built on Google’s Agent Development Kit (ADK) for debugging Django + MySQL applications. It helps developers trace issues from yellow error pages, raw HTML, screenshots, or free-form descriptions through a multi-agent pipeline that inspects views, functions, and models to reconstruct logic and map data flow. The system integrates with MySQL (read-only, expanding to controlled write), a custom MCP code inspector, GitHub MCP/code-parsing tools, and Notion-based mitigation playbooks. Outputs are schema-guaranteed for explainability, delivering validated, step-by-step debugging insights. Fully containerized and extensible, with a roadmap including audit trails, controlled DB writes, and expanded pipelines for scalable, collaborative debugging.
-- 💬 Ask me about **Python**, **Java**, **Django**, and [more](https://www.linkedin.com/in/jcp-tech/details/skills/)
+- 🤖 Looking to collaborate on [DevTools](https://github.com/jcp-tech/DevTools)
+    <br>
+    [![Readme Card](https://github-readme-stats-teal-six-35.vercel.app/api/pin/?username=jcp-tech&repo=DevTools)](https://github.com/jcp-tech/DevTools)
+- AI-powered Developer Support System built on Google’s Agent Development Kit (ADK) for debugging Django + MySQL applications. It helps developers trace issues from yellow error pages, raw HTML, screenshots, or free-form descriptions through a multi-agent pipeline that inspects views, functions, and models to reconstruct logic and map data flow. The system integrates with MySQL (read-only, expanding to controlled write), a custom MCP code inspector, GitHub MCP/code-parsing tools, and Notion-based mitigation playbooks. Outputs are schema-guaranteed for explainability, delivering validated, step-by-step debugging insights. Fully containerized and extensible, with a roadmap including audit trails, controlled DB writes, and expanded pipelines for scalable, collaborative debugging.
+- 💬 Ask me about **ADK**, **Python**, **Java**, **Django**, and [more](https://www.linkedin.com/in/jcp-tech/details/skills/)
 - 😄 Hobbies include **Gaming**, **Content Creation** & **Video Editing** as [Noxic Gamers](https://www.instagram.com/noxic.gamers/)
 
 
@@ -189,7 +192,7 @@ I specialize in automation and data science. My expertise includes developing au
 
 ## 🎓 Educational Journey
 
-- 📚 Pursuing an **AI Graduate Program** at [Seneca Polytechnic](https://www.senecacollege.ca/) in Ontario, Canada
+- 📚 Completed **AI Graduate Program** at [Seneca Polytechnic](https://www.senecacollege.ca/) in Ontario, Canada
 - 🎓 Completed **Bachelor of Computer Applications** at [Symbiosis Institute of Computer Studies and Research](https://www.sicsr.ac.in/)
 
 
@@ -209,7 +212,6 @@ I specialize in automation and data science. My expertise includes developing au
 </a>
 
 </div>
-
 
 
 <!-- 
