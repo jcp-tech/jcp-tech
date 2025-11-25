@@ -19,9 +19,9 @@ I specialize in automation and data science. My expertise includes developing au
 [![Discord](https://img.shields.io/badge/Discord-Connect-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discordapp.com/users/686190428634349751/)
 [![Gmail](https://img.shields.io/badge/Gmail-JONATHAN-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:jonathanchacko1805+git@gmail.com)
 [![Instagram](https://img.shields.io/badge/Instagram-noxic.gamers-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/noxic.gamers/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jcp-tech/jcp-tech)
 -->
 [![Discord Status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)](https://discordapp.com/users/686190428634349751/)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jcp-tech/jcp-tech)
 
 
 ## 🎵 Currently Listening To
