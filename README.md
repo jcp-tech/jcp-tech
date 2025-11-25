@@ -6,7 +6,7 @@
 </div>
 -->
 > *Python/Java Developer*
-<!-- [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jcp-tech/DevTools) -->
+<!-- [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jcp-tech/jcp-tech) -->
 
 I specialize in automation and data science. My expertise includes developing automation scripts that have reduced manual processing time and analyzing large datasets to identify trends, informing strategic decisions. I thrive in dynamic environments, quickly adapting to new technologies and methodologies, and excel both independently and within teams. I am passionate about leveraging data-driven solutions to drive business success and am eager to connect with professionals who share this interest.
 
