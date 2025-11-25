@@ -206,12 +206,22 @@ I specialize in automation and data science. My expertise includes developing au
   <br/>
   <img src="https://img.shields.io/badge/Certified-Python-FFDE05?style=for-the-badge&logo=python&logoColor=white" alt="Python Certificate"/>
   <img src="https://img.shields.io/badge/Certified-C++-00599C?style=for-the-badge&logo=cplusplus&logoColor=white" alt="C++ Certificate"/>
-<br/>
-<a href="https://factory.cancred.ca/v1/assertion/2dc8425a65563dcbf7e12c39e11940df9e2e56f9" target="_blank" rel="noopener noreferrer">
-  <img src="https://img.shields.io/badge/Finalist-Seneca%20Hackathon%202025-800000?style=for-the-badge&logo=visualstudiocode&logoColor=white" alt="Seneca Hackathon 2025 Finalist"/>
-  <!-- [![Open Badge Certificate](https://badges.ecampusontario.ca/app/badge/info/93099/pic)](https://factory.cancred.ca/v1/assertion/2dc8425a65563dcbf7e12c39e11940df9e2e56f9) -->
-</a>
+</div>
 
+
+## 🏆 Achievements
+<div align="left">
+  <!-- Google Cloud x AI Tinkerers Hackathon -->
+  <img src="https://img.shields.io/badge/Hackathon-Google%20Cloud%20x%20AI%20Tinkerers%20Toronto-CC0000?style=for-the-badge&logo=googlecloud&logoColor=white" alt="Google Cloud x AI Tinkerers"/>
+  <img src="https://img.shields.io/badge/Result-Runner%20Up%20%7C%20Crowd%20Favorite-DAA520?style=for-the-badge&logo=medal"/>
+  <br/>
+  🔗 <a href="https://toronto.aitinkerers.org/hackathons/h_KQnA_tMSu9Y/results" target="_blank">Event Details</a>
+  <br/><br/>
+  <!-- Seneca Hackathon 2025 -->
+  <img src="https://img.shields.io/badge/Hackathon-Seneca%202025-CC0000?style=for-the-badge&logo=google-scholar&logoColor=white" alt="Seneca Hackathon 2025"/>
+  <img src="https://img.shields.io/badge/Result-Finalist-DAA520?style=for-the-badge&logo=trophy&logoColor=white"/>
+  <br/>
+  🔗 <a href="https://factory.cancred.ca/obv3/credentials/2dc8425a65563dcbf7e12c39e11940df9e2e56f9" target="_blank">View Credential</a>
 </div>
 
 
