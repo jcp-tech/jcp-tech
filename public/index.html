@@ -395,6 +395,37 @@
         flex-direction: column;
       }
     }
+
+    /* Seneca Achievement Layout Fix */
+    .seneca-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .seneca-content {
+      flex: 1;
+    }
+
+    .seneca-badge img {
+      width: 160px;
+      height: auto;
+      max-width: 100%;
+    }
+
+    /* Responsive Fix */
+    @media (max-width: 768px) {
+      .seneca-wrapper {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .seneca-badge img {
+        margin-top: 15px;
+        width: 140px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -731,30 +762,35 @@
         </div>
         <div class="job-duration">(September 2025)</div>
         <ul class="job-desc">
-          <li><strong>Team V.I.S.I.O.N</strong> - Runner Up + 1st in Crowd Favorite</li>
-          <li><a href="https://toronto.aitinkerers.org/p/google-cloud-x-ai-tinkerers-toronto-hackathon-september-2025" target="_blank" rel="noopener noreferrer">Event Details</a></li>
-          
+          <li><strong>Team <a href="https://toronto.aitinkerers.org/hackathons/h_KQnA_tMSu9Y/teams/ht_kLrU9QavpGg">V.I.S.I.O.N</a></strong> - Runner Up + 1st in Crowd Favorite</li>
+          <li><a href="https://toronto.aitinkerers.org/hackathons/h_KQnA_tMSu9Y/results" target="_blank" rel="noopener noreferrer">Event Details</a></li>
         </ul>
       </div>
 
-      <!-- Seneca Hackathon (Moved Badge) -->
-      <div class="experience-item">
-        <div style="display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap;">
-            <div style="flex: 1;">
-                <div class="job-title">
-                  <span>🏅</span> Seneca Hackathon 2025 - Finalist
-                </div>
-                <div class="job-duration">Seneca Polytechnic</div>
-                <ul class="job-desc">
-                  <li>Achieved Finalist status in the 2025 Seneca Polytechnic Hackathon.</li>
-                  <li><a href="https://factory.cancred.ca/obv3/credentials/2dc8425a65563dcbf7e12c39e11940df9e2e56f9" target="_blank" rel="noopener noreferrer">View Credential</a></li>
-                </ul>
+      <!-- Seneca Hackathon -->
+      <div class="experience-item seneca-achievement">
+        <div class="seneca-wrapper">
+          
+          <div class="seneca-content">
+            <div class="job-title">
+              <span>🏅</span> Seneca Hackathon 2025 - Finalist
             </div>
-            <div>
+            <div class="job-duration">(April 2025)</div>
+            <ul class="job-desc">
+              <li>Achieved Finalist status in the 2025 Seneca Polytechnic <a href="https://factory.cancred.ca/obv3/credentials/1b0444a5742c2b69bfc2c7fbe0a735c704dcaf8d">Hackathon</a>.</li>
+              <li>
                 <a href="https://factory.cancred.ca/obv3/credentials/2dc8425a65563dcbf7e12c39e11940df9e2e56f9" target="_blank" rel="noopener noreferrer">
-                  <img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 100%);transition: background-color 300ms;" src="https://factory.cancred.ca/obv3/images/badge/4dea917162b6230189acc42a2349f81a89ab17bfe3fe823ff1856ccc8e108212" width="277" height="277">
+                  View Credential
                 </a>
-            </div>
+              </li>
+            </ul>
+          </div>
+
+          <div class="seneca-badge">
+            <a href="https://factory.cancred.ca/obv3/credentials/2dc8425a65563dcbf7e12c39e11940df9e2e56f9" target="_blank" rel="noopener noreferrer">
+              <img src="https://factory.cancred.ca/obv3/images/badge/4dea917162b6230189acc42a2349f81a89ab17bfe3fe823ff1856ccc8e108212" alt="Seneca Hackathon Badge">
+            </a>
+          </div>
         </div>
       </div>
     </section>
