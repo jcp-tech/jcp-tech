@@ -6,7 +6,6 @@
 </div>
 -->
 > *Python/Java Developer*
-<!-- [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jcp-tech/jcp-tech) -->
 
 I specialize in automation and data science. My expertise includes developing automation scripts that have reduced manual processing time and analyzing large datasets to identify trends, informing strategic decisions. I thrive in dynamic environments, quickly adapting to new technologies and methodologies, and excel both independently and within teams. I am passionate about leveraging data-driven solutions to drive business success and am eager to connect with professionals who share this interest.
 
@@ -22,6 +21,7 @@ I specialize in automation and data science. My expertise includes developing au
 [![Instagram](https://img.shields.io/badge/Instagram-noxic.gamers-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/noxic.gamers/)
 -->
 [![Discord Status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)](https://discordapp.com/users/686190428634349751/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jcp-tech/jcp-tech)
 
 
 ## 🎵 Currently Listening To
