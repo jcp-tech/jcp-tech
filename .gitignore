@@ -70,6 +70,10 @@ node_modules/
 
 # for Copilot Generating
 rules.txt
+/.agent/workflows/rules.md
+
+# for AI Browser Applications
+AgenticBrowserPromt.md
 
 # # deployment file
 # deploy.bat

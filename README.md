@@ -49,6 +49,12 @@ I specialize in automation and data science. My expertise includes developing au
 - 😄 Hobbies include **Gaming**, **Content Creation** & **Video Editing** as [Noxic Gamers](https://www.instagram.com/noxic.gamers/)
 
 
+## 🏆 Achievements
+
+- **🥈 Runner Up & 🥇 1st Place Crowd Favorite** - [Google Cloud x AI Tinkerers Toronto Hackathon](https://toronto.aitinkerers.org/p/google-cloud-x-ai-tinkerers-toronto-hackathon-september-2025) (September 2025)
+  - *Team V.I.S.I.O.N* - Recognized for building an innovative Agentic AI solution using Google Cloud Vertex AI.
+
+
 ## 💡 Skills
 
 ### 💻 Programming Languages
