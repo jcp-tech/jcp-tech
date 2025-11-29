@@ -100,5 +100,4 @@ ignore/
 /venv-linux
 /venv-backup
 
-# # TO_DO.md
-/public/TO_DO.md
+/ignore.md
