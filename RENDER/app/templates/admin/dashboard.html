@@ -418,27 +418,14 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
                 </div>
                 <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div class="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">Activity Name</label>
-                            <input type="text" data-field="name" value="${item.name || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">Status</label>
-                            <select data-field="status" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                                <option value="active" ${item.status === 'active' ? 'selected' : ''}>Active</option>
-                                <option value="inactive" ${item.status === 'inactive' ? 'selected' : ''}>Inactive</option>
-                            </select>
-                        </div>
-                    </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">HTML Content</label>
-                        <textarea data-field="html" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500" oninput="this.closest('.group').querySelector('.preview-box').innerHTML = this.value">${item.html || ''}</textarea>
+                        <textarea data-field="html" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500" oninput="this.closest('.group').querySelector('.preview-box').innerHTML = this.value">${item || ''}</textarea>
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Preview</label>
                         <div class="preview-box bg-gray-900 border border-gray-700 rounded p-2 h-full overflow-auto flex items-center justify-center text-white">
-                            ${item.html || 'Preview'}
+                            ${item || 'Preview'}
                         </div>
                     </div>
                 </div>
@@ -480,19 +467,6 @@
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
                 </div>
                 <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4">
-                    <div class="col-span-1 lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">Activity Name</label>
-                            <input type="text" data-field="name" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label class="block text-xs text-gray-500 mb-1">Status</label>
-                            <select data-field="status" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                                <option value="active">Active</option>
-                                <option value="inactive">Inactive</option>
-                            </select>
-                        </div>
-                    </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">HTML Content</label>
                         <textarea data-field="html" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500" oninput="this.closest('.group').querySelector('.preview-box').innerHTML = this.value"></textarea>
@@ -1279,11 +1253,7 @@
                 }
             } else if (currentSection === 'live_activities') {
                 const items = Array.from(document.querySelectorAll('#activity-items > div'));
-                payload = items.map(item => ({
-                    name: item.querySelector('[data-field="name"]').value,
-                    status: item.querySelector('[data-field="status"]').value,
-                    html: item.querySelector('[data-field="html"]').value
-                }));
+                payload = items.map(item => item.querySelector('[data-field="html"]').value);
             } else if (currentSection === 'projects') {
                 const items = Array.from(document.querySelectorAll('#project-items > div'));
                 payload = items.map(item => ({
