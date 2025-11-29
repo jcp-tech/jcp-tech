@@ -24,15 +24,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Decode GCP Key
-        run: |
-          echo "${{ secrets.GCP_SA_KEY_B64 }}" | base64 -d > gcp_key.json
-
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-
-      - name: Authenticate gcloud
-        run: gcloud auth activate-service-account --key-file=gcp_key.json
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          # Store the full JSON key as a repository secret named GCLOUD_SERVICE_KEY
+          credentials_json: '${{ secrets.GCLOUD_SERVICE_KEY }}'
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
