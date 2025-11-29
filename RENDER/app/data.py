@@ -1,5 +1,44 @@
 from collections import defaultdict
+import re
 
+def to_rgb_string(color):
+    """Convert hex, rgb string, or tuple to 'R G B' string format."""
+
+    # 1. Hex format "#RRGGBB"
+    if isinstance(color, str) and color.startswith("#"):
+        hex_val = color.lstrip("#")
+        if len(hex_val) == 3:  # short hex like #fff
+            hex_val = "".join([c*2 for c in hex_val])
+        r = int(hex_val[0:2], 16)
+        g = int(hex_val[2:4], 16)
+        b = int(hex_val[4:6], 16)
+        return f"{r} {g} {b}"
+
+    # 2. RGB string variants: "255 255 255", "255,255,255", etc.
+    if isinstance(color, str):
+        nums = re.findall(r"\d+", color)
+        if len(nums) == 3:
+            r, g, b = map(int, nums)
+            return f"{r} {g} {b}"
+
+    # 3. Tuple (r, g, b)
+    if isinstance(color, tuple) and len(color) == 3:
+        r, g, b = color
+        return f"{r} {g} {b}"
+
+    raise ValueError(f"Invalid color format: {color}")
+
+
+def normalize_color_config(config):
+    """Convert all VALUES in the config to 'R G B' format."""
+    new_config = {}
+
+    for mode, values in config.items():
+        new_config[mode] = {}
+        for key, color in values.items():
+            new_config[mode][key] = to_rgb_string(color)
+
+    return new_config
 
 def build_skills_data(master_skills):
     skills_data = defaultdict(list)
@@ -17,6 +56,24 @@ def build_skills_data(master_skills):
     skills_data = {"FEATURED": featured_items, **skills_data}
     return skills_data, [x for x in skills_data.keys()]
 
+COLOR_CONFIG = normalize_color_config({
+    "light": {
+        "primary-rgb": "22 163 74",  # Green-600
+        "bg-rgb": "240 244 248",     # Light Blue-Grey
+        "card-bg-rgb": "255 255 255",  # White cards
+        "text-main": "17 24 39",     # Gray-900
+        "text-muted": "75 85 99",    # Gray-600
+        "border-color": "229 231 235"  # Gray-200
+    },
+    "dark": {
+        "primary-rgb": "74 222 128",  # Green-400
+        "bg-rgb": "16 16 24",        # Deep Blue-Black
+        "card-bg-rgb": "255 255 255",  # White (used with low opacity)
+        "text-main": "255 255 255",  # White
+        "text-muted": "156 163 175",  # Gray-400
+        "border-color": "255 255 255"  # White (used with low opacity)
+    }
+})
 
 MASTER_NAVBAR = [
     {'name': 'Home', 'href': '#home', 'template': 'hero', 'active': True},

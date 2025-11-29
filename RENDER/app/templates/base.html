@@ -23,24 +23,18 @@
         /* ========================================= */
         /*      LIGHT MODE COLOR CONFIGURATION       */
         /* ========================================= */
-        --primary-rgb: 22 163 74; /* Green-600: Darker for visibility on light bg */
-        --bg-rgb: 240 244 248; /* Light Blue-Grey */
-        --card-bg-rgb: 255 255 255; /* White cards */
-        --text-main: 17 24 39; /* Gray-900 */
-        --text-muted: 75 85 99; /* Gray-600 */
-        --border-color: 229 231 235; /* Gray-200 */
+        {% for key, value in color_config['light'].items() %}
+        --{{ key }}: {{ value }};
+        {% endfor %}
       }
 
       .dark {
         /* ========================================= */
         /*      DARK MODE COLOR CONFIGURATION        */
         /* ========================================= */
-        --primary-rgb: 74 222 128; /* Green-400: Vibrant for dark bg */
-        --bg-rgb: 16 16 24; /* Deep Blue-Black */
-        --card-bg-rgb: 255 255 255; /* White (used with low opacity) */
-        --text-main: 255 255 255; /* White */
-        --text-muted: 156 163 175; /* Gray-400 */
-        --border-color: 255 255 255; /* White (used with low opacity) */
+        {% for key, value in color_config['dark'].items() %}
+        --{{ key }}: {{ value }};
+        {% endfor %}
       }
     </style>
 

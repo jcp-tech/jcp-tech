@@ -16,10 +16,10 @@ Open your terminal (PowerShell or Command Prompt) and run:
 
 ```bash
 gcloud auth login
-gcloud config set project [YOUR_PROJECT_ID]
+gcloud config set project cv-jcp
 ```
 
-Replace `[YOUR_PROJECT_ID]` with your actual Google Cloud Project ID.
+Replace `cv-jcp` with your actual Google Cloud Project ID.
 
 ### 2. Enable Required Services
 
