@@ -4,39 +4,36 @@ import re
 ##### FUNCTIONS #####
 
 def to_rgb_string(color, hex=False):
-    """Convert hex, rgb string, or (r, g, b) tuple into either:
-       - 'R G B' (default)
-       - or '#RRGGBB' if hex=True
+    """Convert hex, rgb string, or (r,g,b) tuple into:
+       - 'R G B'  (default)
+       - '#RRGGBB' if hex=True
     """
 
-    def to_hex(r, g, b):
-        return "#{:02X}{:02X}{:02X}".format(r, g, b)
+    to_hex = lambda r, g, b: "#{:02X}{:02X}{:02X}".format(r, g, b)
 
-    # 1. Hex input "#RRGGBB" or "#RGB"
+    # 1. Hex input
     if isinstance(color, str) and color.startswith("#"):
         hex_val = color.lstrip("#")
-        if len(hex_val) == 3:  # shorthand #fff
+        if len(hex_val) == 3:
             hex_val = "".join([c*2 for c in hex_val])
         r = int(hex_val[0:2], 16)
         g = int(hex_val[2:4], 16)
         b = int(hex_val[4:6], 16)
-
         return to_hex(r, g, b) if hex else f"{r} {g} {b}"
 
-    # 2. RGB-like string: "255 255 255", "255,255,255", "rgb(255,255,255)"
+    # 2. RGB-like string
     if isinstance(color, str):
         nums = re.findall(r"\d+", color)
         if len(nums) == 3:
             r, g, b = map(int, nums)
             return to_hex(r, g, b) if hex else f"{r} {g} {b}"
 
-    # 3. Tuple (r, g, b)
+    # 3. Tuple
     if isinstance(color, tuple) and len(color) == 3:
         r, g, b = color
         return to_hex(r, g, b) if hex else f"{r} {g} {b}"
 
     raise ValueError(f"Invalid color format: {color}")
-
 
 def normalize_color_config(config):
     """Convert all VALUES in the config to 'R G B' format."""
