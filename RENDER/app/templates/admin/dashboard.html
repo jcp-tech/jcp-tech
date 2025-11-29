@@ -1290,7 +1290,6 @@
                     degree: item.querySelector('[data-field="degree"]').value,
                     location: item.querySelector('[data-field="location"]').value,
                     year: item.querySelector('[data-field="year"]').value,
-                    icon: item.querySelector('[data-field="icon"]').value,
                     current: item.querySelector('[data-field="current"]').checked
                 }));
             } else if (currentSection === 'certifications') {
@@ -1306,8 +1305,7 @@
                     description: item.querySelector('[data-field="description"]').value,
                     date: item.querySelector('[data-field="date"]').value,
                     icon: item.querySelector('[data-field="icon"]').value,
-                    link: item.querySelector('[data-field="link"]').value,
-                    color: item.querySelector('[data-field="color"]').value
+                    link: item.querySelector('[data-field="link"]').value
                 }));
             } else {
                 // Main section (flat)
@@ -1491,14 +1489,40 @@
     }
 
     async function removeAdminUser(provider, index) {
-        if (confirm('Are you sure you want to remove this user?')) {
-            currentData[provider].splice(index, 1);
-            await saveAdminUsers();
-            renderAdminUsers(currentData);
-        }
+        console.log(`Attempting to remove user: provider=${provider}, index=${index}`);
+        // if (confirm('Are you sure you want to remove this user?')) {
+            try {
+                if (!currentData) {
+                    console.error('currentData is null or undefined');
+                    alert('Error: Data not loaded. Please refresh.');
+                    return;
+                }
+                if (!currentData[provider]) {
+                    console.error(`Provider ${provider} not found in currentData`, currentData);
+                    // Initialize if missing (though it shouldn't be if we are deleting)
+                    currentData[provider] = [];
+                }
+                
+                // Validate index
+                if (index < 0 || index >= currentData[provider].length) {
+                    console.error(`Invalid index ${index} for provider ${provider}`);
+                    alert('Error: Invalid user index.');
+                    return;
+                }
+
+                currentData[provider].splice(index, 1);
+                console.log('User removed from local state. Saving...', currentData);
+                await saveAdminUsers();
+                renderAdminUsers(currentData);
+            } catch (e) {
+                console.error("Error in removeAdminUser:", e);
+                alert("An error occurred while trying to remove the user.");
+            }
+        // }
     }
 
     async function saveAdminUsers() {
+        console.log('Saving admin users:', currentData);
         try {
             const response = await fetch('/admin/api/users', {
                 method: 'POST',
@@ -1507,9 +1531,14 @@
             });
             
             if (!response.ok) {
-                alert('Failed to save changes');
+                const errorText = await response.text();
+                console.error('Failed to save users:', response.status, errorText);
+                alert('Failed to save changes: ' + response.status);
                 // Reload to revert
                 switchTab('users');
+            } else {
+                console.log('Admin users saved successfully.');
+                alert('Admin users updated successfully!');
             }
         } catch (error) {
             console.error('Error saving users:', error);
