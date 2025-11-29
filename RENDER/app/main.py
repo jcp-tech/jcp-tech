@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.tools.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, ACHIEVEMENTS, COLOR_CONFIG, SYNTAX_COLORS, get_developer_profile_data, MASTER_MAIN
+from app.tools.data import get_developer_profile_data
 import app.utils.middleware_collection as mc
 from app.routers import admin, contact
 
@@ -19,6 +19,13 @@ templates = Jinja2Templates(directory="app/templates")
 
 @app.get("/")
 async def read_root(request: Request):
+    from app.tools.data import (
+        NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, MASTER_MAIN,
+        PROJECTS, SKILL_CATEGORIES, SKILLS_DATA,
+        COLOR_CONFIG, SYNTAX_COLORS,
+        EXPERIENCES, EDUCATIONS,
+        CERTIFICATIONS, ACHIEVEMENTS,
+    )
     code_base, line_count, terminal_output = get_developer_profile_data()
     context = {
         "request": request,
