@@ -1,31 +1,39 @@
 from collections import defaultdict
 import re
 
+##### FUNCTIONS #####
 
-def to_rgb_string(color):
-    """Convert hex, rgb string, or tuple to 'R G B' string format."""
+def to_rgb_string(color, hex=False):
+    """Convert hex, rgb string, or (r, g, b) tuple into either:
+       - 'R G B' (default)
+       - or '#RRGGBB' if hex=True
+    """
 
-    # 1. Hex format "#RRGGBB"
+    def to_hex(r, g, b):
+        return "#{:02X}{:02X}{:02X}".format(r, g, b)
+
+    # 1. Hex input "#RRGGBB" or "#RGB"
     if isinstance(color, str) and color.startswith("#"):
         hex_val = color.lstrip("#")
-        if len(hex_val) == 3:  # short hex like #fff
+        if len(hex_val) == 3:  # shorthand #fff
             hex_val = "".join([c*2 for c in hex_val])
         r = int(hex_val[0:2], 16)
         g = int(hex_val[2:4], 16)
         b = int(hex_val[4:6], 16)
-        return f"{r} {g} {b}"
 
-    # 2. RGB string variants: "255 255 255", "255,255,255", etc.
+        return to_hex(r, g, b) if hex else f"{r} {g} {b}"
+
+    # 2. RGB-like string: "255 255 255", "255,255,255", "rgb(255,255,255)"
     if isinstance(color, str):
         nums = re.findall(r"\d+", color)
         if len(nums) == 3:
             r, g, b = map(int, nums)
-            return f"{r} {g} {b}"
+            return to_hex(r, g, b) if hex else f"{r} {g} {b}"
 
     # 3. Tuple (r, g, b)
     if isinstance(color, tuple) and len(color) == 3:
         r, g, b = color
-        return f"{r} {g} {b}"
+        return to_hex(r, g, b) if hex else f"{r} {g} {b}"
 
     raise ValueError(f"Invalid color format: {color}")
 
@@ -59,7 +67,9 @@ def build_skills_data(master_skills):
     return skills_data, [x for x in skills_data.keys()]
 
 
-COLOR_CONFIG = normalize_color_config({
+##### REALTIME DATABASE DATA (RARE CHANGES) #####
+
+COLOR_CONFIG_RAW = {
     "light": {
         "primary-rgb": "22 163 74",  # Green-600
         "bg-rgb": "240 244 248",     # Light Blue-Grey
@@ -76,9 +86,9 @@ COLOR_CONFIG = normalize_color_config({
         "text-muted": "156 163 175",  # Gray-400
         "border-color": "255 255 255"  # White (used with low opacity)
     }
-})
+}
 
-SYNTAX_COLORS = {
+SYNTAX_COLORS_RAW = {
     "background": "#1f1f1f",
     "comments": "#6f9953",
 
@@ -113,14 +123,13 @@ SYNTAX_COLORS = {
 
 MASTER_NAVBAR = [
     {'name': 'Home', 'href': '#home', 'template': 'hero', 'active': True},
-    {'name': 'Projects', 'href': '#projects',
-        'template': 'projects', 'active': False},
+    {'name': 'Projects', 'href': '#projects', 'template': 'projects', 'active': False},
     {'name': 'Skills', 'href': '#skills', 'template': 'skills', 'active': False},
-    {'name': 'Experience', 'href': '#experience',
-        'template': 'experience', 'active': False},
+    {'name': 'Experience', 'href': '#experience', 'template': 'experience', 'active': False},
     {'name': 'Contact', 'href': '#contact', 'template': 'contact', 'active': False},
 ]
-NAV_LINKS = [link for link in MASTER_NAVBAR if link['active']]
+
+##### FIRESTORE DATABASE DATA (FREQUENT CHANGES) #####
 
 LIVE_ACTIVITIES_HTML_COMPONENTS = [
     # 1. Discord Status
@@ -226,25 +235,18 @@ PROJECTS = [  # TODO: Add projects
     }
 ]
 
-SKILLS_DATA, SKILL_CATEGORIES = build_skills_data([
-    {"name": "Python", "icon": "psychology",
-        "category": "AI/ML", "featured": True},
+SKILLS_MAIN = [
+    {"name": "Python", "icon": "psychology", "category": "AI/ML", "featured": True},
     {"name": "TensorFlow", "icon": "hub", "category": "AI/ML", "featured": True},
-    {"name": "PyTorch", "icon": "model_training",
-        "category": "AI/ML", "featured": False},
+    {"name": "PyTorch", "icon": "model_training", "category": "AI/ML", "featured": False},
     {"name": "AWS", "icon": "cloud", "category": "DevOps", "featured": True},
-    {"name": "Docker", "icon": "deployed_code",
-        "category": "DevOps", "featured": True},
-    {"name": "Kubernetes", "icon": "sailing",
-        "category": "DevOps", "featured": False},
-    {"name": "React", "icon": "javascript",
-        "category": "Frontend", "featured": True},
-    {"name": "Next.js", "icon": "webhook",
-        "category": "Frontend", "featured": False},
-    {"name": "PostgreSQL", "icon": "database",
-        "category": "Backend", "featured": False},
+    {"name": "Docker", "icon": "deployed_code", "category": "DevOps", "featured": True},
+    {"name": "Kubernetes", "icon": "sailing", "category": "DevOps", "featured": False},
+    {"name": "React", "icon": "javascript", "category": "Frontend", "featured": True},
+    {"name": "Next.js", "icon": "webhook", "category": "Frontend", "featured": False},
+    {"name": "PostgreSQL", "icon": "database", "category": "Backend", "featured": False},
     {"name": "FastAPI", "icon": "bolt", "category": "Backend", "featured": True},
-])
+] 
 
 EXPERIENCES = [
     {
@@ -354,11 +356,16 @@ EDUCATIONS = [
 
 CERTIFICATIONS = [
     {'name': 'TensorFlow Developer Certificate', 'issuer': 'Google'},
-    {'name': 'AWS Certified Machine Learning - Specialty',
-        'issuer': 'Amazon Web Services'},
+    {'name': 'AWS Certified Machine Learning - Specialty', 'issuer': 'Amazon Web Services'},
     {'name': 'Microsoft Certified: Azure AI Engineer Associate', 'issuer': 'Microsoft'},
-    {'name': 'Certified Kubernetes Application Developer',
-        'issuer': 'The Linux Foundation'},
+    {'name': 'Certified Kubernetes Application Developer', 'issuer': 'The Linux Foundation'},
     {'name': 'Professional Scrum Master™ I (PSM I)', 'issuer': 'Scrum.org'},
     {'name': 'HashiCorp Certified: Terraform Associate', 'issuer': 'HashiCorp'},
 ]
+
+##### PROCCESSED DATA #####
+
+NAV_LINKS = [link for link in MASTER_NAVBAR if link['active']]
+COLOR_CONFIG = normalize_color_config(COLOR_CONFIG_RAW)
+SYNTAX_COLORS = normalize_color_config(SYNTAX_COLORS_RAW)
+SKILLS_DATA, SKILL_CATEGORIES = build_skills_data(SKILLS_MAIN)
