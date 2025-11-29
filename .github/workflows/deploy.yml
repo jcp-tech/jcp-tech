@@ -27,10 +27,12 @@ jobs:
       - name: Decode GCP Key
         run: |
           echo "${{ secrets.GCP_SA_KEY_B64 }}" | base64 -d > gcp_key.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/gcp_key.json" >> $GITHUB_ENV
 
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
+
+      - name: Authenticate gcloud
+        run: gcloud auth activate-service-account --key-file=gcp_key.json
 
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
