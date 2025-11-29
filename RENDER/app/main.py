@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, COLOR_CONFIG
+from app.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, COLOR_CONFIG, SYNTAX_COLORS
 
 import os
 import re
@@ -43,9 +43,19 @@ def get_developer_profile_data():
             code_html = re.sub(
                 pattern, r'<span class="kc">\1</span>', code_html)
 
-            # Fix DeveloperProfile class usage to be Teal (.nc) instead of Light Blue (.n)
-            code_html = code_html.replace(
-                '<span class="n">DeveloperProfile</span>', '<span class="nc">DeveloperProfile</span>')
+            # Look for CapitalizedWords that are currently marked as generic Names (.n)
+            # and change them to Class Names (.nc).
+            # This makes it work "even if code changes".
+            # Regex: <span class="n">([A-Z][a-zA-Z0-9_]*)</span>
+            code_html = re.sub(
+                r'<span class="n">([A-Z][a-zA-Z0-9_]*)</span>', r'<span class="nc">\1</span>', code_html)
+
+            # Post-process Brackets to be Gold (.pb) instead of Gray (.p)
+            # Replace <span class="p">(</span> with <span class="pb">(</span>, etc.
+            brackets = ['(', ')', '[', ']', '{', '}']
+            for b in brackets:
+                code_html = code_html.replace(
+                    f'<span class="p">{b}</span>', f'<span class="pb">{b}</span>')
 
     except Exception as e:
         code_html = f"Error reading code: {e}"
@@ -63,6 +73,7 @@ def get_developer_profile_data():
         elif os.path.exists(fallback_log_path):
             with open(fallback_log_path, "r") as f:
                 terminal_output = f.read()
+            print("Log file not found. Using Backup.")
         else:
             terminal_output = "Log file not found. Run the container to generate it."
     except Exception as e:
@@ -85,6 +96,7 @@ async def read_root(request: Request):
         "educations": EDUCATIONS,
         "certifications": CERTIFICATIONS,
         "color_config": COLOR_CONFIG,
+        "syntax_colors": SYNTAX_COLORS,
         "code_base": code_base,
         "line_count": line_count,
         "terminal_output": terminal_output

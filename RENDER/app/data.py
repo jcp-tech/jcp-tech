@@ -1,6 +1,7 @@
 from collections import defaultdict
 import re
 
+
 def to_rgb_string(color):
     """Convert hex, rgb string, or tuple to 'R G B' string format."""
 
@@ -40,6 +41,7 @@ def normalize_color_config(config):
 
     return new_config
 
+
 def build_skills_data(master_skills):
     skills_data = defaultdict(list)
     # Add each item under its category
@@ -55,6 +57,7 @@ def build_skills_data(master_skills):
     # Add FEATURED category at the top
     skills_data = {"FEATURED": featured_items, **skills_data}
     return skills_data, [x for x in skills_data.keys()]
+
 
 COLOR_CONFIG = normalize_color_config({
     "light": {
@@ -75,11 +78,46 @@ COLOR_CONFIG = normalize_color_config({
     }
 })
 
+SYNTAX_COLORS = {
+    "background": "#1f1f1f",
+    "comments": "#6f9953",
+
+    "keywords": "#669cd8",
+    "control_keywords": "#9179c1",
+
+    "functions": "#dbdca8",
+    "function_brackets": "#f8d700",
+
+    "variables": "#a7dcff",
+    "class_names": "#5cc9b0",
+
+    "operators_punctuation": "#cccccc",
+
+    "strings": "#c79163",
+    "string_escapes": "#b1ba7a",
+    "fstrings_rstrings": "#397fd8",
+
+    "numbers": "#4e9d9c",
+    "booleans_none": "#86e3ce",
+
+    "builtins_functions": "#dbdca8",
+    "builtins_classes": "#5cc9b0",
+
+    "decorators": "#ea5b9b",
+    "module_names": "#a4c9ff",
+
+    "indent_guides": "#1f1f1f",
+    "errors": "#ff5555",
+    "warnings": "#ffcc00"
+}
+
 MASTER_NAVBAR = [
     {'name': 'Home', 'href': '#home', 'template': 'hero', 'active': True},
-    {'name': 'Projects', 'href': '#projects', 'template': 'projects', 'active': False},
+    {'name': 'Projects', 'href': '#projects',
+        'template': 'projects', 'active': False},
     {'name': 'Skills', 'href': '#skills', 'template': 'skills', 'active': False},
-    {'name': 'Experience', 'href': '#experience', 'template': 'experience', 'active': False},
+    {'name': 'Experience', 'href': '#experience',
+        'template': 'experience', 'active': False},
     {'name': 'Contact', 'href': '#contact', 'template': 'contact', 'active': False},
 ]
 NAV_LINKS = [link for link in MASTER_NAVBAR if link['active']]
@@ -189,15 +227,22 @@ PROJECTS = [  # TODO: Add projects
 ]
 
 SKILLS_DATA, SKILL_CATEGORIES = build_skills_data([
-    {"name": "Python", "icon": "psychology", "category": "AI/ML", "featured": True},
+    {"name": "Python", "icon": "psychology",
+        "category": "AI/ML", "featured": True},
     {"name": "TensorFlow", "icon": "hub", "category": "AI/ML", "featured": True},
-    {"name": "PyTorch", "icon": "model_training", "category": "AI/ML", "featured": False},
+    {"name": "PyTorch", "icon": "model_training",
+        "category": "AI/ML", "featured": False},
     {"name": "AWS", "icon": "cloud", "category": "DevOps", "featured": True},
-    {"name": "Docker", "icon": "deployed_code", "category": "DevOps", "featured": True},
-    {"name": "Kubernetes", "icon": "sailing", "category": "DevOps", "featured": False},
-    {"name": "React", "icon": "javascript", "category": "Frontend", "featured": True},
-    {"name": "Next.js", "icon": "webhook", "category": "Frontend", "featured": False},
-    {"name": "PostgreSQL", "icon": "database", "category": "Backend", "featured": False},
+    {"name": "Docker", "icon": "deployed_code",
+        "category": "DevOps", "featured": True},
+    {"name": "Kubernetes", "icon": "sailing",
+        "category": "DevOps", "featured": False},
+    {"name": "React", "icon": "javascript",
+        "category": "Frontend", "featured": True},
+    {"name": "Next.js", "icon": "webhook",
+        "category": "Frontend", "featured": False},
+    {"name": "PostgreSQL", "icon": "database",
+        "category": "Backend", "featured": False},
     {"name": "FastAPI", "icon": "bolt", "category": "Backend", "featured": True},
 ])
 
@@ -309,9 +354,11 @@ EDUCATIONS = [
 
 CERTIFICATIONS = [
     {'name': 'TensorFlow Developer Certificate', 'issuer': 'Google'},
-    {'name': 'AWS Certified Machine Learning - Specialty', 'issuer': 'Amazon Web Services'},
+    {'name': 'AWS Certified Machine Learning - Specialty',
+        'issuer': 'Amazon Web Services'},
     {'name': 'Microsoft Certified: Azure AI Engineer Associate', 'issuer': 'Microsoft'},
-    {'name': 'Certified Kubernetes Application Developer', 'issuer': 'The Linux Foundation'},
+    {'name': 'Certified Kubernetes Application Developer',
+        'issuer': 'The Linux Foundation'},
     {'name': 'Professional Scrum Master™ I (PSM I)', 'issuer': 'Scrum.org'},
     {'name': 'HashiCorp Certified: Terraform Associate', 'issuer': 'HashiCorp'},
 ]

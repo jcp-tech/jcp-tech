@@ -35,50 +35,62 @@
         <!-- Editor Body -->
         <div class="relative p-0 overflow-x-auto bg-white dark:bg-[#1e1e1e] min-h-[350px]">
             <style>
-                /* Custom Syntax Highlighting to match original design (VS Code Dark+ inspired) */
-                .code-content .c { color: #6A9955; } /* Comment - Green */
-                .code-content .k { color: #569CD6; } /* Keyword (def, class) - Blue */
-                .code-content .kd { color: #569CD6; } /* Declaration - Blue */
-                .code-content .kc { color: #C586C0; } /* Control Flow (if, return) - Purple */
-                .code-content .kn { color: #C586C0; } /* Namespace (import) - Purple */
-                .code-content .kp { color: #569CD6; } /* Pseudo - Blue */
+                /* Custom Syntax Highlighting using Master Color Dict */
+                .code-content .c, .code-content .c1, .code-content .cm { color: {{ syntax_colors.comments }}; } /* Comment */
+                .code-content .k { color: {{ syntax_colors.keywords }}; } /* Keyword */
+                .code-content .kd { color: {{ syntax_colors.keywords }}; } /* Declaration */
+                .code-content .kc { color: {{ syntax_colors.control_keywords }}; } /* Control Flow */
+                .code-content .kn { color: {{ syntax_colors.control_keywords }}; } /* Namespace */
+                .code-content .kp { color: {{ syntax_colors.keywords }}; } /* Pseudo */
                 
-                .code-content .nc { color: #4EC9B0; } /* Class Name - Teal */
-                .code-content .nf { color: #DCDCAA; } /* Function Name - Yellow */
-                .code-content .fm { color: #DCDCAA; } /* Magic Function (__init__) - Yellow */
+                .code-content .nc { color: {{ syntax_colors.class_names }}; } /* Class Name */
+                .code-content .nf { color: {{ syntax_colors.functions }}; } /* Function Name */
+                .code-content .fm { color: {{ syntax_colors.functions }}; } /* Magic Function */
                 
-                .code-content .bp { color: #569CD6; } /* Builtin/Self - Blue (VS Code style) */
-                .code-content .vm { color: #569CD6; } /* Magic Variable (__name__) - Blue */
+                .code-content .bp { color: {{ syntax_colors.variables }}; } /* Builtin/Self */
+                .code-content .vm { color: {{ syntax_colors.variables }}; } /* Magic Variable */
+                .code-content .n { color: {{ syntax_colors.variables }}; } /* Name/Property */
                 
-                .code-content .n { color: #9CDCFE; } /* Name/Property - Light Blue */
+                .code-content .s, .code-content .s1, .code-content .s2 { color: {{ syntax_colors.strings }}; } /* String */
+                .code-content .sa { color: {{ syntax_colors.fstrings_rstrings }}; } /* String Affix */
+                .code-content .si { color: {{ syntax_colors.fstrings_rstrings }}; } /* String Interpolation */
+                .code-content .se { color: {{ syntax_colors.string_escapes }}; } /* String Escape */
                 
-                .code-content .s, .code-content .s1, .code-content .s2 { color: #CE9178; } /* String - Orange */
-                .code-content .sa { color: #569CD6; } /* String Affix (f) - Blue */
-                .code-content .si { color: #569CD6; } /* String Interpolation ({}) - Blue */
+                .code-content .nb { color: {{ syntax_colors.builtins_functions }}; } /* Builtin Function */
+                .code-content .o { color: {{ syntax_colors.operators_punctuation }}; } /* Operator */
+                .code-content .p { color: {{ syntax_colors.operators_punctuation }}; } /* Punctuation */
+                .code-content .pb { color: {{ syntax_colors.function_brackets }}; } /* Brackets () [] {} */
                 
-                .code-content .nb { color: #DCDCAA; } /* Builtin (print) - Yellow */
-                .code-content .o { color: #D4D4D4; } /* Operator - White/Gray */
-                .code-content .p { color: #D4D4D4; } /* Punctuation - White/Gray */
+                .code-content .nd { color: {{ syntax_colors.decorators }}; } /* Decorator */
+                .code-content .nn { color: {{ syntax_colors.module_names }}; } /* Module Name */
+                .code-content .m, .code-content .mi, .code-content .mf { color: {{ syntax_colors.numbers }}; } /* Number */
+                .code-content .err { color: {{ syntax_colors.errors }}; } /* Error */
 
-                /* Dark Mode Overrides (Same as above since we want dark theme always for code) */
-                .dark .code-content .c { color: #6A9955; }
-                .dark .code-content .k { color: #569CD6; }
-                .dark .code-content .kd { color: #569CD6; }
-                .dark .code-content .kc { color: #C586C0; }
-                .dark .code-content .kn { color: #C586C0; }
-                .dark .code-content .kp { color: #569CD6; }
-                .dark .code-content .nc { color: #4EC9B0; }
-                .dark .code-content .nf { color: #DCDCAA; }
-                .dark .code-content .fm { color: #DCDCAA; }
-                .dark .code-content .bp { color: #569CD6; }
-                .dark .code-content .vm { color: #569CD6; }
-                .dark .code-content .n { color: #9CDCFE; }
-                .dark .code-content .s, .dark .code-content .s1, .dark .code-content .s2 { color: #CE9178; }
-                .dark .code-content .sa { color: #569CD6; }
-                .dark .code-content .si { color: #569CD6; }
-                .dark .code-content .nb { color: #DCDCAA; }
-                .dark .code-content .o { color: #D4D4D4; }
-                .dark .code-content .p { color: #D4D4D4; }
+                /* Dark Mode Overrides - Using the same colors as requested */
+                .dark .code-content .c, .dark .code-content .c1, .dark .code-content .cm { color: {{ syntax_colors.comments }}; }
+                .dark .code-content .k { color: {{ syntax_colors.keywords }}; }
+                .dark .code-content .kd { color: {{ syntax_colors.keywords }}; }
+                .dark .code-content .kc { color: {{ syntax_colors.control_keywords }}; }
+                .dark .code-content .kn { color: {{ syntax_colors.control_keywords }}; }
+                .dark .code-content .kp { color: {{ syntax_colors.keywords }}; }
+                .dark .code-content .nc { color: {{ syntax_colors.class_names }}; }
+                .dark .code-content .nf { color: {{ syntax_colors.functions }}; }
+                .dark .code-content .fm { color: {{ syntax_colors.functions }}; }
+                .dark .code-content .bp { color: {{ syntax_colors.variables }}; }
+                .dark .code-content .vm { color: {{ syntax_colors.variables }}; }
+                .dark .code-content .n { color: {{ syntax_colors.variables }}; }
+                .dark .code-content .s, .dark .code-content .s1, .dark .code-content .s2 { color: {{ syntax_colors.strings }}; }
+                .dark .code-content .sa { color: {{ syntax_colors.fstrings_rstrings }}; }
+                .dark .code-content .si { color: {{ syntax_colors.fstrings_rstrings }}; }
+                .dark .code-content .se { color: {{ syntax_colors.string_escapes }}; }
+                .dark .code-content .nb { color: {{ syntax_colors.builtins_functions }}; }
+                .dark .code-content .o { color: {{ syntax_colors.operators_punctuation }}; }
+                .dark .code-content .p { color: {{ syntax_colors.operators_punctuation }}; }
+                .dark .code-content .pb { color: {{ syntax_colors.function_brackets }}; }
+                .dark .code-content .nd { color: {{ syntax_colors.decorators }}; }
+                .dark .code-content .nn { color: {{ syntax_colors.module_names }}; }
+                .dark .code-content .m, .dark .code-content .mi, .dark .code-content .mf { color: {{ syntax_colors.numbers }}; }
+                .dark .code-content .err { color: {{ syntax_colors.errors }}; }
             </style>
             <div class="flex font-mono text-sm sm:text-base leading-relaxed">
                 <!-- Line Numbers -->
