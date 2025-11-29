@@ -1,7 +1,7 @@
 import os
 
 # Run this code to get JCP-TECH's developer profile!
-len([])
+print("DUMMY TESTING OUTPUT -> ", len([]))
 
 for i in range(2):
     print(i)

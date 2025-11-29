@@ -115,7 +115,7 @@
             </div>
             <div id="terminal-content" class="font-mono text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar text-green-400 whitespace-pre-wrap"></div>
             <!-- Hidden data for JS to read -->
-            <script id="terminal-data" type="text/plain">{{ terminal_output }}</script>
+            <script id="terminal-data" type="text/plain">{{ terminal_output | safe }}</script>
         </div>
       </div>
 
