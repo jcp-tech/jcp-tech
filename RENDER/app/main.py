@@ -43,6 +43,10 @@ def get_developer_profile_data():
             code_html = re.sub(
                 pattern, r'<span class="kc">\1</span>', code_html)
 
+            # Fix DeveloperProfile class usage to be Teal (.nc) instead of Light Blue (.n)
+            code_html = code_html.replace(
+                '<span class="n">DeveloperProfile</span>', '<span class="nc">DeveloperProfile</span>')
+
     except Exception as e:
         code_html = f"Error reading code: {e}"
         line_count = 0
