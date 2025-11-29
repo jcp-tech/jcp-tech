@@ -140,20 +140,7 @@ def get_portfolio_data():
 
     data = {
         "MASTER_MAIN": {},
-        "COLOR_CONFIG": {
-            "light": {
-                "primary-rgb": "59 130 246",
-                "bg-rgb": "255 255 255",
-                "card-bg-rgb": "243 244 246",
-                "text-main": "17 24 39"
-            },
-            "dark": {
-                "primary-rgb": "96 165 250",
-                "bg-rgb": "17 24 39",
-                "card-bg-rgb": "31 41 55",
-                "text-main": "249 250 251"
-            }
-        },
+        "COLOR_CONFIG": {},
         "SYNTAX_COLORS": {},
         "NAV_LINKS": [],
         "LIVE_ACTIVITIES_HTML_COMPONENTS": [],
