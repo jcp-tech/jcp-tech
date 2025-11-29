@@ -1,0 +1,159 @@
+
+<section id="experience" class="flex flex-col gap-20 mt-24 scroll-mt-24">
+  
+  <!-- Experience Timeline Section -->
+  <div class="flex flex-col gap-12">
+    <div class="px-4 md:px-0">
+      <h2 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] transition-colors">Experience</h2>
+      <p class="text-gray-600 dark:text-white/60 text-base font-normal leading-normal mt-2 transition-colors">
+        A timeline of my professional journey and key achievements.
+      </p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-8 lg:gap-16 px-4 md:px-0">
+      <!-- Left Column: Company Tabs (Sticky Sidebar) -->
+      <div class="flex-shrink-0 md:w-64 relative z-10">
+         <div class="flex flex-row md:flex-col overflow-x-auto md:overflow-visible relative no-scrollbar md:sticky md:top-24 gap-2">
+            <!-- Background Line for desktop visual structure -->
+            <div class="hidden md:block absolute left-0 top-0 bottom-0 w-[1px] bg-gray-200 dark:bg-white/10"></div>
+            
+            {% for exp in experiences %}
+              <button
+                onclick="switchExperience('{{ exp.id }}')"
+                data-id="{{ exp.id }}"
+                class="exp-btn relative flex flex-col items-start justify-center min-h-[60px] px-6 py-3 text-left transition-all duration-300 rounded-r-lg group
+                  {% if loop.first %}
+                    bg-gradient-to-r from-primary/10 to-transparent
+                  {% else %}
+                    hover:bg-gray-100 dark:hover:bg-white/5
+                  {% endif %}
+                "
+              >
+                <!-- Active Indicator Line -->
+                <div class="active-indicator absolute left-0 top-0 bottom-0 w-[3px] bg-primary shadow-glow rounded-r-full {% if not loop.first %}hidden{% endif %}"></div>
+
+                <span class="exp-company text-base font-bold transition-colors {% if loop.first %}text-primary{% else %}text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white{% endif %}">
+                    {{ exp.company }}
+                </span>
+                
+                <span class="view-timeline text-xs text-primary/80 font-mono mt-1 {% if not loop.first %}hidden{% endif %}">View Timeline →</span>
+              </button>
+            {% endfor %}
+         </div>
+      </div>
+
+      <!-- Right Column: Role Timeline for Selected Company -->
+      <div class="flex-1 relative pt-2 min-h-[400px]">
+         {% for exp in experiences %}
+             <div id="exp-{{ exp.id }}" class="exp-content relative fade-in-anim {% if not loop.first %}hidden{% endif %}">
+                 <!-- Continuous Vertical Gradient Line (Timeline Spine) -->
+                 <div class="absolute left-[19px] top-4 bottom-10 w-[2px] bg-gradient-to-b from-primary via-primary/30 to-gray-200 dark:to-white/5 rounded-full z-0"></div>
+                 
+                 <div class="flex flex-col gap-16">
+                   {% for role in exp.roles %}
+                       <div class="relative pl-16 group">
+                         <!-- Timeline Node -->
+                         <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[#0d1117] shadow-glow-strong z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow-hover">
+                            <div class="size-3 rounded-full bg-primary animate-pulse"></div>
+                         </div>
+    
+                         <!-- Role Content Card -->
+                         <div class="flex flex-col gap-4 p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-md hover:bg-gray-50 dark:hover:bg-white/[0.07] hover:border-primary/50 dark:hover:border-primary/30 transition-all duration-300 relative shadow-sm dark:shadow-none">
+                           <!-- Connection line to node (horizontal) -->
+                           <div class="absolute top-6 -left-6 w-6 h-[2px] bg-primary/30 hidden sm:block"></div>
+
+                           <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+                              <div class="flex flex-col gap-1">
+                                <h3 class="text-2xl font-bold leading-tight text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                                    {{ role.title }}
+                                </h3>
+                                <p class="text-sm font-medium text-gray-500 dark:text-white/50">
+                                    {{ exp.company }}
+                                </p>
+                              </div>
+                              <span class="text-xs font-mono py-1.5 px-3 rounded-full bg-primary/10 text-primary border border-primary/20 w-fit h-fit whitespace-nowrap shadow-glow">
+                                {{ role.period }}
+                              </span>
+                           </div>
+    
+                           <ul class="flex flex-col gap-3 mt-2">
+                             {% for point in role.points %}
+                               <li class="flex gap-3 text-gray-700 dark:text-gray-300 leading-relaxed text-sm md:text-base">
+                                 <span class="text-primary mt-1.5 text-xs flex-shrink-0">◆</span>
+                                 <span>{{ point }}</span>
+                               </li>
+                             {% endfor %}
+                           </ul>
+                         </div>
+                       </div>
+                   {% endfor %}
+                 </div>
+             </div>
+         {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Education & Certifications Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-4 md:px-0">
+      
+      <!-- Education -->
+      <div class="flex flex-col gap-8">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="h-[2px] w-12 bg-primary"></div>
+            <h2 class="text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.033em] transition-colors">Education</h2>
+        </div>
+        <div class="relative border-l-2 border-gray-200 dark:border-white/10 ml-3 space-y-12">
+            {% for edu in educations %}
+                <div class="relative pl-12 group">
+                    <!-- Timeline Dot -->
+                    <div class="absolute -left-[9px] top-1 size-[18px] rounded-full border-2 border-gray-300 dark:border-white/20 bg-white dark:bg-[#0d1117] group-hover:border-primary group-hover:bg-primary transition-colors duration-300"></div>
+                    
+                    <div class="flex flex-col gap-1">
+                        <h4 class="text-gray-900 dark:text-white font-bold text-xl group-hover:text-primary transition-colors">{{ edu.school }}</h4>
+                        <p class="text-gray-600 dark:text-white/80 text-base font-medium">{{ edu.degree }}</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-gray-400 dark:text-white/40 text-sm font-mono">{{ edu.year }}</span>
+                            <span class="text-gray-300 dark:text-white/20">•</span>
+                            <span class="text-gray-400 dark:text-white/40 text-sm">{{ edu.location }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="flex flex-col gap-8">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="h-[2px] w-12 bg-primary"></div>
+            <h2 class="text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.033em] transition-colors">Certifications</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% for cert in certifications %}
+                <div class="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
+                    <div class="absolute -right-6 -top-6 size-24 rounded-full bg-primary/10 blur-xl transition-all duration-500 group-hover:scale-150"></div>
+                    <div class="relative z-10 flex flex-col h-full justify-between gap-4">
+                        <div class="flex items-start justify-between">
+                            <span class="material-symbols-outlined text-primary/70 group-hover:text-primary transition-colors">verified</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white leading-tight mb-1 transition-colors">{{ cert.name }}</p>
+                            <p class="text-xs text-primary uppercase tracking-wider font-bold">{{ cert.issuer }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      </div>
+  </div>
+  <style>
+    .fade-in-anim {
+        animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</section>

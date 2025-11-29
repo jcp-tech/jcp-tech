@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden bg-hero-pattern bg-fixed">
+  <div class="layout-container flex h-full grow flex-col">
+    <!-- NavBar Placeholder -->
+    {% include "components/navbar.html" ignore missing %}
+    
+    <main class="flex flex-col w-full max-w-[1440px] mx-auto px-4 sm:px-8 md:px-12 lg:px-16 xl:px-20 pb-10">
+      <!-- Page Components Placeholders -->
+      {% for link in nav_links %}
+        {% include "components/" ~ link.template ~ ".html" ignore missing %}
+      {% endfor %}
+    </main>
+  </div>
+</div>
+{% endblock %}

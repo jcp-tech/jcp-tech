@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Jonathan Chacko | Engineering Intelligent Systems</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+      rel="stylesheet"
+    />
+
+    <!-- CSS Variables for Single-Source Color Management -->
+    <style>
+      :root {
+        /* ========================================= */
+        /*      LIGHT MODE COLOR CONFIGURATION       */
+        /* ========================================= */
+        --primary-rgb: 22 163 74; /* Green-600: Darker for visibility on light bg */
+        --bg-rgb: 240 244 248; /* Light Blue-Grey */
+        --card-bg-rgb: 255 255 255; /* White cards */
+        --text-main: 17 24 39; /* Gray-900 */
+        --text-muted: 75 85 99; /* Gray-600 */
+        --border-color: 229 231 235; /* Gray-200 */
+      }
+
+      .dark {
+        /* ========================================= */
+        /*      DARK MODE COLOR CONFIGURATION        */
+        /* ========================================= */
+        --primary-rgb: 74 222 128; /* Green-400: Vibrant for dark bg */
+        --bg-rgb: 16 16 24; /* Deep Blue-Black */
+        --card-bg-rgb: 255 255 255; /* White (used with low opacity) */
+        --text-main: 255 255 255; /* White */
+        --text-muted: 156 163 175; /* Gray-400 */
+        --border-color: 255 255 255; /* White (used with low opacity) */
+      }
+    </style>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "rgb(var(--primary-rgb) / <alpha-value>)",
+              "background-main": "rgb(var(--bg-rgb) / <alpha-value>)",
+              "card-main": "rgb(var(--card-bg-rgb) / <alpha-value>)",
+            },
+            fontFamily: {
+              display: ["Space Grotesk", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            backgroundImage: {
+              "hero-pattern":
+                "radial-gradient(circle at 15% 20%, rgba(var(--primary-rgb), 0.08) 0%, transparent 40%), radial-gradient(circle at 85% 70%, rgba(155, 89, 182, 0.08) 0%, transparent 40%)",
+            },
+            boxShadow: {
+              glow: "0 0 15px 0 rgba(var(--primary-rgb), 0.1)",
+              "glow-hover": "0 0 20px 2px rgba(var(--primary-rgb), 0.2)",
+              "glow-strong": "0 0 20px rgba(var(--primary-rgb), 0.4)",
+              "glow-text": "0 0 8px rgba(var(--primary-rgb), 0.5)",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Utility for Material Symbols */
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgb(var(--bg-rgb));
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgb(var(--primary-rgb));
+        border-radius: 4px;
+        opacity: 0.5;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(var(--primary-rgb), 0.8);
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+    </style>
+    {% block head %}{% endblock %}
+  </head>
+  <body
+    class="font-display bg-background-main text-[rgb(var(--text-main))] antialiased selection:bg-primary selection:text-white"
+  >
+    <div id="root">{% block content %}{% endblock %}</div>
+    <script src="/static/js/main.js"></script>
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

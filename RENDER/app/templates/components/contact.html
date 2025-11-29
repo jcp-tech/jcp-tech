@@ -1,0 +1,80 @@
+
+<div id="contact" class="flex flex-col mt-24">
+  <!-- Contact Form Section -->
+  <section class="px-4 md:px-0 mb-20">
+    <h2 class="text-gray-900 dark:text-white text-3xl md:text-4xl font-bold leading-tight tracking-[-0.015em] pb-8 pt-5 transition-colors">
+        Let's Build the Future
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16">
+        <div class="flex flex-col gap-6">
+            <p class="text-gray-600 dark:text-gray-300 text-lg font-normal leading-relaxed transition-colors">
+                I'm passionate about leveraging AI and automation to solve complex challenges and build innovative solutions. 
+                If you have a project in mind, want to collaborate on a groundbreaking idea, or just want to connect, I'd love to hear from you.
+            </p>
+            <p class="text-primary text-lg font-medium leading-relaxed">
+                Let's create something intelligent together.
+            </p>
+            <div class="flex gap-4 mt-4">
+                 <!-- Social Placeholders -->
+                 <a href="mailto:contact@jcp-tech.com" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-sm">mail</span>
+                 </a>
+                 <a href="https://linkedin.com/in/jcp-tech" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
+                    <span class="material-symbols-outlined text-sm">link</span>
+                 </a>
+            </div>
+        </div>
+        
+        <form class="flex flex-col gap-5 p-6 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] shadow-sm dark:shadow-none" onsubmit="event.preventDefault(); alert('Message sent! (Simulation)');">
+            <div>
+                <label class="sr-only" for="name">Name</label>
+                <input 
+                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300" 
+                    id="name" 
+                    name="name" 
+                    placeholder="Name" 
+                    type="text" 
+                    required
+                />
+            </div>
+            <div>
+                <label class="sr-only" for="email">Email</label>
+                <input 
+                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Email" 
+                    type="email" 
+                    required
+                />
+            </div>
+            <div>
+                <label class="sr-only" for="message">Message</label>
+                <textarea 
+                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300 resize-none" 
+                    id="message" 
+                    name="message" 
+                    placeholder="Message" 
+                    rows="5"
+                    required
+                ></textarea>
+            </div>
+            <button 
+                class="w-full md:w-auto self-end flex min-w-[150px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white dark:text-background-main text-base font-bold leading-normal tracking-[0.015em] hover:shadow-glow hover:-translate-y-1 transition-all duration-300" 
+                type="submit"
+            >
+                <span class="truncate">Send Message</span>
+            </button>
+        </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="w-full border-t border-gray-200 dark:border-white/10 py-8 px-4 md:px-0">
+    <div class="flex flex-col md:flex-row items-center justify-between text-center md:text-left gap-4">
+        <p class="text-sm text-gray-500 dark:text-white/40 transition-colors">© 2024 Jonathan Chacko</p>
+        <p class="text-sm font-medium text-gray-400 dark:text-white/60 hidden md:block tracking-widest uppercase text-xs transition-colors">Engineering Intelligent Systems</p>
+        <p class="font-bold text-sm text-gray-400 dark:text-white/40 transition-colors">JC</p>
+    </div>
+  </footer>
+</div>

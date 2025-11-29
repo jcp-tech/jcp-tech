@@ -1,0 +1,88 @@
+
+<section id="skills" class="flex flex-col gap-10 mt-24 scroll-mt-24">
+  <div class="flex flex-wrap justify-between gap-3 px-4 md:px-0 text-center md:text-left">
+    <div class="flex flex-col gap-3 w-full items-center">
+      <h2 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] transition-colors">Skill Matrix</h2>
+      <p class="text-gray-600 dark:text-white/60 text-base font-normal leading-normal transition-colors">
+        An interactive showcase of my technical toolkit and proficiency.
+      </p>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="pb-3 overflow-x-auto">
+    <div class="flex min-w-max md:justify-center border-b border-gray-200 dark:border-white/10 px-4 gap-8 mx-auto">
+      {% for category in skill_categories %}
+        <button
+          onclick="switchSkillCategory('{{ category }}')"
+          data-category="{{ category }}"
+          class="skill-tab-btn flex flex-col items-center justify-center border-b-[3px] pb-[13px] pt-4 transition-colors 
+          {% if loop.first %}
+            border-b-primary text-primary dark:text-white
+          {% else %}
+            border-b-transparent text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white
+          {% endif %}"
+        >
+          <p class="text-sm font-bold leading-normal tracking-[0.015em] uppercase">{{ category }}</p>
+        </button>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 px-4 md:px-0">
+    {% for category in skill_categories %}
+      {% set outer_loop = loop %}
+      {% for skill in skills_data[category] %}
+        <div
+          data-skill-category="{{ category }}"
+          class="skill-card group flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 items-center text-center backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1 {% if not outer_loop.first %}hidden{% endif %}"
+        >
+          <span class="material-symbols-outlined text-primary text-4xl group-hover:scale-110 transition-transform duration-300">
+            {{ skill.icon }}
+          </span>
+          <h3 class="text-gray-800 dark:text-white text-base font-bold leading-tight transition-colors">{{ skill.name }}</h3>
+        </div>
+      {% endfor %}
+    {% endfor %}
+
+  </div>
+
+  <!-- Achievements Section -->
+  <div class="mt-20 px-4 md:px-0">
+     <div class="flex flex-col items-center gap-2 mb-10 text-center">
+        <h3 class="text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] transition-colors">Achievements & Recognition</h3>
+        <div class="h-1 w-16 bg-primary rounded-full"></div>
+     </div>
+     
+     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
+            <div class="text-primary">
+                <span class="material-symbols-outlined !text-3xl">trophy</span>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">AI for Good Hackathon</h3>
+                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">Finalist</p>
+            </div>
+        </div>
+        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
+            <div class="text-primary">
+                <span class="material-symbols-outlined !text-3xl">military_tech</span>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">Future of Automation Challenge</h3>
+                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">Top 5% Recognition</p>
+            </div>
+        </div>
+        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
+            <div class="text-primary">
+                <span class="material-symbols-outlined !text-3xl">workspace_premium</span>
+            </div>
+            <div class="flex flex-col gap-1">
+                <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">Advanced AI Certification</h3>
+                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">Certified AI Professional</p>
+            </div>
+        </div>
+     </div>
+  </div>
+</section>
