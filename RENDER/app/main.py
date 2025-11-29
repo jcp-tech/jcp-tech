@@ -3,11 +3,9 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from app.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, COLOR_CONFIG, SYNTAX_COLORS, get_developer_profile_data
 
-
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
-
 
 # @app.middleware("http")
 # async def add_no_cache_header(request: Request, call_next):
@@ -18,7 +16,6 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 #     return response
 
 templates = Jinja2Templates(directory="app/templates")
-
 
 @app.get("/")
 async def read_root(request: Request):
