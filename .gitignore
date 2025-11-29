@@ -80,6 +80,9 @@ AgenticBrowserPromt.md
 
 # for any folder named ignore
 ignore/
+# for any file named ignore
+*ignore.md
+*ignore.txt
 
 # https://github.com/tthn0/Spotify-Readme
 /Spotify-Readme
@@ -99,5 +102,3 @@ ignore/
 /venv-windows
 /venv-linux
 /venv-backup
-
-/ignore.md
