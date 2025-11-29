@@ -9,7 +9,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  SERVICE_NAME: cv-jcp-app
+  SERVICE_NAME: portfolio
   REGION: us-central1
   GAR_LOCATION: us-central1
   REPOSITORY: cloud-run-source-deploy
