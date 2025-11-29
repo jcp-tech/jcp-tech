@@ -34,16 +34,16 @@
         
         <!-- Editor Body -->
         <div class="relative p-0 overflow-x-auto bg-white dark:bg-[#1e1e1e] min-h-[350px]">
+            <style>
+                {{ code_style | safe }}
+                .source { background: transparent !important; padding: 1.5rem !important; overflow: visible !important; }
+                .source pre { font-family: monospace !important; font-size: 0.875rem !important; line-height: 1.5 !important; margin: 0 !important; }
+            </style>
             <div class="flex font-mono text-sm sm:text-base leading-relaxed">
-                <!-- Line Numbers -->
-                <div class="flex flex-col items-end px-3 py-6 bg-gray-50 dark:bg-[#1e1e1e] text-gray-300 dark:text-[#858585] select-none border-r border-gray-100 dark:border-white/5 min-w-[3rem]">
-                    {% for n in range(1, 16) %}
-                        <div class="h-[24px]">{{ n }}</div>
-                    {% endfor %}
-                </div>
-                
                 <!-- Code Content -->
-                <pre class="flex-1 p-6 text-gray-800 dark:text-[#d4d4d4]"><code><div class="h-[24px]"><span class="text-gray-400 dark:text-[#6A9955]"># Run this code to get JCP-TECH's developer profile!</span></div><div class="h-[24px]"><span class="text-[#d73a49] dark:text-[#569CD6]">class</span> <span class="text-[#6f42c1] dark:text-[#4EC9B0]">DeveloperProfile</span>:</div><div class="h-[24px]"><span class="pl-4 text-[#d73a49] dark:text-[#569CD6]">def</span> <span class="text-[#6f42c1] dark:text-[#DCDCAA]">__init__</span>(<span class="text-[#d73a49] dark:text-[#569CD6]">self</span>):</div><div class="h-[24px]"><span class="pl-8 text-[#d73a49] dark:text-[#9CDCFE]">self</span>.name <span class="text-[#d73a49] dark:text-[#D4D4D4]">=</span> <span class="text-[#22863a] dark:text-[#CE9178]">"Jonathan Chacko"</span></div><div class="h-[24px]"><span class="pl-8 text-[#d73a49] dark:text-[#9CDCFE]">self</span>.role <span class="text-[#d73a49] dark:text-[#D4D4D4]">=</span> <span class="text-[#22863a] dark:text-[#CE9178]">"AI & Automation Developer"</span></div><div class="h-[24px]"></div><div class="h-[24px]"><span class="pl-4 text-[#d73a49] dark:text-[#569CD6]">def</span> <span class="text-[#6f42c1] dark:text-[#DCDCAA]">run</span>(<span class="text-[#d73a49] dark:text-[#569CD6]">self</span>):</div><div class="h-[24px]"><span class="pl-8 text-[#005cc5] dark:text-[#DCDCAA]">print</span>(<span class="text-[#22863a] dark:text-[#CE9178]">"Initializing Developer Profile...\n"</span>)</div><div class="h-[24px]"><span class="pl-8 text-[#005cc5] dark:text-[#DCDCAA]">print</span>(f<span class="text-[#22863a] dark:text-[#CE9178]">"Name   : {self.name}"</span>)</div><div class="h-[24px]"><span class="pl-8 text-[#005cc5] dark:text-[#DCDCAA]">print</span>(f<span class="text-[#22863a] dark:text-[#CE9178]">"Role   : {self.role}"</span>)</div><div class="h-[24px]"><span class="pl-8 text-[#005cc5] dark:text-[#DCDCAA]">print</span>(<span class="text-[#22863a] dark:text-[#CE9178]">"\nStatus : ACTIVE"</span>)</div><div class="h-[24px]"></div><div class="h-[24px]"><span class="text-[#d73a49] dark:text-[#C586C0]">if</span> __name__ == <span class="text-[#22863a] dark:text-[#CE9178]">"__main__"</span>:</div><div class="h-[24px]"><span class="pl-4 text-[#6f42c1] dark:text-[#4EC9B0]">DeveloperProfile</span>().<span class="text-[#DCDCAA]">run</span>()<span class="inline-block w-2.5 h-5 ml-1 align-middle bg-primary animate-pulse shadow-glow"></span></div></code></pre>
+                <div class="flex-1 text-gray-800 dark:text-[#d4d4d4]">
+                    {{ code_base | safe }}
+                </div>
             </div>
         </div>
 
@@ -55,9 +55,8 @@
                     <span class="material-symbols-outlined text-[18px]">close</span>
                 </button>
             </div>
-            <div id="terminal-content" class="font-mono text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar">
-                <!-- Terminal lines will be injected here -->
-                <div class="animate-pulse inline-block w-2 h-4 bg-green-400 ml-1 mt-1"></div>
+            <div id="terminal-content" class="font-mono text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar text-green-400 whitespace-pre-wrap">
+                {{ terminal_output | safe }}
             </div>
         </div>
       </div>
