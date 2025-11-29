@@ -102,3 +102,6 @@ ignore/
 /venv-windows
 /venv-linux
 /venv-backup
+
+# DEBUG
+/RENDER/app/debug/
