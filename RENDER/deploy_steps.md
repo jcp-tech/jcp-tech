@@ -19,8 +19,6 @@ gcloud auth login
 gcloud config set project cv-jcp
 ```
 
-Replace `cv-jcp` with your actual Google Cloud Project ID.
-
 ### 2. Enable Required Services
 
 Ensure the Cloud Run and Container Registry (or Artifact Registry) APIs are enabled:
