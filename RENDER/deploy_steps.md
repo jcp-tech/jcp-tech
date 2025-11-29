@@ -47,7 +47,7 @@ After the deployment command finishes, it will output a Service URL. Open this U
 
 ### 5. Record Deployed URL
 
-> https://portfolio-133611191593.us-central1.run.app/
+> https://portfolio-gekxrfkuiq-uc.a.run.app/
 
 ---<!-- Trigger workflow -->
 <!-- Trigger workflow fix -->
