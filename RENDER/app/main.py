@@ -25,6 +25,8 @@ def get_developer_profile_data():
         with open(code_path, "r") as f:
             code_content = f.read()
             line_count = len(code_content.splitlines())
+            if code_content.endswith('\n'):
+                line_count += 1
             # Use nowrap=True to get just the spans, we'll handle wrapping and styling in the template
             formatter = HtmlFormatter(nowrap=True)
             code_html = highlight(code_content, PythonLexer(), formatter)
@@ -43,6 +45,7 @@ def get_developer_profile_data():
             code_html = re.sub(
                 pattern, r'<span class="kc">\1</span>', code_html)
 
+            # Generic Class Name Detection:
             # Look for CapitalizedWords that are currently marked as generic Names (.n)
             # and change them to Class Names (.nc).
             # This makes it work "even if code changes".
@@ -51,11 +54,22 @@ def get_developer_profile_data():
                 r'<span class="n">([A-Z][a-zA-Z0-9_]*)</span>', r'<span class="nc">\1</span>', code_html)
 
             # Post-process Brackets to be Gold (.pb) instead of Gray (.p)
-            # Replace <span class="p">(</span> with <span class="pb">(</span>, etc.
-            brackets = ['(', ')', '[', ']', '{', '}']
-            for b in brackets:
-                code_html = code_html.replace(
-                    f'<span class="p">{b}</span>', f'<span class="pb">{b}</span>')
+            # Pygments often groups punctuation like '([])' or '):' or '()' into a single <span class="p">.
+            # We need to find these spans and wrap the brackets inside them with <span class="pb">.
+            def replace_brackets(match):
+                content = match.group(1)
+                # Replace brackets with wrapped brackets
+                # We use a temporary marker to avoid recursive replacement issues if we were doing this differently,
+                # but here we can just insert the span.
+                # Note: We are nesting spans: <span class="p">...<span class="pb">(</span>...</span>
+                # This requires CSS to handle nested spans correctly (inner span color should win).
+                for b in ['(', ')', '[', ']', '{', '}']:
+                    content = content.replace(
+                        b, f'<span class="pb">{b}</span>')
+                return f'<span class="p">{content}</span>'
+
+            code_html = re.sub(
+                r'<span class="p">([^<]+)</span>', replace_brackets, code_html)
 
     except Exception as e:
         code_html = f"Error reading code: {e}"

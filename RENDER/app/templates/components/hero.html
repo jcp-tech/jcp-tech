@@ -113,9 +113,9 @@
                     <span class="material-symbols-outlined text-[18px]">close</span>
                 </button>
             </div>
-            <div id="terminal-content" class="font-mono text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar text-green-400 whitespace-pre-wrap">
-                {{ terminal_output | safe }}
-            </div>
+            <div id="terminal-content" class="font-mono text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar text-green-400 whitespace-pre-wrap"></div>
+            <!-- Hidden data for JS to read -->
+            <script id="terminal-data" type="text/plain">{{ terminal_output }}</script>
         </div>
       </div>
 

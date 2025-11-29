@@ -130,21 +130,29 @@ window.addEventListener('load', handleScroll);
 // --- HERO TERMINAL LOGIC ---
 let isTerminalOpen = false;
 let isRunning = false;
-const fullOutput = [
-    "Initializing Developer Profile...",
-    "",
-    "Name   : Jonathan Chacko",
-    "Role   : AI & Automation Developer",
-    "",
-    "Status : ACTIVE",
-    "",
-    "...Program finished with exit code 0",
-    "Press ENTER to exit console."
-];
+let fullOutput = []; // Will be populated from DOM
+
+const loadTerminalOutput = () => {
+    const dataElement = document.getElementById('terminal-data');
+    if (dataElement) {
+        const rawText = dataElement.textContent;
+        // Split by newline, but keep empty lines
+        fullOutput = rawText.split('\n');
+        
+        // Add footer messages
+        fullOutput.push("");
+        fullOutput.push("...Program finished with exit code 0");
+        fullOutput.push("Press ENTER to exit console.");
+    } else {
+        // Fallback if something goes wrong
+        fullOutput = ["Error: Could not load terminal output."];
+    }
+};
 
 const runCode = () => {
     if (isRunning || isTerminalOpen) return;
     
+    loadTerminalOutput(); // Load latest output
     isRunning = true;
     updateRunButtonState();
     
