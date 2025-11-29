@@ -5,6 +5,7 @@ from app.utils.auth import get_current_user, create_session_cookie, require_admi
 from app.utils.firebase_utils import get_realtime_data, update_realtime_data, get_firestore_data, update_firestore_data
 from firebase_admin import firestore
 from pydantic import BaseModel
+from typing import Any, List, Dict, Union
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 templates = Jinja2Templates(directory="app/templates")
@@ -113,6 +114,64 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
             return data.get("components", [])
         else:
             return data.get("items", [])
+
+
+@router.post("/api/data/{section}")
+async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: dict = Depends(get_current_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    require_admin(user)
+
+    # Realtime Database Paths
+    rtdb_map = {
+        "main": "PORTFOLIO/MAIN",
+        "navbar": "PORTFOLIO/NAVBAR",
+        "color_config": "PORTFOLIO/COLOR_CONFIG",
+        "syntax_colors": "PORTFOLIO/SYNTAX_COLORS"
+    }
+
+    # Firestore Paths
+    firestore_map = {
+        "live_activities": "PORTFOLIO/LIVE_ACTIVITIES",
+        "projects": "PORTFOLIO/PROJECTS",
+        "skills": "PORTFOLIO/SKILLS",
+        "experiences": "PORTFOLIO/EXPERIENCES",
+        "educations": "PORTFOLIO/EDUCATIONS",
+        "certifications": "PORTFOLIO/CERTIFICATIONS",
+        "achievements": "PORTFOLIO/ACHIEVEMENTS"
+    }
+
+    if section in rtdb_map:
+        # For RTDB, payload can be dict or list, update_realtime_data handles it
+        success = update_realtime_data(rtdb_map[section], payload)
+        if success:
+            return {"message": "Data saved successfully"}
+        else:
+            raise HTTPException(
+                status_code=500, detail="Failed to save to Realtime Database")
+
+    elif section in firestore_map:
+        # For Firestore, we need to wrap lists in a document structure
+        data_to_save = {}
+        if isinstance(payload, list):
+            if section == "live_activities":
+                data_to_save = {"components": payload}
+            else:
+                data_to_save = {"items": payload}
+        elif isinstance(payload, dict):
+            data_to_save = payload
+        else:
+            raise HTTPException(status_code=400, detail="Invalid data format")
+
+        success = update_firestore_data(firestore_map[section], data_to_save)
+        if success:
+            return {"message": "Data saved successfully"}
+        else:
+            raise HTTPException(
+                status_code=500, detail="Failed to save to Firestore")
+
+    else:
+        raise HTTPException(status_code=404, detail="Section not found")
 
 
 class CRMStatusRequest(BaseModel):
