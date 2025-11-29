@@ -2,18 +2,13 @@ from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from app.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, COLOR_CONFIG, SYNTAX_COLORS, get_developer_profile_data
+import RENDER.app.utils.middleware_collection as mc
 
 app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# @app.middleware("http")
-# async def add_no_cache_header(request: Request, call_next):
-#     response = await call_next(request)
-#     response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-#     response.headers["Pragma"] = "no-cache"
-#     response.headers["Expires"] = "0"
-#     return response
+# app.middleware("http")(mc.add_no_cache_header)
 
 templates = Jinja2Templates(directory="app/templates")
 
@@ -37,7 +32,12 @@ async def read_root(request: Request):
         "terminal_output": terminal_output
     })
 
-
 @app.get("/health")
 async def health_check():
-    return {"status": "ok"}
+    # Check Firebase initialization status
+    try:
+        import firebase_admin
+        firebase_initialized = bool(firebase_admin._apps)
+    except Exception:
+        firebase_initialized = False
+    return {"status": "ok", "firebase_initialized": firebase_initialized}
