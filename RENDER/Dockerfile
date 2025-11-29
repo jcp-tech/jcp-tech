@@ -16,8 +16,15 @@ COPY . .
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
 
+# # Copy the entrypoint script
+# COPY entrypoint.sh .
+# RUN chmod +x entrypoint.sh
+
 # Define environment variable
 ENV PORT=8080
+
+# # Set the entrypoint
+# ENTRYPOINT ["./entrypoint.sh"]
 
 # Run main.py when the container launches
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
