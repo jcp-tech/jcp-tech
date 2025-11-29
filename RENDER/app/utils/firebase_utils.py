@@ -3,36 +3,39 @@ from firebase_admin import credentials, db, firestore
 import os
 import json
 
-# Initialize Firebase Admin SDK
-# Check if app is already initialized to avoid errors during hot reloads
+# Initialize Firebase Admin SDK ~ Check if app is already initialized to avoid errors during hot reloads
 if not firebase_admin._apps:
-    # Path to service account key
-    # Try to find it in likely locations or use environment variable
-    cred_path = os.environ.get(
-        'FIREBASE_CREDENTIALS', 'app/tools/serviceAccountKey.json')
+    cred_source = os.environ.get("FIREBASE_CREDENTIALS", "app/tools/serviceAccountKey.json")
+    db_url = os.environ.get("FIREBASE_DATABASE_URL", "https://cv-jcp-default-rtdb.firebaseio.com")
 
-    # If running from root, path might be different
-    if not os.path.exists(cred_path):
-        # Fallback for local testing if running from root
-        potential_paths = [
-            'app/tools/serviceAccountKey.json',
-            'tools/serviceAccountKey.json',
-            'serviceAccountKey.json'
-        ]
-        for p in potential_paths:
-            if os.path.exists(p):
-                cred_path = p
-                break
+    def init_firebase(cred_obj):
+        firebase_admin.initialize_app(cred_obj, {"databaseURL": db_url})
 
-    if os.path.exists(cred_path):
-        cred = credentials.Certificate(cred_path)
-        firebase_admin.initialize_app(cred, {
-            'databaseURL': 'https://cv-jcp-default-rtdb.firebaseio.com'
-        })
+    # Case 1 — FIREBASE_CREDENTIALS contains raw JSON
+    if cred_source.strip().startswith("{"):
+        try:
+            init_firebase(credentials.Certificate(json.loads(cred_source)))
+        except Exception as e:
+            print(f"[Firebase] Invalid JSON in FIREBASE_CREDENTIALS: {e}")
+
     else:
-        print(
-            f"Warning: Firebase credentials not found at {cred_path}. Firebase features will be disabled.")
+        # Case 2 — FIREBASE_CREDENTIALS is a file path
+        possible_paths = [
+            cred_source,
+            "app/tools/serviceAccountKey.json",
+            "tools/serviceAccountKey.json",
+            "serviceAccountKey.json",
+        ]
 
+        cred_path = next((p for p in possible_paths if os.path.exists(p)), None)
+
+        if cred_path:
+            try:
+                init_firebase(credentials.Certificate(cred_path))
+            except Exception as e:
+                print(f"[Firebase] Failed to initialize with file '{cred_path}': {e}")
+        else:
+            print("[Firebase] No valid service account file found. Firebase disabled.")
 
 def get_realtime_data(path):
     """Fetch data from Realtime Database."""
