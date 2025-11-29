@@ -8,7 +8,10 @@ class DeveloperProfile:
         self.name = "Jonathan Chacko"
     
     def run(self):
-        print("Hello")
+        print(f"Name: {self.name}")
+
+import os
+from sys import exit
         
 if __name__ == "__main__":
     DeveloperProfile().run()

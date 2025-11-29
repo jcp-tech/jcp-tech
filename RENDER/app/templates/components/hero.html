@@ -35,25 +35,38 @@
         <!-- Editor Body -->
         <div class="relative p-0 overflow-x-auto bg-white dark:bg-[#1e1e1e] min-h-[350px]">
             <style>
-                /* Custom Syntax Highlighting to match original design */
+                /* Custom Syntax Highlighting to match original design (VS Code Dark+ inspired) */
                 .code-content .c { color: #9ca3af; } /* Comment - gray-400 */
-                .code-content .k, .code-content .kd, .code-content .kp { color: #d73a49; } /* Keyword - red */
+                .code-content .k, .code-content .kd, .code-content .kp { color: #d73a49; } /* Keyword - red (Light Mode) */
                 .code-content .nc { color: #6f42c1; } /* Class Name - purple */
                 .code-content .nf { color: #6f42c1; } /* Function Name - purple */
                 .code-content .bp { color: #d73a49; } /* Builtin/Self - red */
                 .code-content .s, .code-content .s1, .code-content .s2 { color: #22863a; } /* String - green */
                 .code-content .nb { color: #005cc5; } /* Builtin/Print - blue */
                 .code-content .o { color: #d73a49; } /* Operator - red */
+                .code-content .kn { color: #d73a49; } /* Import/From - red */
+                .code-content .kc { color: #d73a49; } /* Control Flow - red */
+                .code-content .vm { color: #d73a49; } /* Magic Variable - red */
+                .code-content .fm { color: #6f42c1; } /* Magic Function - purple */
 
                 /* Dark Mode Overrides */
-                .dark .code-content .c { color: #6A9955; }
-                .dark .code-content .k, .dark .code-content .kd, .dark .code-content .kp { color: #569CD6; }
-                .dark .code-content .nc { color: #4EC9B0; }
-                .dark .code-content .nf { color: #DCDCAA; }
-                .dark .code-content .bp { color: #9CDCFE; }
-                .dark .code-content .s, .dark .code-content .s1, .dark .code-content .s2 { color: #CE9178; }
-                .dark .code-content .nb { color: #DCDCAA; }
-                .dark .code-content .o { color: #D4D4D4; }
+                .dark .code-content .c { color: #6A9955; } /* Comment - Green */
+                .dark .code-content .k { color: #569CD6; } /* Keyword (def, class) - Blue */
+                .dark .code-content .kd { color: #569CD6; } /* Declaration - Blue */
+                .dark .code-content .kc { color: #C586C0; } /* Control Flow (if, return) - Purple */
+                .dark .code-content .kn { color: #C586C0; } /* Namespace (import) - Purple */
+                .dark .code-content .kp { color: #569CD6; } /* Pseudo - Blue */
+                
+                .dark .code-content .nc { color: #4EC9B0; } /* Class Name - Teal */
+                .dark .code-content .nf { color: #DCDCAA; } /* Function Name - Yellow */
+                .dark .code-content .fm { color: #DCDCAA; } /* Magic Function (__init__) - Yellow */
+                
+                .dark .code-content .bp { color: #9CDCFE; } /* Builtin/Self - Light Blue */
+                .dark .code-content .vm { color: #9CDCFE; } /* Magic Variable (__name__) - Light Blue */
+                
+                .dark .code-content .s, .dark .code-content .s1, .dark .code-content .s2 { color: #CE9178; } /* String - Orange */
+                .dark .code-content .nb { color: #DCDCAA; } /* Builtin (print) - Yellow */
+                .dark .code-content .o { color: #D4D4D4; } /* Operator - White/Gray */
             </style>
             <div class="flex font-mono text-sm sm:text-base leading-relaxed">
                 <!-- Line Numbers -->

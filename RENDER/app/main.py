@@ -4,6 +4,7 @@ from fastapi.templating import Jinja2Templates
 from app.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, COLOR_CONFIG
 
 import os
+import re
 from pygments import highlight
 from pygments.lexers import PythonLexer
 from pygments.formatters import HtmlFormatter
@@ -19,6 +20,7 @@ def get_developer_profile_data():
     # Read and format the code
     code_path = os.path.join("app", "static", "code", "developer_profile.py")
     line_count = 0
+    code_html = ""
     try:
         with open(code_path, "r") as f:
             code_content = f.read()
@@ -26,6 +28,21 @@ def get_developer_profile_data():
             # Use nowrap=True to get just the spans, we'll handle wrapping and styling in the template
             formatter = HtmlFormatter(nowrap=True)
             code_html = highlight(code_content, PythonLexer(), formatter)
+
+            # Post-process to distinguish Control Flow keywords (Purple) from Declaration keywords (Blue)
+            # Pygments PythonLexer marks both 'if' and 'def' as 'k' (Keyword).
+            # We want 'if', 'else', 'return', etc. to be 'kc' (Keyword.Control).
+            control_flow_keywords = [
+                "if", "elif", "else", "return", "for", "while", "try", "except",
+                "finally", "raise", "yield", "break", "continue", "pass", "with",
+                "async", "await"
+            ]
+            # Create a regex pattern to match these keywords wrapped in <span class="k">
+            pattern = r'<span class="k">(' + \
+                '|'.join(control_flow_keywords) + r')</span>'
+            code_html = re.sub(
+                pattern, r'<span class="kc">\1</span>', code_html)
+
     except Exception as e:
         code_html = f"Error reading code: {e}"
         line_count = 0
@@ -34,6 +51,7 @@ def get_developer_profile_data():
     log_path = "/tmp/developer_profile.log"
     fallback_log_path = os.path.join(
         "app", "static", "code", "developer_profile.log")
+    terminal_output = ""
     try:
         if os.path.exists(log_path):
             with open(log_path, "r") as f:
