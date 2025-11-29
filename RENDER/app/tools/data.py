@@ -134,97 +134,113 @@ def get_developer_profile_data():
     return code_html, line_count, terminal_output
 
 
-# --- Attempt to Load from Firebase ---
-print("Attempting to load data from Firebase...")
+def get_portfolio_data():
+    """Fetch all portfolio data from Firebase."""
+    print("Attempting to load data from Firebase...")
 
-# 1. Realtime Database Updates
-try:
-    MASTER_MAIN = get_realtime_data('PORTFOLIO/MAIN')
-    if MASTER_MAIN:
-        print("Loaded MASTER_MAIN from Realtime DB")
-    else:
-        print("Failed to load MASTER_MAIN from Realtime DB")
+    data = {
+        "MASTER_MAIN": {},
+        "COLOR_CONFIG": {},
+        "SYNTAX_COLORS": {},
+        "NAV_LINKS": [],
+        "LIVE_ACTIVITIES_HTML_COMPONENTS": [],
+        "PROJECTS": [],
+        "SKILLS_DATA": {},
+        "SKILL_CATEGORIES": [],
+        "EXPERIENCES": [],
+        "EDUCATIONS": [],
+        "CERTIFICATIONS": [],
+        "ACHIEVEMENTS": []
+    }
 
-    COLOR_CONFIG_RAW = get_realtime_data('PORTFOLIO/COLOR_CONFIG')
-    if COLOR_CONFIG_RAW:
-        print("Loaded COLOR_CONFIG_RAW from Realtime DB")
-        COLOR_CONFIG = normalize_color_config(COLOR_CONFIG_RAW, False)
-    else:
-        print("Failed to load COLOR_CONFIG_RAW from Realtime DB")
-        COLOR_CONFIG = {}
+    # 1. Realtime Database Updates
+    try:
+        data["MASTER_MAIN"] = get_realtime_data('PORTFOLIO/MAIN') or {}
+        if data["MASTER_MAIN"]:
+            print("Loaded MASTER_MAIN from Realtime DB")
+        else:
+            print("Failed to load MASTER_MAIN from Realtime DB")
 
-    SYNTAX_COLORS_RAW = get_realtime_data('PORTFOLIO/SYNTAX_COLORS')
-    if SYNTAX_COLORS_RAW:
-        print("Loaded SYNTAX_COLORS_RAW from Realtime DB")
-        SYNTAX_COLORZ = normalize_color_config(SYNTAX_COLORS_RAW, True)
-        SYNTAX_COLORS = SYNTAX_COLORZ['items']
-    else:
-        print("Failed to load SYNTAX_COLORS_RAW from Realtime DB")
-        SYNTAX_COLORS = {}
+        color_config_raw = get_realtime_data('PORTFOLIO/COLOR_CONFIG')
+        if color_config_raw:
+            print("Loaded COLOR_CONFIG_RAW from Realtime DB")
+            data["COLOR_CONFIG"] = normalize_color_config(
+                color_config_raw, False)
+        else:
+            print("Failed to load COLOR_CONFIG_RAW from Realtime DB")
 
-    MASTER_NAVBAR = get_realtime_data('PORTFOLIO/NAVBAR')
-    if MASTER_NAVBAR:
-        print("Loaded MASTER_NAVBAR from Realtime DB")
-        NAV_LINKS = [link for link in MASTER_NAVBAR if link.get('active')]
-    else:
-        print("Failed to load MASTER_NAVBAR from Realtime DB")
-        NAV_LINKS = []
+        syntax_colors_raw = get_realtime_data('PORTFOLIO/SYNTAX_COLORS')
+        if syntax_colors_raw:
+            print("Loaded SYNTAX_COLORS_RAW from Realtime DB")
+            syntax_colorz = normalize_color_config(syntax_colors_raw, True)
+            data["SYNTAX_COLORS"] = syntax_colorz.get('items', {})
+        else:
+            print("Failed to load SYNTAX_COLORS_RAW from Realtime DB")
 
-except Exception as e:
-    print(f"Error loading Realtime DB data: {e}")
-try:
-    # Check if it's wrapped in 'components' key as per notebook
-    LIVE_ACTIVITIES_HTML_COMPONENTS = extract_list(
-        get_firestore_data('PORTFOLIO/LIVE_ACTIVITIES'),
-        'components'
-    )
-    print("Loaded LIVE_ACTIVITIES from Firestore")
+        master_navbar = get_realtime_data('PORTFOLIO/NAVBAR')
+        if master_navbar:
+            print("Loaded MASTER_NAVBAR from Realtime DB")
+            data["NAV_LINKS"] = [
+                link for link in master_navbar if link.get('active')]
+        else:
+            print("Failed to load MASTER_NAVBAR from Realtime DB")
 
-    # PROJECTS
-    PROJECTS = extract_list(
-        get_firestore_data('PORTFOLIO/PROJECTS'),
-        'items'
-    )
-    print("Loaded PROJECTS from Firestore")
-    # Account for Featured add 'id' according to Order - TODO
+    except Exception as e:
+        print(f"Error loading Realtime DB data: {e}")
 
-    # SKILLS
-    SKILLS_MAIN = extract_list(
-        get_firestore_data('PORTFOLIO/SKILLS'),
-        'items'
-    )
-    SKILLS_DATA, SKILL_CATEGORIES = build_skills_data(SKILLS_MAIN)
-    print("Loaded SKILLS from Firestore")
+    try:
+        # Check if it's wrapped in 'components' key as per notebook
+        data["LIVE_ACTIVITIES_HTML_COMPONENTS"] = extract_list(
+            get_firestore_data('PORTFOLIO/LIVE_ACTIVITIES'),
+            'components'
+        ) or []
+        print("Loaded LIVE_ACTIVITIES from Firestore")
 
-    # EXPERIENCES
-    EXPERIENCES = extract_list(
-        get_firestore_data('PORTFOLIO/EXPERIENCES'),
-        'items'
-    )
-    print("Loaded EXPERIENCES from Firestore")
-    # Account for Current add 'id' according to Order - TODO
+        # PROJECTS
+        data["PROJECTS"] = extract_list(
+            get_firestore_data('PORTFOLIO/PROJECTS'),
+            'items'
+        ) or []
+        print("Loaded PROJECTS from Firestore")
 
-    # EDUCATIONS
-    EDUCATIONS = extract_list(
-        get_firestore_data('PORTFOLIO/EDUCATIONS'),
-        'items'
-    )
-    print("Loaded EDUCATIONS from Firestore")
-    # Account for Current add 'id' according to Order - TODO
+        # SKILLS
+        skills_main = extract_list(
+            get_firestore_data('PORTFOLIO/SKILLS'),
+            'items'
+        ) or []
+        data["SKILLS_DATA"], data["SKILL_CATEGORIES"] = build_skills_data(
+            skills_main)
+        print("Loaded SKILLS from Firestore")
 
-    # CERTIFICATIONS
-    CERTIFICATIONS = extract_list(
-        get_firestore_data('PORTFOLIO/CERTIFICATIONS'),
-        'items'
-    )
-    print("Loaded CERTIFICATIONS from Firestore")
+        # EXPERIENCES
+        data["EXPERIENCES"] = extract_list(
+            get_firestore_data('PORTFOLIO/EXPERIENCES'),
+            'items'
+        ) or []
+        print("Loaded EXPERIENCES from Firestore")
 
-    # ACHIEVEMENTS
-    ACHIEVEMENTS = extract_list(
-        get_firestore_data('PORTFOLIO/ACHIEVEMENTS'),
-        'items'
-    )
-    print("Loaded ACHIEVEMENTS from Firestore")
+        # EDUCATIONS
+        data["EDUCATIONS"] = extract_list(
+            get_firestore_data('PORTFOLIO/EDUCATIONS'),
+            'items'
+        ) or []
+        print("Loaded EDUCATIONS from Firestore")
 
-except Exception as e:
-    print(f"Error loading Firestore data: {e}")
+        # CERTIFICATIONS
+        data["CERTIFICATIONS"] = extract_list(
+            get_firestore_data('PORTFOLIO/CERTIFICATIONS'),
+            'items'
+        ) or []
+        print("Loaded CERTIFICATIONS from Firestore")
+
+        # ACHIEVEMENTS
+        data["ACHIEVEMENTS"] = extract_list(
+            get_firestore_data('PORTFOLIO/ACHIEVEMENTS'),
+            'items'
+        ) or []
+        print("Loaded ACHIEVEMENTS from Firestore")
+
+    except Exception as e:
+        print(f"Error loading Firestore data: {e}")
+
+    return data

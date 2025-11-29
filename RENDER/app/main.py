@@ -19,32 +19,32 @@ templates = Jinja2Templates(directory="app/templates")
 
 @app.get("/")
 async def read_root(request: Request):
-    from app.tools.data import (
-        NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, MASTER_MAIN,
-        PROJECTS, SKILL_CATEGORIES, SKILLS_DATA,
-        COLOR_CONFIG, SYNTAX_COLORS,
-        EXPERIENCES, EDUCATIONS,
-        CERTIFICATIONS, ACHIEVEMENTS,
-    )
+    from app.tools.data import get_portfolio_data, get_developer_profile_data
+
+    # Fetch fresh data from Firebase
+    portfolio_data = get_portfolio_data()
+
+    # Get developer profile data (code & terminal output)
     code_base, line_count, terminal_output = get_developer_profile_data()
+
     context = {
         "request": request,
-        "nav_links": NAV_LINKS,
-        "live_activities": LIVE_ACTIVITIES_HTML_COMPONENTS,
-        "projects": PROJECTS,
-        "skill_categories": SKILL_CATEGORIES,
-        "skills_data": SKILLS_DATA,
-        "experiences": EXPERIENCES,
-        "educations": EDUCATIONS,
-        "certifications": CERTIFICATIONS,
-        "achievements": ACHIEVEMENTS,
-        "color_config": COLOR_CONFIG,
-        "syntax_colors": SYNTAX_COLORS,
+        "nav_links": portfolio_data.get("NAV_LINKS", []),
+        "live_activities": portfolio_data.get("LIVE_ACTIVITIES_HTML_COMPONENTS", []),
+        "projects": portfolio_data.get("PROJECTS", []),
+        "skill_categories": portfolio_data.get("SKILL_CATEGORIES", []),
+        "skills_data": portfolio_data.get("SKILLS_DATA", {}),
+        "experiences": portfolio_data.get("EXPERIENCES", []),
+        "educations": portfolio_data.get("EDUCATIONS", []),
+        "certifications": portfolio_data.get("CERTIFICATIONS", []),
+        "achievements": portfolio_data.get("ACHIEVEMENTS", []),
+        "color_config": portfolio_data.get("COLOR_CONFIG", {}),
+        "syntax_colors": portfolio_data.get("SYNTAX_COLORS", {}),
         "code_base": code_base,
         "line_count": line_count,
         "terminal_output": terminal_output
     }
-    context.update(MASTER_MAIN)
+    context.update(portfolio_data.get("MASTER_MAIN", {}))
     return templates.TemplateResponse("index.html", context)
 
 
