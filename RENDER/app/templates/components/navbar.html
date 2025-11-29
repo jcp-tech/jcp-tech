@@ -4,12 +4,14 @@
     <div class="flex items-center justify-between whitespace-nowrap border border-solid border-gray-200 dark:border-white/10 px-6 py-3 rounded-xl backdrop-blur-md bg-white/80 dark:bg-[#101018]/80 shadow-lg transition-all duration-300">
       <!-- Logo / Avatar -->
       <div class="flex items-center gap-3 cursor-pointer" onclick="scrollToSection(event, '#home')">
+        {% if PROFILE_ICON_FLAG %}
         <img 
-          src="https://avatars.githubusercontent.com/u/66247724?v=4" 
-          alt="Jonathan Chacko" 
+          src="{{ PROFILE_ICON_URL }}" 
+          alt="{{ FULL_NAME }}" 
           class="w-8 h-8 rounded-full border border-primary/30 object-cover shadow-sm transition-transform hover:scale-110"
         />
-        <h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] transition-colors">Jonathan Chacko</h2>
+        {% endif %}
+        <h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] transition-colors">{{ FULL_NAME }}</h2>
       </div>
 
       <!-- Desktop Nav -->

@@ -56,33 +56,35 @@
      </div>
      
      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
-            <div class="text-primary">
-                <span class="material-symbols-outlined !text-3xl">trophy</span>
+        {% for item in achievements %}
+        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1 group">
+            <div class="text-primary transition-colors duration-300" style="color: '';">
+                {% if item.icon and (item.icon.startswith('http') or item.icon.startswith('/')) %}
+                    <div class="w-10 h-10 relative">
+                        <img src="{{ item.icon }}" alt="{{ item.title }}" class="w-full h-full object-contain" {% if item.color %}style="filter: drop-shadow(0 0 2px {{ item.color }});"{% endif %}>
+                    </div>
+                {% else %}
+                    <span class="material-symbols-outlined !text-4xl group-hover:scale-110 transition-transform duration-300">
+                        {{ item.icon if item.icon else 'trophy' }}
+                    </span>
+                {% endif %}
             </div>
             <div class="flex flex-col gap-1">
-                <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">AI for Good Hackathon</h3>
-                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">Finalist</p>
+                <div class="flex justify-between items-start">
+                    <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">{{ item.title }}</h3>
+                    {% if item.link %}
+                    <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">
+                        <span class="material-icons text-sm">open_in_new</span>
+                    </a>
+                    {% endif %}
+                </div>
+                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">{{ item.description }}</p>
+                {% if item.date %}
+                <p class="text-xs text-gray-500 mt-2">{{ item.date }}</p>
+                {% endif %}
             </div>
         </div>
-        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
-            <div class="text-primary">
-                <span class="material-symbols-outlined !text-3xl">military_tech</span>
-            </div>
-            <div class="flex flex-col gap-1">
-                <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">Future of Automation Challenge</h3>
-                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">Top 5% Recognition</p>
-            </div>
-        </div>
-        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
-            <div class="text-primary">
-                <span class="material-symbols-outlined !text-3xl">workspace_premium</span>
-            </div>
-            <div class="flex flex-col gap-1">
-                <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">Advanced AI Certification</h3>
-                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">Certified AI Professional</p>
-            </div>
-        </div>
+        {% endfor %}
      </div>
   </div>
 </section>

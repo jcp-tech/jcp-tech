@@ -25,7 +25,7 @@
             </div>
         </div>
         
-        <form class="flex flex-col gap-5 p-6 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] shadow-sm dark:shadow-none" onsubmit="event.preventDefault(); alert('Message sent! (Simulation)');">
+        <form id="contact-form" class="flex flex-col gap-5 p-6 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] shadow-sm dark:shadow-none" onsubmit="submitContactForm(event)">
             <div>
                 <label class="sr-only" for="name">Name</label>
                 <input 
@@ -60,12 +60,58 @@
                 ></textarea>
             </div>
             <button 
+                id="submit-btn"
                 class="w-full md:w-auto self-end flex min-w-[150px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-primary text-white dark:text-background-main text-base font-bold leading-normal tracking-[0.015em] hover:shadow-glow hover:-translate-y-1 transition-all duration-300" 
                 type="submit"
             >
                 <span class="truncate">Send Message</span>
             </button>
         </form>
+        <div id="form-status" class="hidden mt-4 p-4 rounded-lg text-center"></div>
+
+<script>
+async function submitContactForm(event) {
+    event.preventDefault();
+    const form = document.getElementById('contact-form');
+    const btn = document.getElementById('submit-btn');
+    const statusDiv = document.getElementById('form-status');
+    
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+    
+    btn.disabled = true;
+    btn.innerHTML = '<span class="truncate">Sending...</span>';
+    
+    try {
+        const response = await fetch('/api/contact/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(payload)
+        });
+        
+        if (response.ok) {
+            statusDiv.className = 'mt-4 p-4 rounded-lg text-center bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400';
+            statusDiv.innerText = 'Message sent successfully! I will get back to you soon.';
+            form.reset();
+        } else {
+            throw new Error('Failed to send message');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        statusDiv.className = 'mt-4 p-4 rounded-lg text-center bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400';
+        statusDiv.innerText = 'Failed to send message. Please try again later.';
+    } finally {
+        statusDiv.classList.remove('hidden');
+        btn.disabled = false;
+        btn.innerHTML = '<span class="truncate">Send Message</span>';
+        setTimeout(() => {
+            statusDiv.classList.add('hidden');
+        }, 5000);
+    }
+}
+</script>
     </div>
   </section>
 

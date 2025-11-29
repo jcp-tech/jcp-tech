@@ -45,6 +45,20 @@ def get_realtime_data(path):
         print(f"Error fetching Realtime DB data from {path}: {e}")
         return None
 
+
+def update_realtime_data(path, data):
+    """Update data in Realtime Database."""
+    if not firebase_admin._apps:
+        return False
+    try:
+        ref = db.reference(path)
+        ref.set(data)
+        return True
+    except Exception as e:
+        print(f"Error updating Realtime DB data at {path}: {e}")
+        return False
+
+
 def get_firestore_data(path: str):
     """
     Unified Firestore fetch:
@@ -61,7 +75,8 @@ def get_firestore_data(path: str):
         db_fs = firestore.client()
 
         # Split path into segments
-        segments = [p for p in path.split("/") if p.strip()]  # clean empty parts
+        segments = [p for p in path.split(
+            "/") if p.strip()]  # clean empty parts
         total = len(segments)
 
         # Odd segments => COLLECTION
@@ -93,3 +108,37 @@ def get_firestore_data(path: str):
     except Exception as e:
         print(f"Error fetching Firestore data from {path}: {e}")
         return None
+
+
+def update_firestore_data(path: str, data: dict):
+    """
+    Update data in Firestore.
+    Path should point to a DOCUMENT.
+    Data must be a dictionary.
+    """
+    if not firebase_admin._apps:
+        return False
+
+    if path.endswith("/"):
+        path = path[:-1]
+
+    try:
+        db_fs = firestore.client()
+        segments = [p for p in path.split("/") if p.strip()]
+
+        # Ensure path points to a document (even number of segments)
+        if len(segments) % 2 != 0:
+            print(
+                f"Error: Path {path} must point to a document, not a collection.")
+            return False
+
+        collection_path = "/".join(segments[:-1])
+        document_id = segments[-1]
+
+        doc_ref = db_fs.collection(collection_path).document(document_id)
+        doc_ref.set(data)
+        return True
+
+    except Exception as e:
+        print(f"Error updating Firestore data at {path}: {e}")
+        return False

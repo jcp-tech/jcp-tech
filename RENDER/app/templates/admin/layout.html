@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3b82f6',
+                    }
+                }
+            }
+        }
+    </script>
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+    <div class="container mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </div>
+    {% block scripts %}{% endblock %}
+    <!-- Idle Timeout Script -->
+    <script>
+        let idleTime = 0;
+        const idleInterval = setInterval(timerIncrement, 60000); // Check every minute
+
+        // Zero the idle timer on mouse movement or key press
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+        document.onclick = resetTimer;
+        document.onscroll = resetTimer;
+
+        function resetTimer() {
+            idleTime = 0;
+        }
+
+        function timerIncrement() {
+            idleTime++;
+            if (idleTime >= 30) { // 30 minutes
+                // Send a POST request to logout
+                fetch('/admin/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }).then(() => {
+                    window.location.href = '/admin/login?timeout=true';
+                });
+            }
+        }
+    </script>
+</body>
+</html>

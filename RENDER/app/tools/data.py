@@ -6,6 +6,7 @@ from collections import defaultdict
 import re
 import os
 
+
 def extract_list(doc_data, key='items'):
     if doc_data:
         if doc_data and key in doc_data:
@@ -13,13 +14,14 @@ def extract_list(doc_data, key='items'):
         return doc_data
     return None
 
+
 def to_rgb_string(color, hex=False):
     """Convert hex, rgb string, or (r,g,b) tuple into:
        - 'R G B'  (default)
        - '#RRGGBB' if hex=True
     """
 
-    to_hex = lambda r, g, b: "#{:02X}{:02X}{:02X}".format(r, g, b)
+    def to_hex(r, g, b): return "#{:02X}{:02X}{:02X}".format(r, g, b)
 
     # 1. Hex input
     if isinstance(color, str) and color.startswith("#"):
@@ -44,6 +46,7 @@ def to_rgb_string(color, hex=False):
         return to_hex(r, g, b) if hex else f"{r} {g} {b}"
 
     raise ValueError(f"Invalid color format: {color}")
+
 
 def normalize_color_config(config, hex=False):
     """Convert all VALUES in the config to 'R G B' format."""
@@ -74,6 +77,7 @@ def build_skills_data(master_skills):
     skills_data = {"FEATURED": featured_items, **skills_data}
     return skills_data, [x for x in skills_data.keys()]
 
+
 def get_developer_profile_data():
     # Read and format the code
     code_path = os.path.join("app", "static", "code", "developer_profile.py")
@@ -98,6 +102,7 @@ def get_developer_profile_data():
                 pattern, r'<span class="kc">\1</span>', code_html)
             code_html = re.sub(
                 r'<span class="n">([A-Z][a-zA-Z0-9_]*)</span>', r'<span class="nc">\1</span>', code_html)
+
             def replace_brackets(match):
                 content = match.group(1)
                 for b in ['(', ')', '[', ']', '{', '}']:
@@ -128,11 +133,18 @@ def get_developer_profile_data():
         terminal_output = f"Error reading log: {e}"
     return code_html, line_count, terminal_output
 
+
 # --- Attempt to Load from Firebase ---
 print("Attempting to load data from Firebase...")
 
 # 1. Realtime Database Updates
 try:
+    MASTER_MAIN = get_realtime_data('PORTFOLIO/MAIN')
+    if MASTER_MAIN:
+        print("Loaded MASTER_MAIN from Realtime DB")
+    else:
+        print("Failed to load MASTER_MAIN from Realtime DB")
+
     COLOR_CONFIG_RAW = get_realtime_data('PORTFOLIO/COLOR_CONFIG')
     if COLOR_CONFIG_RAW:
         print("Loaded COLOR_CONFIG_RAW from Realtime DB")
@@ -150,7 +162,7 @@ try:
         print("Failed to load SYNTAX_COLORS_RAW from Realtime DB")
         SYNTAX_COLORS = {}
 
-    MASTER_NAVBAR = get_realtime_data('PORTFOLIO/MASTER_NAVBAR')
+    MASTER_NAVBAR = get_realtime_data('PORTFOLIO/NAVBAR')
     if MASTER_NAVBAR:
         print("Loaded MASTER_NAVBAR from Realtime DB")
         NAV_LINKS = [link for link in MASTER_NAVBAR if link.get('active')]
@@ -160,9 +172,6 @@ try:
 
 except Exception as e:
     print(f"Error loading Realtime DB data: {e}")
-
-
-# 2. Firestore Updates
 try:
     # Check if it's wrapped in 'components' key as per notebook
     LIVE_ACTIVITIES_HTML_COMPONENTS = extract_list(
@@ -177,6 +186,7 @@ try:
         'items'
     )
     print("Loaded PROJECTS from Firestore")
+    # Account for Featured add 'id' according to Order - TODO
 
     # SKILLS
     SKILLS_MAIN = extract_list(
@@ -192,6 +202,7 @@ try:
         'items'
     )
     print("Loaded EXPERIENCES from Firestore")
+    # Account for Current add 'id' according to Order - TODO
 
     # EDUCATIONS
     EDUCATIONS = extract_list(
@@ -199,6 +210,7 @@ try:
         'items'
     )
     print("Loaded EDUCATIONS from Firestore")
+    # Account for Current add 'id' according to Order - TODO
 
     # CERTIFICATIONS
     CERTIFICATIONS = extract_list(
@@ -206,5 +218,13 @@ try:
         'items'
     )
     print("Loaded CERTIFICATIONS from Firestore")
+
+    # ACHIEVEMENTS
+    ACHIEVEMENTS = extract_list(
+        get_firestore_data('PORTFOLIO/ACHIEVEMENTS'),
+        'items'
+    )
+    print("Loaded ACHIEVEMENTS from Firestore")
+
 except Exception as e:
     print(f"Error loading Firestore data: {e}")

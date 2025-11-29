@@ -1,10 +1,14 @@
 from fastapi import FastAPI, Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
-from app.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, COLOR_CONFIG, SYNTAX_COLORS, get_developer_profile_data
-import RENDER.app.utils.middleware_collection as mc
+from app.tools.data import NAV_LINKS, LIVE_ACTIVITIES_HTML_COMPONENTS, PROJECTS, SKILL_CATEGORIES, SKILLS_DATA, EXPERIENCES, EDUCATIONS, CERTIFICATIONS, ACHIEVEMENTS, COLOR_CONFIG, SYNTAX_COLORS, get_developer_profile_data, MASTER_MAIN
+import app.utils.middleware_collection as mc
+from app.routers import admin, contact
 
 app = FastAPI()
+
+app.include_router(admin.router)
+app.include_router(contact.router)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
@@ -12,10 +16,11 @@ app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
 templates = Jinja2Templates(directory="app/templates")
 
+
 @app.get("/")
 async def read_root(request: Request):
     code_base, line_count, terminal_output = get_developer_profile_data()
-    return templates.TemplateResponse("index.html", {
+    context = {
         "request": request,
         "nav_links": NAV_LINKS,
         "live_activities": LIVE_ACTIVITIES_HTML_COMPONENTS,
@@ -25,12 +30,16 @@ async def read_root(request: Request):
         "experiences": EXPERIENCES,
         "educations": EDUCATIONS,
         "certifications": CERTIFICATIONS,
+        "achievements": ACHIEVEMENTS,
         "color_config": COLOR_CONFIG,
         "syntax_colors": SYNTAX_COLORS,
         "code_base": code_base,
         "line_count": line_count,
         "terminal_output": terminal_output
-    })
+    }
+    context.update(MASTER_MAIN)
+    return templates.TemplateResponse("index.html", context)
+
 
 @app.get("/health")
 async def health_check():

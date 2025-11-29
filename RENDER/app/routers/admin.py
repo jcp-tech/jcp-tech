@@ -1,0 +1,167 @@
+from fastapi import APIRouter, Request, Depends, HTTPException, status, Response, Body
+from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse
+from fastapi.templating import Jinja2Templates
+from app.utils.auth import get_current_user, create_session_cookie, require_admin
+from app.utils.firebase_utils import get_realtime_data, update_realtime_data, get_firestore_data, update_firestore_data
+from firebase_admin import firestore
+from pydantic import BaseModel
+
+router = APIRouter(prefix="/admin", tags=["admin"])
+templates = Jinja2Templates(directory="app/templates")
+
+
+class LoginRequest(BaseModel):
+    idToken: str
+
+
+@router.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    # If already logged in, redirect to dashboard
+    user = await get_current_user(request, request.cookies.get("session"))
+    if user:
+        return RedirectResponse(url="/admin", status_code=302)
+    return templates.TemplateResponse("admin/login.html", {"request": request})
+
+
+@router.post("/login")
+async def login(request: Request, login_request: LoginRequest):
+    try:
+        # Create session cookie
+        session_cookie = await create_session_cookie(login_request.idToken)
+
+        response = Response(content="Login successful")
+        # Set session cookie
+        # Secure=True should be used in production (HTTPS)
+        # Samesite='Lax' or 'Strict'
+        # No max_age means it's a session cookie (clears on browser close)
+        response.set_cookie(
+            key="session",
+            value=session_cookie,
+            httponly=True,
+            secure=False,  # Set to True in production
+            samesite="lax"
+        )
+        return response
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("", response_class=HTMLResponse)
+async def admin_dashboard(request: Request, user: dict = Depends(get_current_user)):
+    if not user:
+        return RedirectResponse(url="/admin/login", status_code=302)
+
+    # Check permissions (will raise 403 if not allowed)
+    try:
+        require_admin(user)
+    except HTTPException as e:
+        # If access denied, we might want to show a 403 page or redirect to home
+        # For now, let's re-raise to show the standard error page or JSON
+        raise e
+
+    return templates.TemplateResponse("admin/dashboard.html", {
+        "request": request,
+        "user": user
+    })
+
+
+@router.post("/logout")
+async def logout(response: Response):
+    response = RedirectResponse(url="/admin/login", status_code=302)
+    response.delete_cookie("session")
+    return response
+
+
+@router.get("/api/data/{section}")
+async def get_data(section: str, user: dict = Depends(get_current_user)):
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    require_admin(user)
+
+    # Realtime Database Paths
+    rtdb_map = {
+        "main": "PORTFOLIO/MAIN",
+        "navbar": "PORTFOLIO/NAVBAR",
+        "color_config": "PORTFOLIO/COLOR_CONFIG",
+        "syntax_colors": "PORTFOLIO/SYNTAX_COLORS"
+    }
+
+    # Firestore Paths
+    firestore_map = {
+        "live_activities": "PORTFOLIO/LIVE_ACTIVITIES",
+        "projects": "PORTFOLIO/PROJECTS",
+        "skills": "PORTFOLIO/SKILLS",
+        "experiences": "PORTFOLIO/EXPERIENCES",
+        "educations": "PORTFOLIO/EDUCATIONS",
+        "certifications": "PORTFOLIO/CERTIFICATIONS",
+        "achievements": "PORTFOLIO/ACHIEVEMENTS"
+    }
+
+    if section in rtdb_map:
+        data = get_realtime_data(rtdb_map[section])
+        return data or {}
+
+    elif section in firestore_map:
+        data = get_firestore_data(firestore_map[section])
+        if not data:
+            return []
+
+        # Unwrap list from document
+        if section == "live_activities":
+            return data.get("components", [])
+        else:
+            return data.get("items", [])
+
+
+class CRMStatusRequest(BaseModel):
+    id: str
+    status: str
+
+
+@router.get("/api/crm")
+async def get_crm_data(user: dict = Depends(require_admin)):
+    try:
+        db = firestore.client()
+        docs = db.collection('CONTACT_REQUESTS').order_by(
+            'timestamp', direction=firestore.Query.DESCENDING).stream()
+        requests = []
+        for doc in docs:
+            data = doc.to_dict()
+            data['id'] = doc.id
+            if data.get('timestamp'):
+                data['timestamp'] = data['timestamp'].isoformat()
+            requests.append(data)
+        return requests
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/api/crm/status")
+async def update_crm_status(request: CRMStatusRequest, user: dict = Depends(require_admin)):
+    try:
+        db = firestore.client()
+        doc_ref = db.collection('CONTACT_REQUESTS').document(request.id)
+        doc_ref.update({'status': request.status})
+        return {"message": "Status updated successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/api/users")
+async def get_admin_users(user: dict = Depends(require_admin)):
+    try:
+        data = get_firestore_data('USERS/ADMIN')
+        return data or {}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.post("/api/users")
+async def update_admin_users(payload: dict = Body(...), user: dict = Depends(require_admin)):
+    try:
+        update_firestore_data('USERS/ADMIN', payload)
+        return {"message": "Admin users updated successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
