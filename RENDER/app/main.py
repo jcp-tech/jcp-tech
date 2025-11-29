@@ -18,15 +18,17 @@ templates = Jinja2Templates(directory="app/templates")
 def get_developer_profile_data():
     # Read and format the code
     code_path = os.path.join("app", "static", "code", "developer_profile.py")
+    line_count = 0
     try:
         with open(code_path, "r") as f:
             code_content = f.read()
-            formatter = HtmlFormatter(style="monokai", cssclass="source")
+            line_count = len(code_content.splitlines())
+            # Use nowrap=True to get just the spans, we'll handle wrapping and styling in the template
+            formatter = HtmlFormatter(nowrap=True)
             code_html = highlight(code_content, PythonLexer(), formatter)
-            code_style = formatter.get_style_defs('.source')
     except Exception as e:
         code_html = f"Error reading code: {e}"
-        code_style = ""
+        line_count = 0
 
     # Read the log output
     log_path = "/tmp/developer_profile.log"
@@ -44,12 +46,12 @@ def get_developer_profile_data():
     except Exception as e:
         terminal_output = f"Error reading log: {e}"
 
-    return code_html, code_style, terminal_output
+    return code_html, line_count, terminal_output
 
 
 @app.get("/")
 async def read_root(request: Request):
-    code_base, code_style, terminal_output = get_developer_profile_data()
+    code_base, line_count, terminal_output = get_developer_profile_data()
     return templates.TemplateResponse("index.html", {
         "request": request,
         "nav_links": NAV_LINKS,
@@ -62,7 +64,7 @@ async def read_root(request: Request):
         "certifications": CERTIFICATIONS,
         "color_config": COLOR_CONFIG,
         "code_base": code_base,
-        "code_style": code_style,
+        "line_count": line_count,
         "terminal_output": terminal_output
     })
 
