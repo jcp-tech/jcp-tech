@@ -81,8 +81,24 @@ AgenticBrowserPromt.md
 # for any folder named ignore
 ignore/
 
+# https://github.com/tthn0/Spotify-Readme
+/Spotify-Readme
+
+# # https://github.com/jcp-tech/TEMPLATE_REPO_TSX_PORTFOLIO.git
+# /TEMPLATE_TESTING/TEMPLATE_REPO_TSX_PORTFOLIO
+/TEMPLATE_TESTING
+
 # # Cover Letter
 # Jonathan Chacko - Cover Letter.docx
+
+# pychache
+*__pycache__
+
+# venv
+/venv
+/venv-windows
+/venv-linux
+/venv-backup
 
 # # TO_DO.md
 /public/TO_DO.md
