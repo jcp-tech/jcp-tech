@@ -62,6 +62,9 @@ node_modules/
 # Yarn Integrity file
 .yarn-integrity
 
+# Firebase Service Account File
+*serviceAccountKey.json
+
 # dotenv environment variables file
 .env
 
@@ -105,3 +108,4 @@ ignore/
 
 # DEBUG
 /RENDER/app/debug/
+/RENDER/app/tools/UPDATE_FIREBASE.ipynb
