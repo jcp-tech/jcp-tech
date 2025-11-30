@@ -52,10 +52,17 @@
                  <div class="flex flex-col gap-16">
                    {% for role in exp.roles %}
                        <div class="relative pl-16 group">
+                 <!-- Timeline Node -->
                          <!-- Timeline Node -->
-                         <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[#0d1117] shadow-glow-strong z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow-hover">
-                            <div class="size-3 rounded-full bg-primary animate-pulse"></div>
-                         </div>
+                         {% if exp.current and loop.first %}
+                             <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[#0d1117] shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)] z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                                <div class="size-6 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(var(--primary-rgb),0.8)]"></div>
+                             </div>
+                         {% else %}
+                             <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[#0d1117] shadow-glow-strong z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow-hover">
+                                <div class="size-3 rounded-full bg-primary"></div>
+                             </div>
+                         {% endif %}
     
                          <!-- Role Content Card -->
                          <div class="flex flex-col gap-4 p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-md hover:bg-gray-50 dark:hover:bg-white/[0.07] hover:border-primary/50 dark:hover:border-primary/30 transition-all duration-300 relative shadow-sm dark:shadow-none">
@@ -107,7 +114,11 @@
             {% for edu in educations %}
                 <div class="relative pl-12 group">
                     <!-- Timeline Dot -->
-                    <div class="absolute -left-[9px] top-1 size-[18px] rounded-full border-2 border-gray-300 dark:border-white/20 bg-white dark:bg-[#0d1117] group-hover:border-primary group-hover:bg-primary transition-colors duration-300"></div>
+                    <div class="absolute -left-[9px] top-1 size-[18px] rounded-full border-2 border-gray-300 dark:border-white/20 bg-white dark:bg-[#0d1117] group-hover:border-primary group-hover:bg-primary transition-colors duration-300 flex items-center justify-center">
+                        {% if edu.current %}
+                            <div class="size-2 rounded-full bg-primary animate-pulse"></div>
+                        {% endif %}
+                    </div>
                     
                     <div class="flex justify-between items-start">
                         <div class="flex flex-col gap-1">

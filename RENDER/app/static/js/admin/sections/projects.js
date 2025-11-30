@@ -15,7 +15,11 @@ export function renderProjects(data) {
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Category</label>
-                        <input type="text" data-field="category" value="${item.category || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                        <select data-field="category" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                            ${window.PROJECT_CATEGORIES.map(cat => `
+                                <option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>
+                            `).join('')}
+                        </select>
                     </div>
                 </div>
                 <div>
@@ -88,7 +92,9 @@ export function addProjectItem() {
                     </div>
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Category</label>
-                        <input type="text" data-field="category" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                        <select data-field="category" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                            ${window.PROJECT_CATEGORIES.map(cat => `<option value="${cat}">${cat}</option>`).join('')}
+                        </select>
                     </div>
                 </div>
                 <div>

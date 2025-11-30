@@ -125,7 +125,12 @@ const updateActiveLink = (currentSection) => {
 
 window.addEventListener('scroll', handleScroll);
 // Initial check
-window.addEventListener('load', handleScroll);
+window.addEventListener('load', () => {
+    handleScroll();
+    if (document.getElementById('projects-grid')) {
+        filterProjects('Featured');
+    }
+});
 
 // --- HERO TERMINAL LOGIC ---
 let isTerminalOpen = false;
@@ -240,6 +245,7 @@ window.addEventListener('keydown', (e) => {
 
 
 // --- PROJECTS FILTER LOGIC ---
+// --- PROJECTS FILTER LOGIC ---
 const filterProjects = (category) => {
     // Update active button state
     const buttons = document.querySelectorAll('.filter-btn');
@@ -256,10 +262,21 @@ const filterProjects = (category) => {
     // Filter grid items
     const projects = document.querySelectorAll('.project-card');
     projects.forEach(project => {
-        if (category === 'All' || project.dataset.category === category) {
-            project.classList.remove('hidden');
+        const tags = JSON.parse(project.dataset.tags || '[]');
+        const isFeatured = project.dataset.featured === 'true';
+
+        if (category === 'Featured') {
+            if (isFeatured) {
+                project.classList.remove('hidden');
+            } else {
+                project.classList.add('hidden');
+            }
         } else {
-            project.classList.add('hidden');
+            if (tags.includes(category)) {
+                project.classList.remove('hidden');
+            } else {
+                project.classList.add('hidden');
+            }
         }
     });
 };

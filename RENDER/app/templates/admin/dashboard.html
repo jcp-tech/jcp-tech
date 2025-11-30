@@ -135,5 +135,8 @@
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+<script>
+  window.PROJECT_CATEGORIES = {{ project_categories | tojson }};
+</script>
 <script type="module" src="/static/js/admin/dashboard.js"></script>
 {% endblock %}

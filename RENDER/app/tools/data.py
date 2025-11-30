@@ -134,6 +134,14 @@ def get_developer_profile_data():
     return code_html, line_count, terminal_output
 
 
+PROJECT_CATEGORIES = [
+    "AI/ML",
+    "Full-Stack",
+    "Automation",
+    "UI/UX"
+]
+
+
 def get_portfolio_data():
     """Fetch all portfolio data from Firebase."""
     print("Attempting to load data from Firebase...")
@@ -150,7 +158,8 @@ def get_portfolio_data():
         "EXPERIENCES": [],
         "EDUCATIONS": [],
         "CERTIFICATIONS": [],
-        "ACHIEVEMENTS": []
+        "ACHIEVEMENTS": [],
+        "PROJECT_CATEGORIES": PROJECT_CATEGORIES
     }
 
     # 1. Realtime Database Updates
@@ -164,7 +173,8 @@ def get_portfolio_data():
         color_config_raw = get_realtime_data('PORTFOLIO/COLOR_CONFIG')
         if color_config_raw:
             print("Loaded COLOR_CONFIG_RAW from Realtime DB")
-            data["COLOR_CONFIG"] = normalize_color_config(color_config_raw, False)
+            data["COLOR_CONFIG"] = normalize_color_config(
+                color_config_raw, False)
         else:
             print("Failed to load COLOR_CONFIG_RAW from Realtime DB")
 

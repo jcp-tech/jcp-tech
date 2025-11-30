@@ -10,50 +10,30 @@
       </p>
     </div>
   </div>
-
   <!-- Filter Tabs -->
   <div class="flex gap-3 p-3 flex-wrap pr-4 md:px-0" id="project-filters">
     <button
-        onclick="filterProjects('All')"
+        onclick="filterProjects('Featured')"
         class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-primary/10 border-primary text-primary font-bold"
-        data-filter="All"
+        data-filter="Featured"
     >
-        <p class="text-sm font-medium leading-normal">All</p>
+        <p class="text-sm font-medium leading-normal">Featured</p>
     </button>
+    {% for category in project_categories %}
     <button
-        onclick="filterProjects('AI/ML')"
+        onclick="filterProjects('{{ category }}')"
         class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-600 dark:text-white/80"
-        data-filter="AI/ML"
+        data-filter="{{ category }}"
     >
-        <p class="text-sm font-medium leading-normal">AI/ML</p>
+        <p class="text-sm font-medium leading-normal">{{ category }}</p>
     </button>
-    <button
-        onclick="filterProjects('Full-Stack')"
-        class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-600 dark:text-white/80"
-        data-filter="Full-Stack"
-    >
-        <p class="text-sm font-medium leading-normal">Full-Stack</p>
-    </button>
-    <button
-        onclick="filterProjects('Automation')"
-        class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-600 dark:text-white/80"
-        data-filter="Automation"
-    >
-        <p class="text-sm font-medium leading-normal">Automation</p>
-    </button>
-    <button
-        onclick="filterProjects('UI/UX')"
-        class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-600 dark:text-white/80"
-        data-filter="UI/UX"
-    >
-        <p class="text-sm font-medium leading-normal">UI/UX</p>
-    </button>
+    {% endfor %}
   </div>
 
   <!-- Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0" id="projects-grid">
     {% for project in projects %}
-      <div class="project-card group relative rounded-xl overflow-hidden bg-white dark:bg-[#161b22] border border-gray-200 dark:border-white/10 hover:border-primary/50 dark:hover:border-primary/80 transition-all duration-500 hover:shadow-lg dark:hover:shadow-glow will-change-transform hover:-translate-y-1" data-category="{{ project.category }}">
+      <div class="project-card group relative rounded-xl overflow-hidden bg-white dark:bg-[#161b22] border border-gray-200 dark:border-white/10 hover:border-primary/50 dark:hover:border-primary/80 transition-all duration-500 hover:shadow-lg dark:hover:shadow-glow will-change-transform hover:-translate-y-1" data-category="{{ project.category }}" data-featured="{{ 'true' if project.featured else 'false' }}">
         <!-- Background Image -->
         <div 
             class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out group-hover:scale-110 opacity-100 dark:opacity-60 dark:group-hover:opacity-40" 

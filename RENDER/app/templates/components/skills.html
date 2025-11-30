@@ -38,9 +38,17 @@
           data-skill-category="{{ category }}"
           class="skill-card group flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 items-center text-center backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1 {% if not outer_loop.first %}hidden{% endif %}"
         >
-          <span class="material-symbols-outlined text-primary text-4xl group-hover:scale-110 transition-transform duration-300">
-            {{ skill.icon }}
-          </span>
+          {% if skill.icon.startswith('devicon-') %}
+            <i class="{{ skill.icon }} text-4xl text-primary group-hover:scale-110 transition-transform duration-300"></i>
+          {% elif skill.icon.startswith('http') or skill.icon.startswith('/') %}
+             <div class="w-10 h-10 relative group-hover:scale-110 transition-transform duration-300">
+                <img src="{{ skill.icon }}" alt="{{ skill.name }}" class="w-full h-full object-contain">
+             </div>
+          {% else %}
+            <span class="material-symbols-outlined text-primary text-4xl group-hover:scale-110 transition-transform duration-300">
+                {{ skill.icon }}
+            </span>
+          {% endif %}
           <h3 class="text-gray-800 dark:text-white text-base font-bold leading-tight transition-colors">{{ skill.name }}</h3>
         </div>
       {% endfor %}
@@ -69,19 +77,23 @@
                     </span>
                 {% endif %}
             </div>
-            <div class="flex flex-col gap-1">
+            <div class="flex flex-col gap-1 h-full">
                 <div class="flex justify-between items-start">
                     <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">{{ item.title }}</h3>
+                </div>
+                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors flex-grow">{{ item.description }}</p>
+                
+                <div class="flex items-center justify-between mt-4">
+                    {% if item.date %}
+                    <p class="text-xs text-gray-500 font-mono">{{ item.date }}</p>
+                    {% endif %}
+                    
                     {% if item.link %}
-                    <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-white transition-colors">
-                        <span class="material-icons text-sm">open_in_new</span>
+                    <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-all duration-300">
+                        <span>View</span>
                     </a>
                     {% endif %}
                 </div>
-                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors">{{ item.description }}</p>
-                {% if item.date %}
-                <p class="text-xs text-gray-500 mt-2">{{ item.date }}</p>
-                {% endif %}
             </div>
         </div>
         {% endfor %}
