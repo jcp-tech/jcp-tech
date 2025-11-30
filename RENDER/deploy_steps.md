@@ -7,6 +7,10 @@ This document outlines the steps to deploy the FastAPI application to Google Clo
 1. **Google Cloud SDK**: Ensure you have the Google Cloud SDK installed and initialized.
 2. **Docker**: Ensure Docker is installed and running (optional if using Cloud Build, but good for local testing).
 3. **Google Cloud Project**: You need an active Google Cloud Project.
+4. **GitHub Secrets**: For the GitHub Actions workflow to work, you must set the following secrets in your repository settings:
+    *   `GCLOUD_SERVICE_KEY`: The JSON key of your Google Cloud service account.
+    *   `FIREBASE_CREDENTIALS`: The JSON content of your Firebase service account key (e.g., `serviceAccountKey.json`).
+    *   `FIREBASE_DATABASE_URL`: The URL of your Firebase Realtime Database.
 
 ## Deployment Steps
 
