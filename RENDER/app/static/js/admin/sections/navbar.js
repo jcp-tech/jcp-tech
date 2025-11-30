@@ -27,7 +27,11 @@ export function renderNavbarForm(data) {
     Sortable.create(el, {
         handle: '.drag-handle',
         animation: 150,
-        ghostClass: 'bg-gray-700'
+        ghostClass: 'bg-gray-700',
+        filter: '.static-item',
+        onMove: function (evt) {
+            return evt.related.className.indexOf('static-item') === -1;
+        }
     });
 }
 
@@ -35,7 +39,7 @@ function generateNavbarItemHtml(item, index) {
     const isHome = item.href === '#home';
     
     return `
-        <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group ${isHome ? 'border-blue-500/30' : ''}">
+        <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group ${isHome ? 'border-blue-500/30 static-item' : ''}">
             <!-- Drag Handle -->
             <div class="${isHome ? 'opacity-20 cursor-not-allowed' : 'drag-handle cursor-move text-gray-500 hover:text-white'} mt-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
