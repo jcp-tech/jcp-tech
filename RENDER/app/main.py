@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from app.tools.data import get_developer_profile_data
@@ -59,11 +59,19 @@ async def read_root(request: Request):
 
 
 @app.get("/health")
-async def health_check():
+async def health_check(response: Response):
     # Check Firebase initialization status
     try:
         import firebase_admin
         firebase_initialized = bool(firebase_admin._apps)
     except Exception:
         firebase_initialized = False
+    response.headers["Access-Control-Allow-Origin"] = "*"
     return {"status": "ok", "firebase_initialized": firebase_initialized}
+
+@app.options("/health")
+async def health_options(response: Response):
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "*"
+    return {}
