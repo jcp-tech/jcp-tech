@@ -30,6 +30,9 @@ async def login(request: Request, login_request: LoginRequest):
         # Create session cookie
         session_cookie = await create_session_cookie(login_request.idToken)
 
+        print(f"[DEBUG] Login Request Scheme: {request.url.scheme}")
+        print(f"[DEBUG] Login Request Headers: {request.headers}")
+
         response = Response(content="Login successful")
         # Set session cookie
         # Secure=True should be used in production (HTTPS)
