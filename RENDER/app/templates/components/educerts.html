@@ -1,0 +1,61 @@
+<section id="education" class="flex flex-col gap-20 mt-24 scroll-mt-24">
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 px-4 md:px-0">
+      
+      <!-- Education -->
+      <div class="flex flex-col gap-8">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="h-[2px] w-12 bg-primary"></div>
+            <h2 class="text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.033em] transition-colors">Education</h2>
+        </div>
+        <div class="relative border-l-2 border-gray-200 dark:border-white/10 ml-3 space-y-12">
+            {% for edu in educations %}
+                <div class="relative pl-12 group">
+                    <!-- Timeline Dot -->
+                    <div class="absolute -left-[9px] top-1 size-[18px] rounded-full border-2 border-gray-300 dark:border-white/20 bg-white dark:bg-[#0d1117] group-hover:border-primary group-hover:bg-primary transition-colors duration-300 flex items-center justify-center">
+                        {% if edu.current %}
+                            <div class="size-2 rounded-full bg-primary animate-pulse"></div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-col gap-1">
+                            <h4 class="text-gray-900 dark:text-white font-bold text-xl group-hover:text-primary transition-colors">{{ edu.school }}</h4>
+                            <p class="text-gray-600 dark:text-white/80 text-base font-medium">{{ edu.degree }}</p>
+                            <div class="flex items-center gap-2 mt-1">
+                                <span class="text-gray-400 dark:text-white/40 text-sm font-mono">{{ edu.year }}</span>
+                                <span class="text-gray-300 dark:text-white/20">•</span>
+                                <span class="text-gray-400 dark:text-white/40 text-sm">{{ edu.location }}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      </div>
+
+      <!-- Certifications -->
+      <div class="flex flex-col gap-8">
+        <div class="flex items-center gap-4 mb-4">
+            <div class="h-[2px] w-12 bg-primary"></div>
+            <h2 class="text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.033em] transition-colors">Certifications</h2>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {% for cert in certifications %}
+                <div class="group relative overflow-hidden rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1">
+                    <div class="absolute -right-6 -top-6 size-24 rounded-full bg-primary/10 blur-xl transition-all duration-500 group-hover:scale-150"></div>
+                    <div class="relative z-10 flex flex-col h-full justify-between gap-4">
+                        <div class="flex items-start justify-between">
+                            <span class="material-symbols-outlined text-primary/70 group-hover:text-primary transition-colors">verified</span>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-900 dark:text-white leading-tight mb-1 transition-colors">{{ cert.name }}</p>
+                            <p class="text-xs text-primary uppercase tracking-wider font-bold">{{ cert.issuer }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+      </div>
+  </div>
+</section>

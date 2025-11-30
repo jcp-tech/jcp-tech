@@ -71,47 +71,4 @@
 
   </div>
 
-  <!-- Achievements Section -->
-  <div class="mt-20 px-4 md:px-0">
-     <div class="flex flex-col items-center gap-2 mb-10 text-center">
-        <h3 class="text-gray-900 dark:text-white text-3xl font-bold leading-tight tracking-[-0.015em] transition-colors">Achievements & Recognition</h3>
-        <div class="h-1 w-16 bg-primary rounded-full"></div>
-     </div>
-     
-     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {% for item in achievements %}
-        <div class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1 group">
-            <div class="text-primary transition-colors duration-300" style="color: '';">
-                {% if item.icon and (item.icon.startswith('http') or item.icon.startswith('/')) %}
-                    <div class="w-10 h-10 relative">
-                        <img src="{{ item.icon }}" alt="{{ item.title }}" class="w-full h-full object-contain" {% if item.color %}style="filter: drop-shadow(0 0 2px {{ item.color }});"{% endif %}>
-                    </div>
-                {% else %}
-                    <span class="material-symbols-outlined !text-4xl group-hover:scale-110 transition-transform duration-300">
-                        {{ item.icon if item.icon else 'trophy' }}
-                    </span>
-                {% endif %}
-            </div>
-            <div class="flex flex-col gap-1 h-full">
-                <div class="flex justify-between items-start">
-                    <h3 class="text-gray-900 dark:text-white text-lg font-bold leading-tight transition-colors">{{ item.title }}</h3>
-                </div>
-                <p class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors flex-grow">{{ item.description }}</p>
-                
-                <div class="flex items-center justify-between mt-4">
-                    {% if item.date %}
-                    <p class="text-xs text-gray-500 font-mono">{{ item.date }}</p>
-                    {% endif %}
-                    
-                    {% if item.link %}
-                    <a href="{{ item.link }}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-3 py-1.5 rounded-lg hover:bg-primary hover:text-white transition-all duration-300">
-                        <span>View</span>
-                    </a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-     </div>
-  </div>
 </section>
