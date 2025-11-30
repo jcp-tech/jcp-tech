@@ -39,7 +39,8 @@ async def login(request: Request, login_request: LoginRequest):
             key="session",
             value=session_cookie,
             httponly=True,
-            secure=True,  # Set to True in production | NOTE: Need to take from env after adding to it.
+            # Set to True in production | NOTE: Need to take from env after adding to it.
+            secure=True,
             samesite="lax"
         )
         return response
@@ -52,7 +53,7 @@ async def login(request: Request, login_request: LoginRequest):
 @router.get("", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, user: dict = Depends(get_current_user)):
     if not user:
-        return RedirectResponse(url="/admin/login", status_code=302)
+        return RedirectResponse(url="/admin/login?error=session_missing_or_invalid", status_code=302)
 
     # Check permissions (will raise 403 if not allowed)
     try:

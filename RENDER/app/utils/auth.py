@@ -8,8 +8,10 @@ from app.utils.firebase_utils import get_firestore_data
 # Cookie scheme for documentation/Swagger UI
 cookie_scheme = APIKeyCookie(name="session", auto_error=False)
 
+
 async def get_current_user(request: Request, session: Optional[str] = Depends(cookie_scheme)):
     if not session:
+        print("[Auth] No session cookie found.")
         return None
 
     try:
@@ -18,9 +20,10 @@ async def get_current_user(request: Request, session: Optional[str] = Depends(co
             session, check_revoked=True)
         return decoded_claims
     except auth.InvalidSessionCookieError:
+        print("[Auth] Invalid session cookie.")
         return None
     except Exception as e:
-        print(f"Auth Error: {e}")
+        print(f"[Auth] Error verifying session cookie: {e}")
         return None
 
 
