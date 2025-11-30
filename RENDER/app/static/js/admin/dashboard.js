@@ -13,6 +13,8 @@ import { renderCRM } from './sections/crm.js';
 import { renderAdminUsers } from './sections/users.js';
 import { renderProjectCategories } from './sections/project_categories.js';
 
+import { renderSocials } from './sections/socials.js';
+
 // Global state
 window.currentSection = '';
 window.currentData = null;
@@ -66,6 +68,8 @@ export async function switchTab(section) {
             url = `/admin/api/crm`;
         } else if (section === 'users') {
             url = `/admin/api/users`;
+        } else if (section === 'socials') {
+            url = `/admin/api/data/social_pills`;
         }
         const response = await fetch(url);
         if (!response.ok) throw new Error('Network response was not ok');
@@ -105,6 +109,8 @@ export async function switchTab(section) {
             renderCRM(window.currentData);
         } else if (section === 'users') {
             renderAdminUsers(window.currentData);
+        } else if (section === 'socials') {
+            renderSocials(window.currentData);
         }
     } catch (error) {
         console.error('Error fetching data:', error);
@@ -121,7 +127,12 @@ async function saveData(section, payload, button = null, originalText = null) {
     try {
         console.log('Sending payload:', payload);
 
-        const response = await fetch(`/admin/api/data/${section}`, {
+        let url = `/admin/api/data/${section}`;
+        if (section === 'socials') {
+            url = `/admin/api/data/social_pills`;
+        }
+
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -244,6 +255,14 @@ export async function handleSave(eventOrSection, payloadIfManual) {
             date: item.querySelector('[data-field="date"]').value,
             icon: item.querySelector('[data-field="icon"]').value,
             link: item.querySelector('[data-field="link"]').value
+        }));
+    } else if (currentSection === 'socials') {
+        const items = Array.from(document.querySelectorAll('#social-items > div'));
+        payload = items.map(item => ({
+            name: item.querySelector('[data-field="name"]').value,
+            link: item.querySelector('[data-field="link"]').value,
+            svg_icon: item.querySelector('[data-field="svg_icon"]').value,
+            active: item.querySelector('[data-field="active"]').checked
         }));
     } else {
         // Main section (flat)

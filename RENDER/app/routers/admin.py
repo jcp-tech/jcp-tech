@@ -115,7 +115,8 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
         "experiences": "PORTFOLIO/EXPERIENCES",
         "educations": "PORTFOLIO/EDUCATIONS",
         "certifications": "PORTFOLIO/CERTIFICATIONS",
-        "achievements": "PORTFOLIO/ACHIEVEMENTS"
+        "achievements": "PORTFOLIO/ACHIEVEMENTS",
+        "social_pills": "PORTFOLIO/SOCIAL_PILLS"
     }
 
     if section in rtdb_map:
@@ -159,7 +160,8 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
         "experiences": "PORTFOLIO/EXPERIENCES",
         "educations": "PORTFOLIO/EDUCATIONS",
         "certifications": "PORTFOLIO/CERTIFICATIONS",
-        "achievements": "PORTFOLIO/ACHIEVEMENTS"
+        "achievements": "PORTFOLIO/ACHIEVEMENTS",
+        "social_pills": "PORTFOLIO/SOCIAL_PILLS"
     }
 
     if section in rtdb_map:
