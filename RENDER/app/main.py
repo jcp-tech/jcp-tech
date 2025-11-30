@@ -5,7 +5,12 @@ from app.tools.data import get_developer_profile_data
 import app.utils.middleware_collection as mc
 from app.routers import admin, contact
 
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
+
 app = FastAPI()
+
+# Trust X-Forwarded-Host headers from Firebase Hosting/Cloud Run
+app.add_middleware(ProxyHeadersMiddleware, trusted_hosts="*")
 
 app.include_router(admin.router)
 app.include_router(contact.router)
@@ -38,6 +43,8 @@ async def read_root(request: Request):
         "educations": portfolio_data.get("EDUCATIONS", []),
         "certifications": portfolio_data.get("CERTIFICATIONS", []),
         "achievements": portfolio_data.get("ACHIEVEMENTS", []),
+        "project_tags": portfolio_data.get("PROJECT_TAGS", []),
+        "project_categories": portfolio_data.get("PROJECT_CATEGORIES", []),
         "color_config": portfolio_data.get("COLOR_CONFIG", {}),
         "syntax_colors": portfolio_data.get("SYNTAX_COLORS", {}),
         "code_base": code_base,

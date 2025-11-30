@@ -66,9 +66,11 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
         # For now, let's re-raise to show the standard error page or JSON
         raise e
 
+    from app.tools.data import PROJECT_CATEGORIES
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
-        "user": user
+        "user": user,
+        "project_categories": PROJECT_CATEGORIES
     })
 
 
