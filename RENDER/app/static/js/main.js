@@ -272,7 +272,7 @@ const filterProjects = (category) => {
                 project.classList.add('hidden');
             }
         } else {
-            if (tags.includes(category)) {
+            if (project.dataset.category === category || tags.includes(category)) {
                 project.classList.remove('hidden');
             } else {
                 project.classList.add('hidden');
