@@ -110,6 +110,7 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
     firestore_map = {
         "live_activities": "PORTFOLIO/LIVE_ACTIVITIES",
         "projects": "PORTFOLIO/PROJECTS",
+        "project_categories": "PORTFOLIO/PROJECTS",
         "skills": "PORTFOLIO/SKILLS",
         "experiences": "PORTFOLIO/EXPERIENCES",
         "educations": "PORTFOLIO/EDUCATIONS",
