@@ -37,6 +37,7 @@ async def read_root(request: Request):
         "nav_links": portfolio_data.get("NAV_LINKS", []),
         "navigation_bar": portfolio_data.get("NAV_BAR", []),
         "live_activities": portfolio_data.get("LIVE_ACTIVITIES_HTML_COMPONENTS", []),
+        "SOCIAL_PILLS": portfolio_data.get("SOCIAL_PILLS", []),
         "projects": portfolio_data.get("PROJECTS", []),
         "skill_categories": portfolio_data.get("SKILL_CATEGORIES", []),
         "skills_data": portfolio_data.get("SKILLS_DATA", {}),
