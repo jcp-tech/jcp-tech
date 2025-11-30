@@ -1,0 +1,127 @@
+export function renderColorForm(data, section) {
+    const contentArea = document.getElementById('content-area');
+    const title = section === 'color_config' ? 'Color Configuration' : 'Syntax Colors';
+    
+    let html = `<h2 class="text-2xl font-bold text-white mb-6">Edit ${title}</h2>`;
+    html += `<form id="edit-form" onsubmit="handleSave(event)" class="space-y-8 max-w-4xl">`;
+    
+    // Recursive rendering
+    html += renderColorRecursive(data, []);
+    
+    html += `
+        <div class="pt-4">
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded transition-colors">
+                Save Changes
+            </button>
+        </div>
+    </form>`;
+    
+    contentArea.innerHTML = html;
+}
+
+function renderColorRecursive(data, path) {
+    let html = '';
+    
+    // If it's a dictionary, render a section
+    if (typeof data === 'object' && data !== null && !Array.isArray(data)) {
+        // Check if it's a leaf node (all values are strings/numbers) or a branch
+        const isLeaf = Object.values(data).every(v => typeof v !== 'object');
+        
+        if (path.length > 0) {
+            const title = path[path.length - 1];
+            html += `
+                <div class="bg-gray-800 p-6 rounded-lg border border-gray-700">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-2">
+                        <h3 class="text-xl font-semibold text-blue-400 capitalize">${title}</h3>
+                        <button type="button" onclick="addColorItem('${path.join('.')}')" class="text-green-500 hover:text-green-400 text-sm font-bold">
+                            + Add Color
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="container-${path.join('-')}">
+            `;
+        } else {
+             html += `<div class="space-y-6">`;
+        }
+
+        for (const [key, value] of Object.entries(data)) {
+            if (typeof value === 'object' && value !== null) {
+                html += renderColorRecursive(value, [...path, key]);
+            } else {
+                html += renderColorInput(key, value, [...path, key]);
+            }
+        }
+
+        if (path.length > 0) {
+            html += `</div></div>`;
+        } else {
+            html += `</div>`;
+        }
+    }
+    return html;
+}
+
+function renderColorInput(key, value, path) {
+    // Try to convert to hex for the picker
+    let hexValue = '#000000';
+    if (typeof value === 'string') {
+        if (value.startsWith('#')) {
+            hexValue = value;
+        } else if (value.includes('rgb')) {
+            // Basic RGB to Hex (simplified)
+            // ... implementation if needed, but browser color input handles hex best
+        }
+    }
+    
+    return `
+        <div class="flex flex-col space-y-1 group">
+            <label class="text-xs text-gray-500 font-mono">${key}</label>
+            <div class="flex items-center space-x-2">
+                <input type="color" 
+                       value="${hexValue}" 
+                       oninput="syncColor(this, 'text-${path.join('-')}')"
+                       class="w-8 h-8 rounded cursor-pointer bg-transparent border-0 p-0">
+                <input type="text" 
+                       name="${path.join('.')}" 
+                       id="text-${path.join('-')}"
+                       value="${value}" 
+                       oninput="syncColor(this, null, true)"
+                       class="flex-1 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm text-white font-mono focus:outline-none focus:border-blue-500">
+            </div>
+        </div>
+    `;
+}
+
+export function syncColor(source, targetId, isTextSource = false) {
+    if (isTextSource) {
+        // Text -> Picker
+        // Only update picker if valid hex
+        const val = source.value;
+        if (val.startsWith('#') && val.length === 7) {
+            const picker = source.previousElementSibling;
+            picker.value = val;
+        }
+    } else {
+        // Picker -> Text
+        const target = document.getElementById(targetId);
+        target.value = source.value;
+    }
+}
+
+export function addColorItem(pathStr) {
+    const key = prompt("Enter the name for the new color:");
+    if (!key) return;
+    
+    const containerId = `container-${pathStr.replace(/\./g, '-')}`;
+    const container = document.getElementById(containerId);
+    
+    if (container) {
+        const path = pathStr.split('.');
+        const newPath = [...path, key];
+        const html = renderColorInput(key, "#ffffff", newPath);
+        container.insertAdjacentHTML('beforeend', html);
+    }
+}
+
+// Attach to window
+window.syncColor = syncColor;
+window.addColorItem = addColorItem;

@@ -5,3 +5,5 @@ python-multipart
 pygments
 firebase-admin
 email-validator
+httpx
+pytest
