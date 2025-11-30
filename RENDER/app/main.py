@@ -59,6 +59,7 @@ async def read_root(request: Request):
 
 
 @app.get("/health")
+@app.get("/health/")
 async def health_check(response: Response):
     # Check Firebase initialization status
     try:
@@ -70,6 +71,7 @@ async def health_check(response: Response):
     return {"status": "ok", "firebase_initialized": firebase_initialized}
 
 @app.options("/health")
+@app.options("/health/")
 async def health_options(response: Response):
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
