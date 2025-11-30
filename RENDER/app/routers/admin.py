@@ -44,7 +44,7 @@ async def login(request: Request, login_request: LoginRequest):
             httponly=True,
             # Set to True in production | NOTE: Need to take from env after adding to it.
             secure=True,
-            samesite="lax"
+            samesite="none"
         )
         return response
     except HTTPException as e:
