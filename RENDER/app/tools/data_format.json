@@ -1,0 +1,170 @@
+{
+    "REALTIME": {
+        "PORTFOLIO": {
+            "COLOR_CONFIG": {
+                "dark": {
+                    "bg-rgb": "color-hex-goes-here",
+                    "border-color": "color-hex-goes-here",
+                    "card-bg-rgb": "color-hex-goes-here",
+                    "primary-rgb": "color-hex-goes-here",
+                    "text-main": "color-hex-goes-here",
+                    "text-muted": "color-hex-goes-here"
+                },
+                "light": {
+                    "bg-rgb": "color-hex-goes-here",
+                    "border-color": "color-hex-goes-here",
+                    "card-bg-rgb": "color-hex-goes-here",
+                    "primary-rgb": "color-hex-goes-here",
+                    "text-main": "color-hex-goes-here",
+                    "text-muted": "color-hex-goes-here"
+                }
+            },
+            "MAIN": {
+                "FULL_NAME": "full-name-goes-here",
+                "PROFILE_ICON_FLAG": true, // true to enable profile icon, false to disable
+                "PROFILE_ICON_URL": "profile-icon-url-goes-here"
+            },
+            "NAVBAR": [
+                {
+                    "active": true,
+                    "add_to_navbar": true,
+                    "href": "#home",
+                    "name": "Home", // This is the Only element in the #home section that is editable
+                    "template": "hero"
+                },
+                {
+                    "active": false, // true to make the section active, false to not
+                    "add_to_navbar": true, // true to add the section title to the navbar, false to not ... Conditionally only active if the section is active
+                    "href": "section-url-ref-goes-here",
+                    "name": "section-title-for-navbar-goes-here",
+                    "template": "html-template-name-goes-here"
+                }
+            ],
+            "SYNTAX_COLORS": {
+                "items": {
+                    "background": "color-hex-goes-here",
+                    "booleans_none": "color-hex-goes-here",
+                    "builtins_classes": "color-hex-goes-here",
+                    "builtins_functions": "color-hex-goes-here",
+                    "class_names": "color-hex-goes-here",
+                    "comments": "color-hex-goes-here",
+                    "control_keywords": "color-hex-goes-here",
+                    "decorators": "color-hex-goes-here",
+                    "errors": "color-hex-goes-here",
+                    "fstrings_rstrings": "color-hex-goes-here",
+                    "function_brackets": "color-hex-goes-here",
+                    "functions": "color-hex-goes-here",
+                    "indent_guides": "color-hex-goes-here",
+                    "keywords": "color-hex-goes-here",
+                    "module_names": "color-hex-goes-here",
+                    "numbers": "color-hex-goes-here",
+                    "operators_punctuation": "color-hex-goes-here",
+                    "string_escapes": "color-hex-goes-here",
+                    "strings": "color-hex-goes-here",
+                    "variables": "color-hex-goes-here",
+                    "warnings": "color-hex-goes-here"
+                }
+            }
+        }
+    },
+    "FIRESTORE": {
+        "PORTFOLIO": {
+            "ACHIEVEMENTS": {
+                "items": [
+                    {
+                        "date": "date-goes-here",
+                        "title": "title-goes-here",
+                        "description": "description-goes-here",
+                        "icon": "icon-goes-here",
+                        "link": "link-goes-here"
+                    }
+                ]
+            },
+            "CERTIFICATIONS": {
+                "items": [
+                    {
+                        "name": "name-goes-here",
+                        "issuer": "issuer-goes-here"
+                    }
+                ]
+            },
+            "EDUCATIONS": {
+                "items": [
+                    {
+                        "location": "location-goes-here",
+                        "current": false, // true to Marke the Education as Current, false to not
+                        "year": "year-goes-here",
+                        "school": "school-goes-here",
+                        "degree": "degree-goes-here"
+                    }
+                ]
+            },
+            "EXPERIENCES": {
+                "items": [
+                    {
+                        "roles": [
+                            {
+                                "period": "duration-goes-here",
+                                "title": "title-goes-here",
+                                "points": [
+                                    "description-points-goes-here"
+                                ]
+                            }
+                        ],
+                        "company": "company-name-goes-here",
+                        "current": true // true to Marke the Company as Current, false to not
+                    }
+                ]
+            },
+            "LIVE_ACTIVITIES": {
+                "components": [
+                    "user-defined-html-components-goes-here"
+                ]
+            },
+            "PROJECTS": {
+                "categories": [
+                    "user-defined-categories-goes-here"
+                ],
+                "items": [
+                    {
+                        "category": "user-defined-category-goes-here",
+                        "image": "user-defined-image-url-goes-here",
+                        "title": "user-defined-title-goes-here",
+                        "description": "user-defined-description-goes-here",
+                        "featured": true, // true to Feature the Project, false to not
+                        "tags": [
+                            "user-defined-tags-goes-here"
+                        ]
+                    }
+                ]
+            },
+            "SKILLS": {
+                "items": [
+                    {
+                        "category": "user-defined-category-goes-here",
+                        "featured": true, // true to Feature the Skill, false to not
+                        "icon": "devicon-name-goes-here",
+                        "name": "skills-goes-here"
+                    }
+                ]
+            },
+            "SOCIAL_PILLS": {
+                "items": [
+                    {
+                        "name": "name-goes-here",
+                        "svg_icon": "svg-icon-tag-data-goes-here",
+                        "active": true, // true to Keep the Element, false to Remove the Element
+                        "link": "link-goes-here"
+                    }
+                ]
+            }
+        },
+        "USERS": {
+            "ADMIN": {
+                "source": [
+                    "user-defined-emails-for-the-source-goes-here"
+                ]
+            }
+        }
+    }
+}
