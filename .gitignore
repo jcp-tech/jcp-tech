@@ -110,3 +110,8 @@ ignore/
 # DEBUG
 /RENDER/app/debug/
 /RENDER/app/tools/UPDATE_FIREBASE.ipynb
+
+# REMOVE UNNESSARY SINCE TRANSFER FROM STATIC TO DYNAMIC HOSTING
+/public
+/firebase_old.json
+/deploy.bat
