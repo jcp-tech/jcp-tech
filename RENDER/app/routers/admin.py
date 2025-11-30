@@ -39,7 +39,7 @@ async def login(request: Request, login_request: LoginRequest):
             key="session",
             value=session_cookie,
             httponly=True,
-            secure=False,  # Set to True in production
+            secure=True,  # Set to True in production | NOTE: Need to take from env after adding to it.
             samesite="lax"
         )
         return response
@@ -70,6 +70,13 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
 
 @router.post("/logout")
 async def logout(response: Response):
+    response = RedirectResponse(url="/admin/login", status_code=302)
+    response.delete_cookie("session")
+    return response
+
+
+@router.get("/logout")
+async def logout_get():
     response = RedirectResponse(url="/admin/login", status_code=302)
     response.delete_cookie("session")
     return response

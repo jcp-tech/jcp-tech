@@ -89,6 +89,7 @@ ignore/
 
 # https://github.com/tthn0/Spotify-Readme
 /Spotify-Readme
+/.github/workflows/spotify_deploy.yml
 
 # # https://github.com/jcp-tech/TEMPLATE_REPO_TSX_PORTFOLIO.git
 # /TEMPLATE_TESTING/TEMPLATE_REPO_TSX_PORTFOLIO
