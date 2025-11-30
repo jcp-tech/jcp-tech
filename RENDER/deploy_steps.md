@@ -4,9 +4,9 @@ This document outlines the steps to deploy the FastAPI application to Google Clo
 
 ## Prerequisites
 
-1.  **Google Cloud SDK**: Ensure you have the Google Cloud SDK installed and initialized.
-2.  **Docker**: Ensure Docker is installed and running (optional if using Cloud Build, but good for local testing).
-3.  **Google Cloud Project**: You need an active Google Cloud Project.
+1. **Google Cloud SDK**: Ensure you have the Google Cloud SDK installed and initialized.
+2. **Docker**: Ensure Docker is installed and running (optional if using Cloud Build, but good for local testing).
+3. **Google Cloud Project**: You need an active Google Cloud Project.
 
 ## Deployment Steps
 
@@ -45,9 +45,15 @@ gcloud run deploy portfolio --source . --platform managed --region us-central1 -
 
 After the deployment command finishes, it will output a Service URL. Open this URL in your browser to verify the application is running.
 
-### 5. Record Deployed URL
+### 5. Get Current Deployed URL
 
+The Cloud Run URL is generated based on the service name and region. If the URL changes, you can retrieve the latest one using:
+
+```bash
+gcloud run services describe portfolio --region us-central1 --format "value(status.url)"
+```
+
+**Current URL:**
 > https://portfolio-gekxrfkuiq-uc.a.run.app/
 
----<!-- Trigger workflow -->
-<!-- Trigger workflow fix -->
+---
