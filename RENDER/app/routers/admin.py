@@ -69,11 +69,12 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
         # For now, let's re-raise to show the standard error page or JSON
         raise e
 
-    from app.tools.data import PROJECT_CATEGORIES
+    from app.tools.data import get_portfolio_data
+    portfolio_data = get_portfolio_data()
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
         "user": user,
-        "project_categories": PROJECT_CATEGORIES
+        "project_categories": portfolio_data.get("project_categories", [])
     })
 
 
@@ -128,6 +129,8 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
         # Unwrap list from document
         if section == "live_activities":
             return data.get("components", [])
+        elif section == "project_categories":
+            return data.get("categories", [])
         else:
             return data.get("items", [])
 
@@ -150,6 +153,7 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
     firestore_map = {
         "live_activities": "PORTFOLIO/LIVE_ACTIVITIES",
         "projects": "PORTFOLIO/PROJECTS",
+        "project_categories": "PORTFOLIO/PROJECTS",
         "skills": "PORTFOLIO/SKILLS",
         "experiences": "PORTFOLIO/EXPERIENCES",
         "educations": "PORTFOLIO/EDUCATIONS",
@@ -172,6 +176,8 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
         if isinstance(payload, list):
             if section == "live_activities":
                 data_to_save = {"components": payload}
+            elif section == "project_categories":
+                data_to_save = {"categories": payload}
             else:
                 data_to_save = {"items": payload}
         elif isinstance(payload, dict):

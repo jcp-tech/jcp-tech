@@ -133,15 +133,6 @@ def get_developer_profile_data():
         terminal_output = f"Error reading log: {e}"
     return code_html, line_count, terminal_output
 
-
-PROJECT_CATEGORIES = [
-    "AI/ML",
-    "Full-Stack",
-    "Automation",
-    "UI/UX"
-]
-
-
 def get_portfolio_data():
     """Fetch all portfolio data from Firebase."""
     print("Attempting to load data from Firebase...")
@@ -159,7 +150,7 @@ def get_portfolio_data():
         "EDUCATIONS": [],
         "CERTIFICATIONS": [],
         "ACHIEVEMENTS": [],
-        "PROJECT_CATEGORIES": PROJECT_CATEGORIES
+        "PROJECT_CATEGORIES": []
     }
 
     # 1. Realtime Database Updates
@@ -206,11 +197,10 @@ def get_portfolio_data():
         print("Loaded LIVE_ACTIVITIES from Firestore")
 
         # PROJECTS
-        data["PROJECTS"] = extract_list(
-            get_firestore_data('PORTFOLIO/PROJECTS'),
-            'items'
-        ) or []
-        print("Loaded PROJECTS from Firestore")
+        projects_doc = get_firestore_data('PORTFOLIO/PROJECTS') or {}
+        data["PROJECTS"] = projects_doc.get('items', [])
+        data["PROJECT_CATEGORIES"] = projects_doc.get('categories', [])
+        print("Loaded PROJECTS and CATEGORIES from Firestore")
 
         # SKILLS
         skills_main = extract_list(

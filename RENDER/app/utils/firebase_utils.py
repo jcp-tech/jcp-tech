@@ -138,7 +138,7 @@ def get_firestore_data(path: str):
         return None
 
 
-def update_firestore_data(path: str, data: dict):
+def update_firestore_data(path: str, data: dict): # , merge: bool = False
     """
     Update data in Firestore.
     Path should point to a DOCUMENT.
@@ -164,7 +164,11 @@ def update_firestore_data(path: str, data: dict):
         document_id = segments[-1]
 
         doc_ref = db_fs.collection(collection_path).document(document_id)
-        doc_ref.set(data)
+        # if merge:
+        #     doc_ref.set(data, merge=merge)
+        # else:
+        #     doc_ref.set(data)
+        doc_ref.set(data, merge=True)
         return True
 
     except Exception as e:
