@@ -6,8 +6,7 @@ from typing import Optional
 from app.utils.firebase_utils import get_firestore_data
 
 # Cookie scheme for documentation/Swagger UI
-cookie_scheme = APIKeyCookie(name="session", auto_error=False)
-
+cookie_scheme = APIKeyCookie(name="__session", auto_error=False)
 
 async def get_current_user(request: Request, session: Optional[str] = Depends(cookie_scheme)):
     if not session:

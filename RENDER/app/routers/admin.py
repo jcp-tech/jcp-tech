@@ -18,7 +18,7 @@ class LoginRequest(BaseModel):
 @router.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
     # If already logged in, redirect to dashboard
-    user = await get_current_user(request, request.cookies.get("session"))
+    user = await get_current_user(request, request.cookies.get("__session"))
     if user:
         return RedirectResponse(url="/admin", status_code=302)
     return templates.TemplateResponse("admin/login.html", {"request": request})
@@ -39,7 +39,7 @@ async def login(request: Request, login_request: LoginRequest):
         # Samesite='Lax' or 'Strict'
         # No max_age means it's a session cookie (clears on browser close)
         response.set_cookie(
-            key="session",
+            key="__session",
             value=session_cookie,
             httponly=True,
             # Set to True in production | NOTE: Need to take from env after adding to it.
@@ -57,7 +57,7 @@ async def login(request: Request, login_request: LoginRequest):
 async def admin_dashboard(request: Request, user: dict = Depends(get_current_user)):
     if not user:
         # DEBUG: Check if cookie exists to distinguish error
-        cookie = request.cookies.get("session")
+        cookie = request.cookies.get("__session")
         error_code = "session_missing" if not cookie else "session_invalid"
         return RedirectResponse(url=f"/admin/login?error={error_code}", status_code=302)
 
@@ -81,14 +81,14 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
 @router.post("/logout")
 async def logout(response: Response):
     response = RedirectResponse(url="/admin/login", status_code=302)
-    response.delete_cookie("session")
+    response.delete_cookie("__session")
     return response
 
 
 @router.get("/logout")
 async def logout_get():
     response = RedirectResponse(url="/admin/login", status_code=302)
-    response.delete_cookie("session")
+    response.delete_cookie("__session")
     return response
 
 
