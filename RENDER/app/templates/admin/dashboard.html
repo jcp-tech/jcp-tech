@@ -11,11 +11,18 @@
     </div>
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
       <button
-        id="tab-main"
-        onclick="switchTab('main')"
+        id="tab-dashboard"
+        onclick="switchTab('dashboard')"
         class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
       >
         Main Section
+      </button>
+      <button
+        id="tab-profile"
+        onclick="switchTab('profile')"
+        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+      >
+        Profile
       </button>
       <button
         id="tab-navbar"
@@ -135,12 +142,27 @@
   <!-- Main Content Area -->
   <div class="flex-1 overflow-auto p-8 bg-gray-900">
     <div id="content-area">
-      <h1 class="text-3xl font-bold text-white mb-8">
-        Welcome to the Dashboard
-      </h1>
-      <p class="text-gray-400">
-        Select a section from the sidebar to edit content.
-      </p>
+        <div class="space-y-6">
+            <!-- System Status -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-700">
+                    <h3 class="text-lg font-bold text-white">System Status</h3>
+                </div>
+                <div class="px-6 py-2">
+                    <p class="text-gray-500 py-2">Loading system status...</p>
+                </div>
+            </div>
+
+            <!-- Recent Activities -->
+            <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-700">
+                    <h3 class="text-lg font-bold text-white">Recent Activities</h3>
+                </div>
+                <div class="px-6">
+                    <p class="text-gray-500 py-4">Loading recent activities...</p>
+                </div>
+            </div>
+        </div>
     </div>
   </div>
 </div>

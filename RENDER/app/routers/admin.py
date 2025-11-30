@@ -247,3 +247,79 @@ async def update_admin_users(payload: dict = Body(...), user: dict = Depends(req
         return {"message": "Admin users updated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/api/dashboard-stats")
+async def get_dashboard_stats(user: dict = Depends(require_admin)):
+    import httpx
+
+    # 1. System Status
+    # Server Health (Self-check)
+    server_health = "Operational"
+
+    # Database Connection (Firebase)
+    try:
+        db = firestore.client()
+        # Simple read to verify connection
+        db.collection('PORTFOLIO').document('MAIN').get()
+        db_connection = "Connected"
+    except Exception:
+        db_connection = "Disconnected"
+
+    # API Uptime (Mock for now, or check external service)
+    # Since we are the API, if this code runs, we are up.
+    # But maybe we want to check GitHub API availability as a proxy for external connectivity?
+    api_uptime = "Operational"
+
+    # 2. Recent Activities (GitHub Actions)
+    recent_activities = []
+    try:
+        async with httpx.AsyncClient() as client:
+            response = await client.get(
+                "https://api.github.com/repos/jcp-tech/jcp-tech/actions/runs",
+                params={"per_page": 5},
+                headers={"User-Agent": "FastAPI-App"}
+            )
+            if response.status_code == 200:
+                data = response.json()
+                for run in data.get("workflow_runs", []):
+                    # Determine status color/icon based on conclusion
+                    status_icon = "check_circle"
+                    status_color = "text-green-500"
+                    if run["conclusion"] == "failure":
+                        status_icon = "cancel"
+                        status_color = "text-red-500"
+                    elif run["status"] == "in_progress" or run["status"] == "queued":
+                        status_icon = "pending"
+                        status_color = "text-yellow-500"
+
+                    # Format date
+                    from datetime import datetime
+                    created_at = datetime.strptime(
+                        run["created_at"], "%Y-%m-%dT%H:%M:%SZ")
+                    formatted_date = created_at.strftime("%b %d, %H:%M")
+
+                    recent_activities.append({
+                        "title": run["display_title"],
+                        "description": f"{run['name']} #{run['run_number']}: Commit {run['head_sha'][:7]} pushed by {run['triggering_actor']['login']}",
+                        "date": formatted_date,
+                        "icon": status_icon,
+                        "icon_color": status_color,
+                        "url": run["html_url"]
+                    })
+    except Exception as e:
+        print(f"Error fetching GitHub Actions: {e}")
+        # Don't fail the whole request, just return empty activities
+        pass
+
+    return {
+        "system_status": [
+            {"name": "Server Health", "status": server_health,
+                "color": "text-green-500" if server_health == "Operational" else "text-red-500"},
+            {"name": "Database Connection", "status": db_connection,
+                "color": "text-green-500" if db_connection == "Connected" else "text-red-500"},
+            {"name": "API Uptime", "status": api_uptime, "color": "text-yellow-500" if api_uptime !=
+                "Operational" else "text-green-500"}  # Mocking yellow for demo if needed, but logic says green
+        ],
+        "recent_activities": recent_activities
+    }

@@ -1,3 +1,4 @@
+import { renderDashboard } from './sections/dashboard.js';
 import { renderMainForm } from './sections/main.js';
 import { renderNavbarForm } from './sections/navbar.js';
 import { renderColorForm } from './sections/colors.js';
@@ -17,7 +18,27 @@ window.currentSection = '';
 window.currentData = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Optional: Auto-select first tab or handle deep linking if needed
+    // Initialize default view (Dashboard)
+    window.currentSection = 'dashboard';
+    
+    // Set active state for Main Section button
+    const btn = document.getElementById('tab-dashboard');
+    if (btn) {
+        btn.classList.remove('text-gray-300');
+        btn.classList.add('bg-blue-600', 'text-white');
+    }
+
+    // Load initial data
+    fetch('/admin/api/dashboard-stats')
+        .then(response => response.json())
+        .then(data => {
+            window.currentData = data;
+            renderDashboard(data);
+        })
+        .catch(error => {
+            console.error('Error loading dashboard:', error);
+            document.getElementById('content-area').innerHTML = `<p class="text-red-500">Error loading data.</p>`;
+        });
 });
 
 export async function switchTab(section) {
@@ -37,7 +58,11 @@ export async function switchTab(section) {
     // Fetch data
     try {
         let url = `/admin/api/data/${section}`;
-        if (section === 'crm') {
+        if (section === 'dashboard') {
+            url = `/admin/api/dashboard-stats`;
+        } else if (section === 'profile') {
+            url = `/admin/api/data/main`;
+        } else if (section === 'crm') {
             url = `/admin/api/crm`;
         } else if (section === 'users') {
             url = `/admin/api/users`;
@@ -47,7 +72,9 @@ export async function switchTab(section) {
         window.currentData = await response.json();
 
         // Render form based on section
-        if (section === 'main') {
+        if (section === 'dashboard') {
+            renderDashboard(window.currentData);
+        } else if (section === 'profile') {
             renderMainForm(window.currentData);
         } else if (section === 'navbar') {
             renderNavbarForm(window.currentData);
@@ -222,8 +249,8 @@ export async function handleSave(eventOrSection, payloadIfManual) {
         // Main section (flat)
         const formData = new FormData(form);
         payload = Object.fromEntries(formData.entries());
-        // Handle checkbox for main
-        if (currentSection === 'main') {
+        // Handle checkbox for profile
+        if (currentSection === 'profile') {
             payload.PROFILE_ICON_FLAG = form.querySelector('[name="PROFILE_ICON_FLAG"]').checked;
         }
     }
