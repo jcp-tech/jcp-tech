@@ -21,33 +21,53 @@ export function renderAchievements(data) {
                     <textarea data-field="description" rows="2" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">${item.description || ''}</textarea>
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">Icon (URL or Material Name)</label>
+                    <label class="block text-xs text-gray-500 mb-1">Icon (SVG Code, URL, or Material Name)</label>
                     <div class="flex items-center space-x-2">
-                        <input type="text" data-field="icon" value="${item.icon || ''}" 
+                        <textarea data-field="icon" rows="3"
                             oninput="
-                                const val = this.value;
-                                const img = this.nextElementSibling;
-                                const span = img.nextElementSibling;
-                                if (val.startsWith('http') || val.startsWith('/')) {
+                                const val = this.value.trim();
+                                const container = this.nextElementSibling;
+                                const img = container.querySelector('img');
+                                const span = container.querySelector('span');
+                                const svgContainer = container.querySelector('.svg-preview');
+                                
+                                // Reset all
+                                img.style.display = 'none';
+                                span.style.display = 'none';
+                                svgContainer.innerHTML = '';
+                                svgContainer.style.display = 'none';
+
+                                if (val.startsWith('<svg')) {
+                                    svgContainer.innerHTML = val;
+                                    svgContainer.style.display = 'flex';
+                                    // Ensure SVG scales
+                                    const svg = svgContainer.querySelector('svg');
+                                    if (svg) {
+                                        svg.style.width = '100%';
+                                        svg.style.height = '100%';
+                                    }
+                                } else if (val.startsWith('http') || val.startsWith('/')) {
                                     img.src = val;
                                     img.style.display = 'block';
-                                    span.style.display = 'none';
                                 } else {
-                                    img.style.display = 'none';
                                     span.textContent = val || 'emoji_events';
                                     span.style.display = 'block';
                                 }
                             " 
-                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                        <div class="h-16 w-16 bg-gray-900 rounded border border-gray-700 overflow-hidden flex items-center justify-center">
+                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500 font-mono text-xs">${item.icon || ''}</textarea>
+                        <div class="h-16 w-16 min-w-[4rem] bg-gray-900 rounded border border-gray-700 overflow-hidden flex items-center justify-center p-2">
                             <img src="${item.icon && (item.icon.startsWith('http') || item.icon.startsWith('/')) ? item.icon : ''}" 
                                  class="h-full w-full object-contain" 
                                  style="display: ${item.icon && (item.icon.startsWith('http') || item.icon.startsWith('/')) ? 'block' : 'none'}" 
                                  onerror="this.style.display='none'">
                             <span class="material-icons text-white text-3xl" 
-                                  style="display: ${item.icon && (item.icon.startsWith('http') || item.icon.startsWith('/')) ? 'none' : 'block'}">
-                                ${item.icon && !(item.icon.startsWith('http') || item.icon.startsWith('/')) ? item.icon : 'emoji_events'}
+                                  style="display: ${item.icon && !item.icon.startsWith('<svg') && !(item.icon.startsWith('http') || item.icon.startsWith('/')) ? 'block' : 'none'}">
+                                ${item.icon && !item.icon.startsWith('<svg') && !(item.icon.startsWith('http') || item.icon.startsWith('/')) ? item.icon : 'emoji_events'}
                             </span>
+                            <div class="svg-preview w-full h-full flex items-center justify-center text-white"
+                                 style="display: ${item.icon && item.icon.startsWith('<svg') ? 'flex' : 'none'}">
+                                 ${item.icon && item.icon.startsWith('<svg') ? item.icon : ''}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -108,27 +128,44 @@ export function addAchievementItem() {
                     <textarea data-field="description" rows="2" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">Icon (URL or Material Name)</label>
+                    <label class="block text-xs text-gray-500 mb-1">Icon (SVG Code, URL, or Material Name)</label>
                     <div class="flex items-center space-x-2">
-                        <input type="text" data-field="icon" 
+                        <textarea data-field="icon" rows="3"
                             oninput="
-                                const val = this.value;
-                                const img = this.nextElementSibling;
-                                const span = img.nextElementSibling;
-                                if (val.startsWith('http') || val.startsWith('/')) {
+                                const val = this.value.trim();
+                                const container = this.nextElementSibling;
+                                const img = container.querySelector('img');
+                                const span = container.querySelector('span');
+                                const svgContainer = container.querySelector('.svg-preview');
+                                
+                                // Reset all
+                                img.style.display = 'none';
+                                span.style.display = 'none';
+                                svgContainer.innerHTML = '';
+                                svgContainer.style.display = 'none';
+
+                                if (val.startsWith('<svg')) {
+                                    svgContainer.innerHTML = val;
+                                    svgContainer.style.display = 'flex';
+                                    // Ensure SVG scales
+                                    const svg = svgContainer.querySelector('svg');
+                                    if (svg) {
+                                        svg.style.width = '100%';
+                                        svg.style.height = '100%';
+                                    }
+                                } else if (val.startsWith('http') || val.startsWith('/')) {
                                     img.src = val;
                                     img.style.display = 'block';
-                                    span.style.display = 'none';
                                 } else {
-                                    img.style.display = 'none';
                                     span.textContent = val || 'emoji_events';
                                     span.style.display = 'block';
                                 }
                             " 
-                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                        <div class="h-16 w-16 bg-gray-900 rounded border border-gray-700 overflow-hidden flex items-center justify-center">
+                            class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500 font-mono text-xs"></textarea>
+                        <div class="h-16 w-16 min-w-[4rem] bg-gray-900 rounded border border-gray-700 overflow-hidden flex items-center justify-center p-2">
                             <img src="" class="h-full w-full object-contain" style="display: none" onerror="this.style.display='none'">
                             <span class="material-icons text-white text-3xl">emoji_events</span>
+                            <div class="svg-preview w-full h-full flex items-center justify-center text-white" style="display: none"></div>
                         </div>
                     </div>
                 </div>
