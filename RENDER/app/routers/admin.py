@@ -231,6 +231,16 @@ async def update_crm_status(request: CRMStatusRequest, user: dict = Depends(requ
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@router.delete("/api/crm/{id}")
+async def delete_crm_request(id: str, user: dict = Depends(require_admin)):
+    try:
+        db = firestore.client()
+        db.collection('CONTACT_REQUESTS').document(id).delete()
+        return {"message": "Request deleted successfully"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @router.get("/api/users")
 async def get_admin_users(user: dict = Depends(require_admin)):
     try:
