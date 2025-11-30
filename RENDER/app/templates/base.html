@@ -23,7 +23,7 @@
         /* ========================================= */
         /*      LIGHT MODE COLOR CONFIGURATION       */
         /* ========================================= */
-        {% for key, value in color_config['light'].items() %}
+        {% for key, value in color_config.get('light', {}).items() %}
         --{{ key }}: {{ value }};
         {% endfor %}
       }
@@ -32,7 +32,7 @@
         /* ========================================= */
         /*      DARK MODE COLOR CONFIGURATION        */
         /* ========================================= */
-        {% for key, value in color_config['dark'].items() %}
+        {% for key, value in color_config.get('dark', {}).items() %}
         --{{ key }}: {{ value }};
         {% endfor %}
       }

@@ -164,8 +164,11 @@ def get_portfolio_data():
         color_config_raw = get_realtime_data('PORTFOLIO/COLOR_CONFIG')
         if color_config_raw:
             print("Loaded COLOR_CONFIG_RAW from Realtime DB")
-            data["COLOR_CONFIG"] = normalize_color_config(
-                color_config_raw, False)
+            fetched_config = normalize_color_config(color_config_raw, False)
+            # Merge fetched config into default config
+            for mode, values in fetched_config.items():
+                if mode in data["COLOR_CONFIG"] and isinstance(values, dict):
+                    data["COLOR_CONFIG"][mode].update(values)
         else:
             print("Failed to load COLOR_CONFIG_RAW from Realtime DB")
 
