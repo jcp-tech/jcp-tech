@@ -75,7 +75,7 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
         "user": user,
-        "project_categories": portfolio_data.get("project_categories", [])
+        "project_categories": portfolio_data.get("PROJECT_CATEGORIES", [])
     })
 
 
