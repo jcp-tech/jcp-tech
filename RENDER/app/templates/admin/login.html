@@ -77,8 +77,11 @@
     const auth = getAuth(app);
 
     async function handleAuthResult(user) {
+        console.log("handleAuthResult called for user:", user.email);
         try {
             const idToken = await user.getIdToken();
+            console.log("ID Token obtained (first 10 chars):", idToken.substring(0, 10));
+            
             const response = await fetch('/admin/login', {
                 method: 'POST',
                 headers: {
@@ -87,10 +90,14 @@
                 body: JSON.stringify({ idToken: idToken }),
             });
 
+            console.log("Login response status:", response.status);
+
             if (response.ok) {
+                console.log("Login successful, redirecting to /admin");
                 window.location.href = '/admin';
             } else {
                 const errorText = await response.text();
+                console.error("Login failed with status:", response.status, "Error:", errorText);
                 if (response.status === 403 || response.status === 401) {
                      window.location.href = '/';
                 } else {
@@ -99,7 +106,7 @@
                 }
             }
         } catch (error) {
-            console.error(error);
+            console.error("Error in handleAuthResult:", error);
             document.getElementById('error-message').innerText = error.message;
             document.getElementById('error-message').classList.remove('hidden');
         }

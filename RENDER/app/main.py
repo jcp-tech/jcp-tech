@@ -12,7 +12,7 @@ app.include_router(contact.router)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 
-# app.middleware("http")(mc.add_no_cache_header)
+app.middleware("http")(mc.add_no_cache_header)
 
 templates = Jinja2Templates(directory="app/templates")
 
