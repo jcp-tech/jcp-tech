@@ -1,36 +1,3 @@
-import firebase_admin
-from firebase_admin import credentials, db, firestore
-import os
-import json
-
-# Initialize Firebase Admin SDK ~ Check if app is already initialized to avoid errors during hot reloads
-if not firebase_admin._apps:
-    cred_source = os.environ.get(
-        "FIREBASE_CREDENTIALS", "app/tools/serviceAccountKey.json")
-    print(f"[DEBUG] cred_source type: {type(cred_source)}")
-    if cred_source:
-        print(f"[DEBUG] cred_source starts with: '{cred_source[:10]}...'")
-        print(f"[DEBUG] cred_source length: {len(cred_source)}")
-    db_url = os.environ.get("FIREBASE_DATABASE_URL",
-                            "https://cv-jcp-default-rtdb.firebaseio.com")
-
-    def init_firebase(cred_obj):
-        firebase_admin.initialize_app(cred_obj, {"databaseURL": db_url})
-
-    # Case 1 — FIREBASE_CREDENTIALS contains raw JSON
-    if cred_source.strip().startswith("{"):
-        try:
-            init_firebase(credentials.Certificate(json.loads(cred_source)))
-        except Exception as e:
-            print(f"[Firebase] Invalid JSON in FIREBASE_CREDENTIALS: {e}")
-
-    else:
-        # Case 2 — FIREBASE_CREDENTIALS is a file path
-        possible_paths = [
-            cred_source,
-            "app/tools/serviceAccountKey.json",
-            "tools/serviceAccountKey.json",
-            "serviceAccountKey.json",
         ]
 
         cred_path = next(
