@@ -341,11 +341,15 @@ const switchSkillCategory = (category) => {
     const buttons = document.querySelectorAll('.skill-tab-btn');
     buttons.forEach(btn => {
         if (btn.dataset.category === category) {
-            btn.classList.add('border-b-primary', 'text-primary', 'dark:text-white');
-            btn.classList.remove('border-b-transparent', 'text-gray-500', 'dark:text-white/60', 'hover:text-gray-900', 'dark:hover:text-white');
+            // btn.classList.add('border-b-primary', 'text-primary', 'dark:text-white');
+            // btn.classList.remove('border-b-transparent', 'text-gray-500', 'dark:text-white/60', 'hover:text-gray-900', 'dark:hover:text-white');
+            btn.classList.add('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/25', 'scale-105');
+            btn.classList.remove('bg-gray-100', 'dark:bg-white/5', 'text-gray-600', 'dark:text-white/60', 'hover:bg-gray-200', 'dark:hover:bg-white/10', 'hover:text-gray-900', 'dark:hover:text-white');
         } else {
-            btn.classList.remove('border-b-primary', 'text-primary', 'dark:text-white');
-            btn.classList.add('border-b-transparent', 'text-gray-500', 'dark:text-white/60', 'hover:text-gray-900', 'dark:hover:text-white');
+            // btn.classList.remove('border-b-primary', 'text-primary', 'dark:text-white');
+            // btn.classList.add('border-b-transparent', 'text-gray-500', 'dark:text-white/60', 'hover:text-gray-900', 'dark:hover:text-white');
+            btn.classList.remove('bg-primary', 'text-white', 'shadow-lg', 'shadow-primary/25', 'scale-105');
+            btn.classList.add('bg-gray-100', 'dark:bg-white/5', 'text-gray-600', 'dark:text-white/60', 'hover:bg-gray-200', 'dark:hover:bg-white/10', 'hover:text-gray-900', 'dark:hover:text-white');
         }
     });
 

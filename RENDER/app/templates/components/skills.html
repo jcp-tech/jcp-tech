@@ -10,20 +10,35 @@
   </div>
 
   <!-- Tabs -->
-  <div class="pb-3 overflow-x-auto">
-    <div class="flex min-w-max md:justify-center border-b border-gray-200 dark:border-white/10 px-4 gap-8 mx-auto">
+  <div class="pb-3 overflow-x-auto custom-scrollbar">
+    <style>
+      .custom-scrollbar::-webkit-scrollbar {
+        height: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background-color: rgb(var(--primary-rgb));
+        border-radius: 9999px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(var(--primary-rgb), 0.8);
+      }
+    </style>
+    <div class="flex min-w-max md:justify-center px-4 gap-3 mx-auto">
       {% for category in skill_categories %}
         <button
           onclick="switchSkillCategory('{{ category }}')"
           data-category="{{ category }}"
-          class="skill-tab-btn flex flex-col items-center justify-center border-b-[3px] pb-[13px] pt-4 transition-colors 
+          class="skill-tab-btn rounded-full px-5 py-2 text-sm font-bold transition-all duration-300
           {% if loop.first %}
-            border-b-primary text-primary dark:text-white
+            bg-primary text-white shadow-lg shadow-primary/25 scale-105
           {% else %}
-            border-b-transparent text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white
+            bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-white/60 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white
           {% endif %}"
         >
-          <p class="text-sm font-bold leading-normal tracking-[0.015em] uppercase">{{ category }}</p>
+          {{ category }}
         </button>
       {% endfor %}
     </div>
@@ -36,7 +51,7 @@
       {% for skill in skills_data[category] %}
         <div
           data-skill-category="{{ category }}"
-          class="skill-card group flex flex-col gap-3 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 items-center text-center backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:bg-primary/5 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1 {% if not outer_loop.first %}hidden{% endif %}"
+          class="skill-card group flex flex-col gap-3 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/5 p-6 items-center text-center backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:bg-gradient-to-br hover:from-white hover:to-primary/5 dark:hover:from-white/5 dark:hover:to-primary/10 hover:shadow-xl dark:hover:shadow-glow hover:-translate-y-1 {% if not outer_loop.first %}hidden{% endif %}"
         >
           {% if skill.icon.startswith('devicon-') %}
             <i class="{{ skill.icon }} text-4xl text-primary group-hover:scale-110 transition-transform duration-300"></i>
