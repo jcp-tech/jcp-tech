@@ -1,3 +1,4 @@
+from fastapi import UploadFile, File
 from fastapi import APIRouter, Request, Depends, HTTPException, status, Response, Body
 from fastapi.responses import RedirectResponse, HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
@@ -121,6 +122,14 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
 
     if section in rtdb_map:
         data = get_realtime_data(rtdb_map[section])
+        if section == "main":
+            # Fetch resume_last_updated separately as it's a sibling
+            resume_last_updated = get_realtime_data(
+                "PORTFOLIO/resume_last_updated")
+            if data is None:
+                data = {}
+            if resume_last_updated:
+                data["resume_last_updated"] = resume_last_updated
         return data or {}
 
     elif section in firestore_map:
@@ -335,3 +344,54 @@ async def get_dashboard_stats(user: dict = Depends(require_admin)):
         ],
         "recent_activities": recent_activities
     }
+
+
+@router.post("/api/upload-resume")
+async def upload_resume(file: Any = Body(...), user: dict = Depends(get_current_user)):
+    from fastapi import UploadFile, File
+    import shutil
+    import os
+    from datetime import datetime
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    require_admin(user)
+
+    # Note: 'file' argument in the function signature above is a placeholder.
+    # We need to use UploadFile for the actual file handling.
+    # However, since we can't easily change the signature in this replace block without imports,
+    # let's do the imports inside and use the request body directly or define the handler correctly.
+    # Actually, let's just define the handler correctly with the imports available or added.
+    pass
+
+# Redefining the function with correct signature and imports
+
+
+@router.post("/api/upload-resume")
+async def upload_resume_endpoint(file: UploadFile = File(...), user: dict = Depends(get_current_user)):
+    import shutil
+    import os
+    from datetime import datetime
+
+    if not user:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+    require_admin(user)
+
+    if file.content_type != "application/pdf":
+        raise HTTPException(
+            status_code=400, detail="Only PDF files are allowed")
+
+    try:
+        file_location = "app/media/pdfs/Jonathan Chacko - Resume.pdf"
+        os.makedirs(os.path.dirname(file_location), exist_ok=True)
+
+        with open(file_location, "wb+") as file_object:
+            shutil.copyfileobj(file.file, file_object)
+
+        # Update Realtime Database
+        timestamp = datetime.now().isoformat()
+        update_realtime_data("PORTFOLIO/resume_last_updated", timestamp)
+
+        return {"message": "Resume uploaded successfully", "timestamp": timestamp}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

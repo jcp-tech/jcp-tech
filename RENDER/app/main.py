@@ -16,6 +16,7 @@ app.include_router(admin.router)
 app.include_router(contact.router)
 
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
+app.mount("/media", StaticFiles(directory="app/media"), name="media")
 
 app.middleware("http")(mc.add_no_cache_header)
 
