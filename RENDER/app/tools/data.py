@@ -216,6 +216,8 @@ def get_portfolio_data():
             get_firestore_data('PORTFOLIO/EXPERIENCES'),
             'items'
         ) or []
+        for i, exp in enumerate(data["EXPERIENCES"]):
+            exp["id"] = i
         print("Loaded EXPERIENCES from Firestore")
 
         # EDUCATIONS
