@@ -32,10 +32,12 @@ export function renderNavbarForm(data) {
 }
 
 function generateNavbarItemHtml(item, index) {
+    const isHome = item.href === '#home';
+    
     return `
-        <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">
+        <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group ${isHome ? 'border-blue-500/30' : ''}">
             <!-- Drag Handle -->
-            <div class="drag-handle cursor-move text-gray-500 hover:text-white mt-2">
+            <div class="${isHome ? 'opacity-20 cursor-not-allowed' : 'drag-handle cursor-move text-gray-500 hover:text-white'} mt-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
             </div>
             
@@ -47,26 +49,28 @@ function generateNavbarItemHtml(item, index) {
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Href</label>
-                    <input type="text" data-field="href" value="${item.href || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                    <input type="text" data-field="href" value="${item.href || ''}" ${isHome ? 'readonly disabled' : ''} class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500 ${isHome ? 'opacity-50 cursor-not-allowed' : ''}">
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Template</label>
-                    <input type="text" data-field="template" value="${item.template || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                    <input type="text" data-field="template" value="${item.template || ''}" ${isHome ? 'readonly disabled' : ''} class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500 ${isHome ? 'opacity-50 cursor-not-allowed' : ''}">
                 </div>
                 <div class="flex items-end justify-between">
                     <div class="flex space-x-4">
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" data-field="active" ${item.active ? 'checked' : ''} class="form-checkbox text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                        <label class="flex items-center space-x-2 ${isHome ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}">
+                            <input type="checkbox" data-field="active" ${item.active ? 'checked' : ''} ${isHome ? 'disabled' : ''} class="form-checkbox text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                             <span class="text-sm text-gray-400">Active</span>
                         </label>
-                        <label class="flex items-center space-x-2 cursor-pointer">
-                            <input type="checkbox" data-field="add_to_navbar" ${item.add_to_navbar ? 'checked' : ''} class="form-checkbox text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                        <label class="flex items-center space-x-2 ${isHome ? 'cursor-not-allowed opacity-50' : 'cursor-pointer'}">
+                            <input type="checkbox" data-field="add_to_navbar" ${item.add_to_navbar ? 'checked' : ''} ${isHome ? 'disabled' : ''} class="form-checkbox text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                             <span class="text-sm text-gray-400">Navbar</span>
                         </label>
                     </div>
+                    ${!isHome ? `
                     <button type="button" onclick="this.closest('.group').remove()" class="text-red-500 hover:text-red-400 text-sm">
                         Delete
                     </button>
+                    ` : ''}
                 </div>
             </div>
         </div>
