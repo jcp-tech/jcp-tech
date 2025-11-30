@@ -16,7 +16,7 @@
 
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-9" id="desktop-nav">
-        {% for link in nav_links %}
+        {% for link in navigation_bar %}
           <a
             href="{{ link.href }}"
             onclick="scrollToSection(event, '{{ link.href }}')"

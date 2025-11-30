@@ -54,10 +54,16 @@ function generateNavbarItemHtml(item, index) {
                     <input type="text" data-field="template" value="${item.template || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                 </div>
                 <div class="flex items-end justify-between">
-                    <label class="flex items-center space-x-2 cursor-pointer">
-                        <input type="checkbox" data-field="active" ${item.active ? 'checked' : ''} class="form-checkbox text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
-                        <span class="text-sm text-gray-400">Active</span>
-                    </label>
+                    <div class="flex space-x-4">
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" data-field="active" ${item.active ? 'checked' : ''} class="form-checkbox text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                            <span class="text-sm text-gray-400">Active</span>
+                        </label>
+                        <label class="flex items-center space-x-2 cursor-pointer">
+                            <input type="checkbox" data-field="add_to_navbar" ${item.add_to_navbar ? 'checked' : ''} class="form-checkbox text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                            <span class="text-sm text-gray-400">Navbar</span>
+                        </label>
+                    </div>
                     <button type="button" onclick="this.closest('.group').remove()" class="text-red-500 hover:text-red-400 text-sm">
                         Delete
                     </button>
@@ -69,7 +75,7 @@ function generateNavbarItemHtml(item, index) {
 
 export function addNavbarItem() {
     const container = document.getElementById('navbar-items');
-    const newItem = { name: 'New Item', href: '#', template: '', active: false };
+    const newItem = { name: 'New Item', href: '#', template: '', active: false, add_to_navbar: false };
     const html = generateNavbarItemHtml(newItem, container.children.length);
     container.insertAdjacentHTML('beforeend', html);
 }

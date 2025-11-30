@@ -142,6 +142,7 @@ def get_portfolio_data():
         "COLOR_CONFIG": {},
         "SYNTAX_COLORS": {},
         "NAV_LINKS": [],
+        "NAV_BAR": [],
         "LIVE_ACTIVITIES_HTML_COMPONENTS": [],
         "PROJECTS": [],
         "SKILLS_DATA": {},
@@ -177,11 +178,15 @@ def get_portfolio_data():
         else:
             print("Failed to load SYNTAX_COLORS_RAW from Realtime DB")
 
-        master_navbar = get_realtime_data('PORTFOLIO/NAVBAR')
+        all_navbar = get_realtime_data('PORTFOLIO/NAVBAR')
+        if all_navbar:
+            master_navbar = [link for link in all_navbar if link.get('active')]
+            data["NAV_LINKS"] = master_navbar
+        else:
+            master_navbar = []
         if master_navbar:
             print("Loaded MASTER_NAVBAR from Realtime DB")
-            data["NAV_LINKS"] = [
-                link for link in master_navbar if link.get('active')]
+            data["NAV_BAR"] = [link for link in master_navbar if link.get('add_to_navbar')]
         else:
             print("Failed to load MASTER_NAVBAR from Realtime DB")
 

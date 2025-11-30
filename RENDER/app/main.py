@@ -35,6 +35,7 @@ async def read_root(request: Request):
     context = {
         "request": request,
         "nav_links": portfolio_data.get("NAV_LINKS", []),
+        "navigation_bar": portfolio_data.get("NAV_BAR", []),
         "live_activities": portfolio_data.get("LIVE_ACTIVITIES_HTML_COMPONENTS", []),
         "projects": portfolio_data.get("PROJECTS", []),
         "skill_categories": portfolio_data.get("SKILL_CATEGORIES", []),
