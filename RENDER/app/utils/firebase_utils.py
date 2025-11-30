@@ -5,8 +5,14 @@ import json
 
 # Initialize Firebase Admin SDK ~ Check if app is already initialized to avoid errors during hot reloads
 if not firebase_admin._apps:
-    cred_source = os.environ.get("FIREBASE_CREDENTIALS", "app/tools/serviceAccountKey.json")
-    db_url = os.environ.get("FIREBASE_DATABASE_URL", "https://cv-jcp-default-rtdb.firebaseio.com")
+    cred_source = os.environ.get(
+        "FIREBASE_CREDENTIALS", "app/tools/serviceAccountKey.json")
+    print(f"[DEBUG] cred_source type: {type(cred_source)}")
+    if cred_source:
+        print(f"[DEBUG] cred_source starts with: '{cred_source[:10]}...'")
+        print(f"[DEBUG] cred_source length: {len(cred_source)}")
+    db_url = os.environ.get("FIREBASE_DATABASE_URL",
+                            "https://cv-jcp-default-rtdb.firebaseio.com")
 
     def init_firebase(cred_obj):
         firebase_admin.initialize_app(cred_obj, {"databaseURL": db_url})
@@ -27,15 +33,18 @@ if not firebase_admin._apps:
             "serviceAccountKey.json",
         ]
 
-        cred_path = next((p for p in possible_paths if os.path.exists(p)), None)
+        cred_path = next(
+            (p for p in possible_paths if os.path.exists(p)), None)
 
         if cred_path:
             try:
                 init_firebase(credentials.Certificate(cred_path))
             except Exception as e:
-                print(f"[Firebase] Failed to initialize with file '{cred_path}': {e}")
+                print(
+                    f"[Firebase] Failed to initialize with file '{cred_path}': {e}")
         else:
             print("[Firebase] No valid service account file found. Firebase disabled.")
+
 
 def get_realtime_data(path):
     """Fetch data from Realtime Database."""
