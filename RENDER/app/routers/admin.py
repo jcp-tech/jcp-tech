@@ -53,7 +53,10 @@ async def login(request: Request, login_request: LoginRequest):
 @router.get("", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, user: dict = Depends(get_current_user)):
     if not user:
-        return RedirectResponse(url="/admin/login?error=session_missing_or_invalid", status_code=302)
+        # DEBUG: Check if cookie exists to distinguish error
+        cookie = request.cookies.get("session")
+        error_code = "session_missing" if not cookie else "session_invalid"
+        return RedirectResponse(url=f"/admin/login?error={error_code}", status_code=302)
 
     # Check permissions (will raise 403 if not allowed)
     try:
