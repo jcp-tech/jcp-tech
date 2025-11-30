@@ -51,6 +51,12 @@ jobs:
           docker push "${DOCKER_TAG}"
           echo "IMAGE_URL=${DOCKER_TAG}" >> $GITHUB_ENV
 
+      - name: Debug Secret
+        run: |
+          echo "FIREBASE_CREDENTIALS length: ${#FIREBASE_CREDENTIALS}"
+        env:
+          FIREBASE_CREDENTIALS: ${{ secrets.FIREBASE_CREDENTIALS }}
+
       - name: Deploy to Cloud Run
         uses: google-github-actions/deploy-cloudrun@v2
         with:
