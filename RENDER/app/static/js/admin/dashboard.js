@@ -130,6 +130,8 @@ async function saveData(section, payload, button = null, originalText = null) {
         let url = `/admin/api/data/${section}`;
         if (section === 'socials') {
             url = `/admin/api/data/social_pills`;
+        } else if (section === 'profile') {
+            url = `/admin/api/data/main`;
         }
 
         const response = await fetch(url, {

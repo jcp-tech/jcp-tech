@@ -16,13 +16,16 @@
             </p>
             <div class="flex gap-4 mt-4">
                  <!-- Social Placeholders -->
-                 <a href="mailto:jonathanchacko1805@gmail.com" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
+                 {% if PRIMARY_EMAIL %}
+                 <a href="mailto:{{ PRIMARY_EMAIL }}" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
                     <span class="material-symbols-outlined text-sm">mail</span>
                  </a>
-                 <a href="https://linkedin.com/in/jcp-tech" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
+                 {% endif %}
+                 {% if PRIMARY_LINKEDIN %}
+                 <a href="{{ PRIMARY_LINKEDIN }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
                     <span class="material-symbols-outlined text-sm">link</span>
                  </a>
-                 <!-- NOTE: Make this Retreive from Firebase. -->
+                 {% endif %}
             </div>
         </div>
         

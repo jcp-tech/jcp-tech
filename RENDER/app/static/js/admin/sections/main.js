@@ -7,6 +7,28 @@ export function renderMainForm(data) {
                 <label class="block text-sm font-medium text-gray-400 mb-2">Full Name</label>
                 <input type="text" name="FULL_NAME" value="${data.FULL_NAME || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500">
             </div>
+
+            <div class="border-t border-gray-700 pt-6 mt-6">
+                <h3 class="text-lg font-bold text-white mb-4">Contact Information</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Primary Phone Number</label>
+                        <input type="text" name="PRIMARY_PHONE" value="${data.PRIMARY_PHONE || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Primary Email ID</label>
+                        <input type="email" name="PRIMARY_EMAIL" value="${data.PRIMARY_EMAIL || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Primary LinkedIn</label>
+                        <input type="url" name="PRIMARY_LINKEDIN" value="${data.PRIMARY_LINKEDIN || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Primary GitHub</label>
+                        <input type="url" name="PRIMARY_GITHUB" value="${data.PRIMARY_GITHUB || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-4 py-2 text-white focus:outline-none focus:border-blue-500">
+                    </div>
+                </div>
+            </div>
             <div>
                 <label class="block text-sm font-medium text-gray-400 mb-2">Profile Icon URL</label>
                 <div class="flex space-x-6 items-start">
