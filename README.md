@@ -238,3 +238,13 @@ Check
 Check this Also
 [![Readme Card](https://github-readme-stats-teal-six-35.vercel.app/api/pin/?username=jcp-tech&repo=smooth-ocean.ai)](https://github.com/jcp-tech/smooth-ocean.ai)
 -->
+
+## 📄 License
+<!--
+This project is licensed under the **Business Source License 1.1**.
+
+- **Free Use**: You may use this software for personal, research, educational, or internal business purposes.
+- **Commercial Restriction**: You may **NOT** use the **FastAPI Portfolio System** (specifically for **BUT NOT LIMITED to** the contents of the [`RENDER`](https://github.com/jcp-tech/jcp-tech/tree/main/RENDER) directory) for commercial offerings, including resale, SaaS, or subscription products, without a separate commercial license.
+- **Retroactive**: This license applies to all past, present, and future versions.
+-->
+See the [LICENSE](LICENSE) file for full details.
