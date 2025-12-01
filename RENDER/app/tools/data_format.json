@@ -6,6 +6,7 @@
                     "bg-rgb": "color-hex-goes-here",
                     "border-color": "color-hex-goes-here",
                     "card-bg-rgb": "color-hex-goes-here",
+                    "nav-bar-rgb": "color-hex-goes-here",
                     "primary-rgb": "color-hex-goes-here",
                     "text-main": "color-hex-goes-here",
                     "text-muted": "color-hex-goes-here"
@@ -14,6 +15,7 @@
                     "bg-rgb": "color-hex-goes-here",
                     "border-color": "color-hex-goes-here",
                     "card-bg-rgb": "color-hex-goes-here",
+                    "nav-bar-rgb": "#fcfdfe",
                     "primary-rgb": "color-hex-goes-here",
                     "text-main": "color-hex-goes-here",
                     "text-muted": "color-hex-goes-here"
@@ -21,6 +23,10 @@
             },
             "MAIN": {
                 "FULL_NAME": "full-name-goes-here",
+                "PRIMARY_EMAIL": "primary-email-goes-here",
+                "PRIMARY_GITHUB": "primary-github-url-goes-here",
+                "PRIMARY_LINKEDIN": "primary-linkedin-url-goes-here",
+                "PRIMARY_PHONE": "primary-phone-goes-here",
                 "PROFILE_ICON_FLAG": true, // true to enable profile icon, false to disable
                 "PROFILE_ICON_URL": "profile-icon-url-goes-here"
             },
@@ -72,46 +78,46 @@
             "ACHIEVEMENTS": {
                 "items": [
                     {
-                        "date": "date-goes-here",
-                        "title": "title-goes-here",
+                        "link": "link-goes-here",
                         "description": "description-goes-here",
+                        "date": "date-goes-here",
                         "icon": "icon-goes-here",
-                        "link": "link-goes-here"
+                        "title": "title-goes-here"
                     }
                 ]
             },
             "CERTIFICATIONS": {
                 "items": [
                     {
-                        "name": "name-goes-here",
-                        "issuer": "issuer-goes-here"
+                        "issuer": "issuer-goes-here",
+                        "name": "name-goes-here"
                     }
                 ]
             },
             "EDUCATIONS": {
                 "items": [
                     {
-                        "location": "location-goes-here",
-                        "current": false, // true to Marke the Education as Current, false to not
-                        "year": "year-goes-here",
                         "school": "school-goes-here",
-                        "degree": "degree-goes-here"
+                        "location": "location-goes-here",
+                        "degree": "degree-goes-here",
+                        "current": false, // true to Marke the Education as Current, false to not
+                        "year": "year-goes-here"
                     }
                 ]
             },
             "EXPERIENCES": {
                 "items": [
                     {
+                        "company": "company-name-goes-here",
                         "roles": [
                             {
-                                "period": "duration-goes-here",
                                 "title": "title-goes-here",
                                 "points": [
                                     "description-points-goes-here"
-                                ]
+                                ],
+                                "period": "duration-goes-here"
                             }
                         ],
-                        "company": "company-name-goes-here",
                         "current": true // true to Marke the Company as Current, false to not
                     }
                 ]
@@ -141,8 +147,8 @@
             "SKILLS": {
                 "items": [
                     {
-                        "category": "user-defined-category-goes-here",
                         "featured": true, // true to Feature the Skill, false to not
+                        "category": "user-defined-category-goes-here",
                         "icon": "devicon-name-goes-here",
                         "name": "skills-goes-here"
                     }
@@ -151,10 +157,10 @@
             "SOCIAL_PILLS": {
                 "items": [
                     {
-                        "name": "name-goes-here",
+                        "link": "link-goes-here",
                         "svg_icon": "svg-icon-tag-data-goes-here",
                         "active": true, // true to Keep the Element, false to Remove the Element
-                        "link": "link-goes-here"
+                        "name": "name-goes-here"
                     }
                 ]
             }
