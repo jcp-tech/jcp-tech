@@ -1,146 +1,158 @@
-
 <div id="home" class="pt-28 md:pt-36 w-full mb-10">
-  <div class="grid grid-cols-1 lg:grid-cols-[60%_1fr] gap-12 lg:gap-8 items-stretch">
-    
+  <div
+    class="grid grid-cols-1 lg:grid-cols-[60%_1fr] gap-12 lg:gap-8 items-stretch"
+  >
     <!-- Left Panel: Content Source for Height -->
     <div class="flex flex-col gap-8 relative z-10">
-      
       <!-- Interactive Python Editor Card -->
-      <div class="relative rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#1e1e1e] shadow-2xl overflow-hidden group transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,244,244,0.1)]">
-        
+      <div
+        class="relative rounded-xl border border-white/10 bg-[#1e1e1e] shadow-2xl overflow-hidden group transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,244,244,0.1)]"
+      >
         <!-- Editor Header -->
-        <div class="flex items-center justify-between px-4 py-3 border-b border-gray-200 dark:border-white/5 bg-gray-50 dark:bg-[#252526]">
-             <div class="flex items-center gap-2">
-                 <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm"></div>
-                 <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-sm"></div>
-                 <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm"></div>
-             </div>
-             <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 opacity-70">
-                <span class="material-symbols-outlined text-[16px] text-blue-400">code</span>
-                <span class="text-xs text-gray-500 dark:text-gray-400 font-mono tracking-wide">developer_profile.py</span>
-             </div>
-             
-             <!-- Run Button -->
-             <button 
-                id="run-code-btn"
-                onclick="runCode()"
-                class="flex items-center gap-1.5 px-3 py-1 rounded-md transition-all duration-300 bg-green-500/10 text-green-600 dark:text-green-400 hover:bg-green-500/20 hover:shadow-[0_0_10px_rgba(74,222,128,0.3)] cursor-pointer"
-                title="Execute Python"
-             >
-                <span class="material-symbols-outlined text-[18px]" id="run-icon">play_arrow</span>
-                <span class="text-xs font-bold font-mono uppercase tracking-wider" id="run-text">Run</span>
-             </button>
-        </div>
-        
-        <!-- Editor Body -->
-        <div class="relative p-0 overflow-x-auto bg-white dark:bg-[#1e1e1e] min-h-[350px]">
-            <style>
-                /* Custom Syntax Highlighting using Master Color Dict */
-                .code-content .c, .code-content .c1, .code-content .cm { color: {{ syntax_colors.comments }}; } /* Comment */
-                .code-content .k { color: {{ syntax_colors.keywords }}; } /* Keyword */
-                .code-content .kd { color: {{ syntax_colors.keywords }}; } /* Declaration */
-                .code-content .kc { color: {{ syntax_colors.control_keywords }}; } /* Control Flow */
-                .code-content .kn { color: {{ syntax_colors.control_keywords }}; } /* Namespace */
-                .code-content .kp { color: {{ syntax_colors.keywords }}; } /* Pseudo */
-                
-                .code-content .nc { color: {{ syntax_colors.class_names }}; } /* Class Name */
-                .code-content .nf { color: {{ syntax_colors.functions }}; } /* Function Name */
-                .code-content .fm { color: {{ syntax_colors.functions }}; } /* Magic Function */
-                
-                .code-content .bp { color: {{ syntax_colors.variables }}; } /* Builtin/Self */
-                .code-content .vm { color: {{ syntax_colors.variables }}; } /* Magic Variable */
-                .code-content .n { color: {{ syntax_colors.variables }}; } /* Name/Property */
-                
-                .code-content .s, .code-content .s1, .code-content .s2 { color: {{ syntax_colors.strings }}; } /* String */
-                .code-content .sa { color: {{ syntax_colors.fstrings_rstrings }}; } /* String Affix */
-                .code-content .si { color: {{ syntax_colors.fstrings_rstrings }}; } /* String Interpolation */
-                .code-content .se { color: {{ syntax_colors.string_escapes }}; } /* String Escape */
-                
-                .code-content .nb { color: {{ syntax_colors.builtins_functions }}; } /* Builtin Function */
-                .code-content .o { color: {{ syntax_colors.operators_punctuation }}; } /* Operator */
-                .code-content .p { color: {{ syntax_colors.operators_punctuation }}; } /* Punctuation */
-                .code-content .pb { color: {{ syntax_colors.function_brackets }}; } /* Brackets () [] {} */
-                
-                .code-content .nd { color: {{ syntax_colors.decorators }}; } /* Decorator */
-                .code-content .nn { color: {{ syntax_colors.module_names }}; } /* Module Name */
-                .code-content .m, .code-content .mi, .code-content .mf { color: {{ syntax_colors.numbers }}; } /* Number */
-                .code-content .err { color: {{ syntax_colors.errors }}; } /* Error */
+        <div
+          class="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-[#252526]"
+        >
+          <div class="flex items-center gap-2">
+            <div class="w-3 h-3 rounded-full bg-[#ff5f56] shadow-sm"></div>
+            <div class="w-3 h-3 rounded-full bg-[#ffbd2e] shadow-sm"></div>
+            <div class="w-3 h-3 rounded-full bg-[#27c93f] shadow-sm"></div>
+          </div>
+          <div
+            class="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2 opacity-70"
+          >
+            <span class="material-symbols-outlined text-[16px] text-blue-400"
+              >code</span
+            >
+            <span class="text-xs text-gray-400 font-mono tracking-wide"
+              >developer_profile.py</span
+            >
+          </div>
 
-                /* Dark Mode Overrides - Using the same colors as requested */
-                .dark .code-content .c, .dark .code-content .c1, .dark .code-content .cm { color: {{ syntax_colors.comments }}; }
-                .dark .code-content .k { color: {{ syntax_colors.keywords }}; }
-                .dark .code-content .kd { color: {{ syntax_colors.keywords }}; }
-                .dark .code-content .kc { color: {{ syntax_colors.control_keywords }}; }
-                .dark .code-content .kn { color: {{ syntax_colors.control_keywords }}; }
-                .dark .code-content .kp { color: {{ syntax_colors.keywords }}; }
-                .dark .code-content .nc { color: {{ syntax_colors.class_names }}; }
-                .dark .code-content .nf { color: {{ syntax_colors.functions }}; }
-                .dark .code-content .fm { color: {{ syntax_colors.functions }}; }
-                .dark .code-content .bp { color: {{ syntax_colors.variables }}; }
-                .dark .code-content .vm { color: {{ syntax_colors.variables }}; }
-                .dark .code-content .n { color: {{ syntax_colors.variables }}; }
-                .dark .code-content .s, .dark .code-content .s1, .dark .code-content .s2 { color: {{ syntax_colors.strings }}; }
-                .dark .code-content .sa { color: {{ syntax_colors.fstrings_rstrings }}; }
-                .dark .code-content .si { color: {{ syntax_colors.fstrings_rstrings }}; }
-                .dark .code-content .se { color: {{ syntax_colors.string_escapes }}; }
-                .dark .code-content .nb { color: {{ syntax_colors.builtins_functions }}; }
-                .dark .code-content .o { color: {{ syntax_colors.operators_punctuation }}; }
-                .dark .code-content .p { color: {{ syntax_colors.operators_punctuation }}; }
-                .dark .code-content .pb { color: {{ syntax_colors.function_brackets }}; }
-                .dark .code-content .nd { color: {{ syntax_colors.decorators }}; }
-                .dark .code-content .nn { color: {{ syntax_colors.module_names }}; }
-                .dark .code-content .m, .dark .code-content .mi, .dark .code-content .mf { color: {{ syntax_colors.numbers }}; }
-                .dark .code-content .err { color: {{ syntax_colors.errors }}; }
-            </style>
-            <div class="flex font-mono text-sm sm:text-base leading-relaxed">
-                <!-- Line Numbers -->
-                <div class="flex flex-col items-end px-3 py-6 bg-gray-50 dark:bg-[#1e1e1e] text-gray-300 dark:text-[#858585] select-none border-r border-gray-100 dark:border-white/5 min-w-[3rem]">
-                    {% for n in range(1, line_count + 1) %}
-                        <div class="h-[24px]">{{ n }}</div>
-                    {% endfor %}
-                </div>
-                
-                <!-- Code Content -->
-                <pre class="flex-1 p-6 text-gray-800 dark:text-[#d4d4d4] code-content" style="line-height: 24px;"><code>{{ code_base | safe }}</code></pre>
+          <!-- Run Button -->
+          <button
+            id="run-code-btn"
+            onclick="runCode()"
+            class="flex items-center gap-1.5 px-3 py-1 rounded-md transition-all duration-300 bg-green-500/10 text-green-400 hover:bg-green-500/20 hover:shadow-[0_0_10px_rgba(74,222,128,0.3)] cursor-pointer"
+            title="Execute Python"
+          >
+            <span class="material-symbols-outlined text-[18px]" id="run-icon"
+              >play_arrow</span
+            >
+            <span
+              class="text-xs font-bold font-mono uppercase tracking-wider"
+              id="run-text"
+              >Run</span
+            >
+          </button>
+        </div>
+
+        <!-- Editor Body -->
+        <div class="relative p-0 overflow-x-auto bg-[#1e1e1e] min-h-[350px]">
+          <style>
+            /* Custom Syntax Highlighting - Always Dark Mode */
+            .code-content .c, .code-content .c1, .code-content .cm { color: {{ syntax_colors.comments }}; }
+            .code-content .k { color: {{ syntax_colors.keywords }}; }
+            .code-content .kd { color: {{ syntax_colors.keywords }}; }
+            .code-content .kc { color: {{ syntax_colors.control_keywords }}; }
+            .code-content .kn { color: {{ syntax_colors.control_keywords }}; }
+            .code-content .kp { color: {{ syntax_colors.keywords }}; }
+            .code-content .nc { color: {{ syntax_colors.class_names }}; }
+            .code-content .nf { color: {{ syntax_colors.functions }}; }
+            .code-content .fm { color: {{ syntax_colors.functions }}; }
+            .code-content .bp { color: {{ syntax_colors.variables }}; }
+            .code-content .vm { color: {{ syntax_colors.variables }}; }
+            .code-content .n { color: {{ syntax_colors.variables }}; }
+            .code-content .s, .code-content .s1, .code-content .s2 { color: {{ syntax_colors.strings }}; }
+            .code-content .sa { color: {{ syntax_colors.fstrings_rstrings }}; }
+            .code-content .si { color: {{ syntax_colors.fstrings_rstrings }}; }
+            .code-content .se { color: {{ syntax_colors.string_escapes }}; }
+            .code-content .nb { color: {{ syntax_colors.builtins_functions }}; }
+            .code-content .o { color: {{ syntax_colors.operators_punctuation }}; }
+            .code-content .p { color: {{ syntax_colors.operators_punctuation }}; }
+            .code-content .pb { color: {{ syntax_colors.function_brackets }}; }
+            .code-content .nd { color: {{ syntax_colors.decorators }}; }
+            .code-content .nn { color: {{ syntax_colors.module_names }}; }
+            .code-content .m, .code-content .mi, .code-content .mf { color: {{ syntax_colors.numbers }}; }
+            .code-content .err { color: {{ syntax_colors.errors }}; }
+          </style>
+          <div class="flex font-mono text-sm sm:text-base leading-relaxed">
+            <!-- Line Numbers -->
+            <div
+              class="flex flex-col items-end px-3 py-6 bg-[#1e1e1e] text-[#858585] select-none border-r border-white/5 min-w-[3rem]"
+            >
+              {% for n in range(1, line_count + 1) %}
+              <div class="h-[24px]">{{ n }}</div>
+              {% endfor %}
             </div>
+
+            <!-- Code Content -->
+            <pre
+              class="flex-1 p-6 text-[#d4d4d4] code-content"
+              style="line-height: 24px"
+            ><code>{{ code_base | safe }}</code></pre>
+          </div>
         </div>
 
         <!-- Terminal Popup Overlay -->
-        <div id="terminal-overlay" class="hidden absolute inset-0 bg-black/95 backdrop-blur-sm z-20 flex flex-col p-4 animate-in fade-in slide-in-from-bottom-4 duration-300 rounded-xl">
-            <div class="flex justify-between items-center mb-4 border-b border-white/10 pb-2">
-                <span class="text-xs font-mono text-gray-400">TERMINAL Output</span>
-                <button onclick="closeTerminal()" class="text-gray-400 hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-[18px]">close</span>
-                </button>
-            </div>
-            <div id="terminal-content" class="font-mono text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar text-green-400 whitespace-pre-wrap"></div>
-            <!-- Hidden data for JS to read -->
-            <script id="terminal-data" type="text/plain">{{ terminal_output | safe }}</script>
+        <div
+          id="terminal-overlay"
+          class="hidden absolute inset-0 bg-black/95 backdrop-blur-sm z-20 flex flex-col p-4 animate-in fade-in slide-in-from-bottom-4 duration-300 rounded-xl"
+        >
+          <div
+            class="flex justify-between items-center mb-4 border-b border-white/10 pb-2"
+          >
+            <span class="text-xs font-mono text-gray-400">TERMINAL Output</span>
+            <button
+              onclick="closeTerminal()"
+              class="text-gray-400 hover:text-white transition-colors"
+            >
+              <span class="material-symbols-outlined text-[18px]">close</span>
+            </button>
+          </div>
+          <div
+            id="terminal-content"
+            class="font-mono text-sm sm:text-base leading-relaxed overflow-y-auto custom-scrollbar text-green-400 whitespace-pre-wrap"
+          ></div>
+          <!-- Hidden data for JS to read -->
+          <script id="terminal-data" type="text/plain">
+{{ terminal_output | safe }}
+          </script>
         </div>
       </div>
 
       <!-- Social Pills -->
       <div class="flex flex-wrap gap-4">
-        {% for pill in SOCIAL_PILLS %}
-          {% if pill.active %}
-          <a 
-            href="{{ pill.link }}" 
-            {% if pill.name != 'Gmail' %}target="_blank" rel="noopener noreferrer"{% endif %}
-            class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 transition-all duration-300 group shadow-sm"
+        {% for pill in SOCIAL_PILLS %} {% if pill.active %}
+        <a
+          href="{{ pill.link }}"
+          {%
+          if
+          pill.name
+          !="Gmail"
+          %}target="_blank"
+          rel="noopener noreferrer"
+          {%
+          endif
+          %}
+          class="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 hover:bg-gray-50 dark:hover:bg-white/10 transition-all duration-300 group shadow-sm"
+        >
+          {{ pill.svg_icon | safe }}
+          <span
+            class="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-black dark:group-hover:text-white"
+            >{{ pill.name }}</span
           >
-              {{ pill.svg_icon | safe }}
-              <span class="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-black dark:group-hover:text-white">{{ pill.name }}</span>
-          </a>
-          {% endif %}
-        {% endfor %}
+        </a>
+        {% endif %} {% endfor %}
       </div>
     </div>
 
     <!-- Right Panel: Dashboard Widgets -->
     <div class="relative w-full lg:h-full">
-         <div class="lg:absolute lg:inset-0 lg:overflow-y-auto pr-2 custom-scrollbar pb-1">
-            {% include "components/dashboard_widgets.html" ignore missing %}
-         </div>
+      <div
+        class="lg:absolute lg:inset-0 lg:overflow-y-auto pr-2 custom-scrollbar pb-1"
+      >
+        {% include "components/dashboard_widgets.html" ignore missing %}
+      </div>
     </div>
   </div>
 </div>
