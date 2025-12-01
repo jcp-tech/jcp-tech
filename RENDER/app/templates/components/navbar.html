@@ -1,7 +1,7 @@
 
 <header class="fixed top-0 left-0 right-0 z-50 pt-5 pb-2 px-4 sm:px-8 md:px-16 lg:px-24 xl:px-40 flex justify-center pointer-events-none">
   <div class="w-full max-w-[1280px] pointer-events-auto">
-    <div class="flex items-center justify-between whitespace-nowrap border border-solid border-gray-200 dark:border-white/10 px-6 py-3 rounded-xl backdrop-blur-md bg-white/80 dark:bg-[#101018]/80 shadow-lg transition-all duration-300">
+    <div class="flex items-center justify-between whitespace-nowrap border border-solid border-gray-200 dark:border-white/10 px-6 py-3 rounded-xl backdrop-blur-md bg-[rgba(var(--nav-bar-rgb),0.8)] shadow-lg transition-all duration-300">
       <!-- Logo / Avatar -->
       <div class="flex items-center gap-3 cursor-pointer" onclick="scrollToSection(event, '#home')">
         {% if PROFILE_ICON_FLAG %}
@@ -54,7 +54,7 @@
 
     <!-- Mobile Nav -->
     <div id="mobile-menu" class="hidden absolute top-full left-0 right-0 mt-2 px-4 md:hidden pointer-events-auto">
-        <div class="flex flex-col gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white/95 dark:bg-[#101018]/95 backdrop-blur-xl p-6 shadow-xl">
+        <div class="flex flex-col gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-[rgba(var(--nav-bar-rgb),0.95)] backdrop-blur-xl p-6 shadow-xl">
             {% for link in nav_links %}
                 <a
                 href="{{ link.href }}"
