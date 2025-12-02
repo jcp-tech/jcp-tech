@@ -17,28 +17,54 @@ def extract_list(doc_data, key='items'):
 
 def to_rgba_string(color, hex=False):
     """Convert hex, rgb string, or (r,g,b[,a]) tuple into:
-       - 'R G B A' (default, A ∈ [0–1])
-       - '#RRGGBBAA' if hex=True
+       - 'R G B' (if alpha=1 and hex=False)
+       - 'R G B / A' (if alpha<1 and hex=False)
+       - '#RRGGBB' (if alpha=1 and hex=True)
+       - '#RRGGBBAA' (if alpha<1 and hex=True)
     """
-
     import re
 
     def to_hex(r, g, b, a=255):
+        if a == 255:
+            return "#{:02X}{:02X}{:02X}".format(r, g, b)
         return "#{:02X}{:02X}{:02X}{:02X}".format(r, g, b, a)
 
-    def normalize_alpha(a):
-        """Alpha can be 0–255 or 0–1 float → return 0–255."""
-        if isinstance(a, float) and 0 <= a <= 1:
+    def normalize_alpha_int(a):
+        """Ensure alpha is 0-255 int."""
+        if isinstance(a, float) and 0 <= a <= 1.0:
             return int(a * 255)
         return int(a)
 
-    def rgba_output(r, g, b, a):
+    def normalize_alpha_float(a):
+        """Ensure alpha is 0-1 float."""
+        if isinstance(a, int) and a > 1:
+            return round(a / 255, 3)
+        return round(float(a), 3)
+
+    def output(r, g, b, a_val):
         """Return correct output depending on hex flag."""
-        if hex:
-            return to_hex(r, g, b, normalize_alpha(a))
+        # a_val can be int (0-255) or float (0-1) depending on source
+        # Normalize for output
+
+        # For Hex, we need 0-255 int
+        if isinstance(a_val, float) and a_val <= 1.0:
+            a_int = int(a_val * 255)
         else:
-            # NO slash, safe for HTML/CSS variables
-            return f"{r} {g} {b} {round(a, 3)}"
+            a_int = int(a_val)
+
+        if hex:
+            return to_hex(r, g, b, a_int)
+
+        # For RGB string, we need 0-1 float for alpha
+        if isinstance(a_val, int) and a_val > 1:
+            a_float = round(a_val / 255, 3)
+        else:
+            a_float = round(float(a_val), 3)
+
+        if a_float >= 1.0:
+            return f"{r} {g} {b}"
+        else:
+            return f"{r} {g} {b} / {a_float}"
 
     # -------------------------------------------------------------
     # 1. HEX INPUT
@@ -54,15 +80,14 @@ def to_rgba_string(color, hex=False):
             r = int(hex_val[0:2], 16)
             g = int(hex_val[2:4], 16)
             b = int(hex_val[4:6], 16)
-            a = 1.0
-            return rgba_output(r, g, b, a)
+            return output(r, g, b, 255)
 
         if len(hex_val) == 8:
             r = int(hex_val[0:2], 16)
             g = int(hex_val[2:4], 16)
             b = int(hex_val[4:6], 16)
-            a = int(hex_val[6:8], 16) / 255
-            return rgba_output(r, g, b, a)
+            a = int(hex_val[6:8], 16)
+            return output(r, g, b, a)
 
         raise ValueError(f"Invalid hex color: {color}")
 
@@ -74,13 +99,12 @@ def to_rgba_string(color, hex=False):
 
         if len(nums) == 3:  # rgb
             r, g, b = map(int, nums)
-            a = 1.0
-            return rgba_output(r, g, b, a)
+            return output(r, g, b, 255)
 
         if len(nums) == 4:  # rgba
             r, g, b = map(int, nums[:3])
             a = float(nums[3])
-            return rgba_output(r, g, b, a)
+            return output(r, g, b, a)
 
     # -------------------------------------------------------------
     # 3. TUPLE INPUT (r,g,b) or (r,g,b,a)
@@ -88,26 +112,32 @@ def to_rgba_string(color, hex=False):
     if isinstance(color, tuple):
         if len(color) == 3:
             r, g, b = color
-            a = 1.0
-            return rgba_output(r, g, b, a)
+            return output(r, g, b, 255)
 
         if len(color) == 4:
             r, g, b, a = color
-            a = a if isinstance(a, float) else (a / 255)
-            return rgba_output(r, g, b, a)
+            return output(r, g, b, a)
 
     raise ValueError(f"Invalid color format: {color}")
 
 
 def normalize_color_config(config, hex=False):
-    """Convert all VALUES in the config to 'R G B' format."""
+    """Convert config values.
+       - If key ends in 'rgb' or 'RGB': convert to 'R G B' (space separated components).
+       - Otherwise: convert to '#RRGGBB' or '#RRGGBBAA' (Hex string).
+    """
 
     new_config = {}
 
     for mode, values in config.items():
         new_config[mode] = {}
         for key, color in values.items():
-            new_config[mode][key] = to_rgba_string(color, hex)
+            # Heuristic: keys ending in 'rgb' are used in rgb() wrappers
+            if key.lower().endswith('rgb'):
+                new_config[mode][key] = to_rgba_string(color, hex=False)
+            else:
+                # Others are used directly (e.g. text-main, bg-primary) -> Force Hex
+                new_config[mode][key] = to_rgba_string(color, hex=True)
 
     return new_config
 
