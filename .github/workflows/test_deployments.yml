@@ -127,19 +127,22 @@ jobs:
           cd ..
           firebase deploy --only hosting:test --project cv-jcp
 
-      - name: Create Pull Request
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh pr create --base main --head master --title "Merge master to main" --body "Automated PR after successful test deployment to ${{ steps.deploy.outputs.url }}" || echo "PR might already exist or failed"
-
   cleanup:
     needs: [lint, test, deploy]
-    if: failure()
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Create Pull Request on Success
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr create --base main --head master --title "Merge master to main" --body "Automated PR after successful test deployment." || echo "PR might already exist or failed"
+
       - name: Close Pull Request on Failure
+        if: failure()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
