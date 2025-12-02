@@ -1,16 +1,34 @@
 {
-  "hosting": {
-    "site": "jcp-tech",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [{
+  "hosting": [
+    {
+      "target": "prod",
+      "site": "jcp-tech",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [{
         "source": "**",
         "run": {
           "serviceId": "portfolio"
         }
-    }]
-  }
+      }]
+    },
+    {
+      "target": "test",
+      "site": "cv-jonathan-chacko-1805",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [{
+        "source": "**",
+        "run": {
+          "serviceId": "project-test"
+        }
+      }]
+    }
+  ]
 }
