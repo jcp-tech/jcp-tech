@@ -11,17 +11,13 @@ app = FastAPI()
 
 # Trust X-Forwarded-Host headers from Firebase Hosting/Cloud Run
 app.add_middleware(ProxyHeadersMiddleware, trusted_hosts="*")
-
 app.include_router(admin.router)
 app.include_router(contact.router)
-
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.mount("/media", StaticFiles(directory="app/media"), name="media")
-
 app.middleware("http")(mc.add_no_cache_header)
 
 templates = Jinja2Templates(directory="app/templates")
-
 
 @app.get("/")
 async def read_root(request: Request):
@@ -57,7 +53,6 @@ async def read_root(request: Request):
     context.update(portfolio_data.get("MASTER_MAIN", {}))
     return templates.TemplateResponse("index.html", context)
 
-
 @app.get("/health")
 @app.get("/health/")
 async def health_check(response: Response):
@@ -77,3 +72,4 @@ async def health_options(response: Response):
     response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "*"
     return {}
+    
