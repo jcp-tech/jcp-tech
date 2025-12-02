@@ -69,7 +69,7 @@ def export_data():
         "FIRESTORE": firestore_data
     }
     
-    output_path = os.path.join(os.path.dirname(__file__), 'firebase_export.json')
+    output_path = os.path.join(os.path.dirname(__file__), "56cdf0549e21084f82eba54015e4e64d", 'firebase_data_backup.json')
     with open(output_path, 'w', encoding='utf-8') as f:
         json.dump(full_data, f, indent=4, default=str)
         

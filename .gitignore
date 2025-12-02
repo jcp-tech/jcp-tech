@@ -109,7 +109,8 @@ ignore/
 
 # DEBUG
 /RENDER/app/debug/
-/RENDER/app/tools/UPDATE_FIREBASE.ipynb
+/RENDER/app/tools/backup/56cdf0549e21084f82eba54015e4e64d/
+# /RENDER/app/tools/backup/56cdf0549e21084f82eba54015e4e64d/firebase_data_backup.json
 
 # REMOVE UNNESSARY SINCE TRANSFER FROM STATIC TO DYNAMIC HOSTING
 /backup/
