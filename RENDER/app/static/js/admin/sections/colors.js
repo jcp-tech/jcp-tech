@@ -97,49 +97,80 @@ function renderColorRecursive(data, path) {
 }
 
 function renderColorInput(key, value, path) {
-    // Try to convert to hex for the picker
+    // Try to convert to hex for the picker (must be 6-digit hex)
     let hexValue = '#000000';
     if (typeof value === 'string') {
         if (value.startsWith('#')) {
-            hexValue = value;
-        } else if (value.includes('rgb')) {
-            // Basic RGB to Hex (simplified)
-            // ... implementation if needed, but browser color input handles hex best
+            hexValue = value.substring(0, 7); // Strip alpha if present for the picker
         }
     }
     
+    const inputId = `text-${path.join('-')}`;
+    const previewId = `preview-${path.join('-')}`;
+
     return `
         <div class="flex flex-col space-y-1 group">
             <label class="text-xs text-gray-500 font-mono">${key}</label>
             <div class="flex items-center space-x-2">
+                <!-- True Color Preview (Supports Alpha) -->
+                <div id="${previewId}" 
+                     class="w-8 h-8 rounded border border-gray-600 shadow-sm"
+                     style="background-color: ${value};"
+                     title="True Color Preview (includes transparency)"></div>
+
+                <!-- Native Picker (Base Color Only) -->
                 <input type="color" 
                        value="${hexValue}" 
-                       oninput="syncColor(this, 'text-${path.join('-')}')"
-                       class="w-8 h-8 rounded cursor-pointer bg-transparent border-0 p-0">
+                       oninput="syncColor(this, '${inputId}', '${previewId}')"
+                       class="w-8 h-8 rounded cursor-pointer bg-transparent border-0 p-0 opacity-50 hover:opacity-100 transition-opacity"
+                       title="Pick Base Color">
+
+                <!-- Text Input (Full Value) -->
                 <input type="text" 
                        name="${path.join('.')}" 
-                       id="text-${path.join('-')}"
+                       id="${inputId}"
                        value="${value}" 
-                       oninput="syncColor(this, null, true)"
+                       oninput="syncColor(this, null, '${previewId}', true)"
                        class="flex-1 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm text-white font-mono focus:outline-none focus:border-blue-500">
             </div>
         </div>
     `;
 }
 
-export function syncColor(source, targetId, isTextSource = false) {
+export function syncColor(source, targetId, previewId, isTextSource = false) {
+    const preview = document.getElementById(previewId);
+    const val = source.value;
+
     if (isTextSource) {
-        // Text -> Picker
-        // Only update picker if valid hex
-        const val = source.value;
-        if (val.startsWith('#') && val.length === 7) {
-            const picker = source.previousElementSibling;
-            picker.value = val;
+        // Text -> Preview & Picker
+        if (preview) {
+             // Ensure preview handles 8-digit hex correctly (CSS supports #RRGGBBAA)
+            preview.style.backgroundColor = val;
+        }
+
+        // Update picker only if it's a valid hex format (ignoring alpha for picker)
+        if (val.startsWith('#') && (val.length === 7 || val.length === 9)) {
+            const picker = source.previousElementSibling; // Input type=color is previous sibling
+            if (picker && picker.type === 'color') {
+                // Always take the first 7 chars (#RRGGBB) for the picker
+                picker.value = val.substring(0, 7);
+            }
         }
     } else {
-        // Picker -> Text
+        // Picker -> Text & Preview
         const target = document.getElementById(targetId);
-        target.value = source.value;
+        if (target) {
+            // If the target currently has an alpha channel, try to preserve it
+            const currentVal = target.value;
+            if (currentVal.startsWith('#') && currentVal.length === 9) {
+                // Extract alpha from current value
+                const alpha = currentVal.substring(7);
+                target.value = val + alpha;
+            } else {
+                target.value = val;
+            }
+        }
+        if (preview) preview.style.backgroundColor = target ? target.value : val;
     }
 }
 

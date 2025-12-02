@@ -16,49 +16,85 @@ def extract_list(doc_data, key='items'):
 
 
 def to_rgba_string(color, hex=False):
-    """Convert hex, rgb string, or (r,g,b) tuple into:
-       - 'R G B'  (default)
-       - '#RRGGBB' if hex=True
+    """Convert hex, rgb string, or (r,g,b[,a]) tuple into:
+       - 'R G B A' (default, A ∈ [0–1])
+       - '#RRGGBBAA' if hex=True
     """
 
-    def to_hex(r, g, b, a=None):
-        if a is not None:
-            return "#{:02X}{:02X}{:02X}{:02X}".format(r, g, b, a)
-        return "#{:02X}{:02X}{:02X}".format(r, g, b)
+    import re
 
-    # 1. Hex input
+    def to_hex(r, g, b, a=255):
+        return "#{:02X}{:02X}{:02X}{:02X}".format(r, g, b, a)
+
+    def normalize_alpha(a):
+        """Alpha can be 0–255 or 0–1 float → return 0–255."""
+        if isinstance(a, float) and 0 <= a <= 1:
+            return int(a * 255)
+        return int(a)
+
+    def rgba_output(r, g, b, a):
+        """Return correct output depending on hex flag."""
+        if hex:
+            return to_hex(r, g, b, normalize_alpha(a))
+        else:
+            # NO slash, safe for HTML/CSS variables
+            return f"{r} {g} {b} {round(a, 3)}"
+
+    # -------------------------------------------------------------
+    # 1. HEX INPUT
+    # -------------------------------------------------------------
     if isinstance(color, str) and color.startswith("#"):
         hex_val = color.lstrip("#")
-        r, g, b, a = 0, 0, 0, None
 
-        if len(hex_val) == 3:
-            hex_val = "".join([c*2 for c in hex_val])
-        elif len(hex_val) == 4:
-            hex_val = "".join([c*2 for c in hex_val])
+        # Expand short hex (#RGB, #RGBA)
+        if len(hex_val) in (3, 4):
+            hex_val = "".join(c * 2 for c in hex_val)
 
         if len(hex_val) == 6:
             r = int(hex_val[0:2], 16)
             g = int(hex_val[2:4], 16)
             b = int(hex_val[4:6], 16)
-        elif len(hex_val) == 8:
+            a = 1.0
+            return rgba_output(r, g, b, a)
+
+        if len(hex_val) == 8:
             r = int(hex_val[0:2], 16)
             g = int(hex_val[2:4], 16)
             b = int(hex_val[4:6], 16)
-            a = int(hex_val[6:8], 16)
+            a = int(hex_val[6:8], 16) / 255
+            return rgba_output(r, g, b, a)
 
-        return to_hex(r, g, b, a) if hex else f"{r} {g} {b}"
+        raise ValueError(f"Invalid hex color: {color}")
 
-    # 2. RGB-like string
+    # -------------------------------------------------------------
+    # 2. RGB / RGBA STRING INPUT
+    # -------------------------------------------------------------
     if isinstance(color, str):
-        nums = re.findall(r"\d+", color)
-        if len(nums) == 3:
-            r, g, b = map(int, nums)
-            return to_hex(r, g, b) if hex else f"{r} {g} {b}"
+        nums = re.findall(r"[\d.]+", color)
 
-    # 3. Tuple
-    if isinstance(color, tuple) and len(color) == 3:
-        r, g, b = color
-        return to_hex(r, g, b) if hex else f"{r} {g} {b}"
+        if len(nums) == 3:  # rgb
+            r, g, b = map(int, nums)
+            a = 1.0
+            return rgba_output(r, g, b, a)
+
+        if len(nums) == 4:  # rgba
+            r, g, b = map(int, nums[:3])
+            a = float(nums[3])
+            return rgba_output(r, g, b, a)
+
+    # -------------------------------------------------------------
+    # 3. TUPLE INPUT (r,g,b) or (r,g,b,a)
+    # -------------------------------------------------------------
+    if isinstance(color, tuple):
+        if len(color) == 3:
+            r, g, b = color
+            a = 1.0
+            return rgba_output(r, g, b, a)
+
+        if len(color) == 4:
+            r, g, b, a = color
+            a = a if isinstance(a, float) else (a / 255)
+            return rgba_output(r, g, b, a)
 
     raise ValueError(f"Invalid color format: {color}")
 
