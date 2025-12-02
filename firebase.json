@@ -36,6 +36,15 @@
         "**/.*",
         "**/node_modules/**"
       ]
+    },
+    {
+      "target": "backup",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
     }
   ]
 }

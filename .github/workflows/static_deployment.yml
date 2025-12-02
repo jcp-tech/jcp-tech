@@ -17,7 +17,7 @@ jobs:
             - name: Deploy to Firebase
               uses: w9jds/firebase-action@master
               with:
-                  args: deploy --only hosting:old --project cv-jcp
+                  args: deploy --only hosting:old,hosting:backup --project cv-jcp
               env:
                   GCP_SA_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
                   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
