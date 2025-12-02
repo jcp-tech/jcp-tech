@@ -72,4 +72,3 @@ async def health_options(response: Response):
     response.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
     response.headers["Access-Control-Allow-Headers"] = "*"
     return {}
-    
