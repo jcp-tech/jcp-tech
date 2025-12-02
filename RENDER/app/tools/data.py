@@ -21,17 +21,32 @@ def to_rgb_string(color, hex=False):
        - '#RRGGBB' if hex=True
     """
 
-    def to_hex(r, g, b): return "#{:02X}{:02X}{:02X}".format(r, g, b)
+    def to_hex(r, g, b, a=None):
+        if a is not None:
+            return "#{:02X}{:02X}{:02X}{:02X}".format(r, g, b, a)
+        return "#{:02X}{:02X}{:02X}".format(r, g, b)
 
     # 1. Hex input
     if isinstance(color, str) and color.startswith("#"):
         hex_val = color.lstrip("#")
+        r, g, b, a = 0, 0, 0, None
+
         if len(hex_val) == 3:
             hex_val = "".join([c*2 for c in hex_val])
-        r = int(hex_val[0:2], 16)
-        g = int(hex_val[2:4], 16)
-        b = int(hex_val[4:6], 16)
-        return to_hex(r, g, b) if hex else f"{r} {g} {b}"
+        elif len(hex_val) == 4:
+            hex_val = "".join([c*2 for c in hex_val])
+
+        if len(hex_val) == 6:
+            r = int(hex_val[0:2], 16)
+            g = int(hex_val[2:4], 16)
+            b = int(hex_val[4:6], 16)
+        elif len(hex_val) == 8:
+            r = int(hex_val[0:2], 16)
+            g = int(hex_val[2:4], 16)
+            b = int(hex_val[4:6], 16)
+            a = int(hex_val[6:8], 16)
+
+        return to_hex(r, g, b, a) if hex else f"{r} {g} {b}"
 
     # 2. RGB-like string
     if isinstance(color, str):
@@ -254,7 +269,8 @@ def get_portfolio_data():
             get_firestore_data('PORTFOLIO/SOCIAL_PILLS'),
             'items'
         ) or []
-        data["SOCIAL_PILLS"] = [link for link in data["SOCIAL_PILLS"] if link.get('active')]
+        data["SOCIAL_PILLS"] = [
+            link for link in data["SOCIAL_PILLS"] if link.get('active')]
         print("Loaded SOCIAL PILLS from Firestore")
 
     except Exception as e:
