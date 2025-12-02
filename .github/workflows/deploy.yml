@@ -3,7 +3,7 @@ name: Build and Deploy to Cloud Run (Production)
 on:
   push:
     branches:
-      - "**"
+      - main
     paths:
       - "RENDER/**"
   pull_request:
