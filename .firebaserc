@@ -12,8 +12,10 @@
           "cv-jonathan-chacko-1805"
         ],
         "old": [
-          "cv-jonathan-chacko",
           "cv-jcp"
+        ],
+        "backup": [
+          "cv-jonathan-chacko"
         ]
       }
     }
