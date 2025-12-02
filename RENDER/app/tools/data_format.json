@@ -2,6 +2,9 @@
     "REALTIME": {
         "PORTFOLIO": {
             "COLOR_CONFIG": {
+                "general": {
+                    
+                },
                 "dark": {
                     "bg-rgb": "color-hex-goes-here",
                     "border-color": "color-hex-goes-here",
@@ -9,7 +12,12 @@
                     "nav-bar-rgb": "color-hex-goes-here",
                     "primary-rgb": "color-hex-goes-here",
                     "text-main": "color-hex-goes-here",
-                    "text-muted": "color-hex-goes-here"
+                    "text-muted": "color-hex-goes-here",
+                    "social_pill_border": "color-hex-goes-here",
+                    "social_pill_bg": "color-hex-goes-here",
+                    "social_pill_hover_bg": "color-hex-goes-here",
+                    "social_pill_text": "color-hex-goes-here",
+                    "social_pill_hover_text": "color-hex-goes-here"
                 },
                 "light": {
                     "bg-rgb": "color-hex-goes-here",
@@ -18,7 +26,15 @@
                     "nav-bar-rgb": "#fcfdfe",
                     "primary-rgb": "color-hex-goes-here",
                     "text-main": "color-hex-goes-here",
-                    "text-muted": "color-hex-goes-here"
+                    "text-muted": "color-hex-goes-here",
+                    "social_pill_border": "color-hex-goes-here",
+                    "social_pill_bg": "color-hex-goes-here",
+                    "social_pill_hover_bg": "color-hex-goes-here",
+                    "social_pill_text": "color-hex-goes-here",
+                    "social_pill_hover_text": "color-hex-goes-here"
+                },
+                "admin": {
+                    
                 }
             },
             "MAIN": {
@@ -49,6 +65,23 @@
             "SYNTAX_COLORS": {
                 "items": {
                     "background": "color-hex-goes-here",
+                    "editor_bg": "color-hex-goes-here",
+                    "editor_header_bg": "color-hex-goes-here",
+                    "editor_line_numbers": "color-hex-goes-here",
+                    "editor_code_text": "color-hex-goes-here",
+                    "editor_border": "color-hex-goes-here",
+                    "editor_header_border": "color-hex-goes-here",
+                    "editor_line_border": "color-hex-goes-here",
+                    "terminal_overlay_bg": "color-hex-goes-here",
+                    "terminal_border": "color-hex-goes-here",
+                    "terminal_header_text": "color-hex-goes-here",
+                    "window_btn_red": "color-hex-goes-here",
+                    "window_btn_yellow": "color-hex-goes-here",
+                    "window_btn_green": "color-hex-goes-here",
+                    "run_btn_bg": "color-hex-goes-here",
+                    "run_btn_text": "color-hex-goes-here",
+                    "run_btn_hover_bg": "color-hex-goes-here",
+                    "terminal_output_text": "color-hex-goes-here",
                     "booleans_none": "color-hex-goes-here",
                     "builtins_classes": "color-hex-goes-here",
                     "builtins_functions": "color-hex-goes-here",

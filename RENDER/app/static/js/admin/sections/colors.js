@@ -19,6 +19,37 @@ export function renderColorForm(data, section) {
     contentArea.innerHTML = html;
 }
 
+function sortColorConfigKeys(keys) {
+    // Define the specific order: general, dark, light, then alphabetically, then admin
+    const order = ['general', 'dark', 'light'];
+    const adminKey = 'admin';
+    
+    return keys.sort((a, b) => {
+        const aLower = a.toLowerCase();
+        const bLower = b.toLowerCase();
+        
+        // Check if 'a' is in the priority order
+        const aIndex = order.indexOf(aLower);
+        const bIndex = order.indexOf(bLower);
+        
+        // If both are in priority order, sort by their position
+        if (aIndex !== -1 && bIndex !== -1) {
+            return aIndex - bIndex;
+        }
+        
+        // If only 'a' is in priority order, it comes first
+        if (aIndex !== -1) return -1;
+        if (bIndex !== -1) return 1;
+        
+        // If 'a' is admin, it goes last
+        if (aLower === adminKey) return 1;
+        if (bLower === adminKey) return -1;
+        
+        // Otherwise, sort alphabetically
+        return aLower.localeCompare(bLower);
+    });
+}
+
 function renderColorRecursive(data, path) {
     let html = '';
     
@@ -43,7 +74,12 @@ function renderColorRecursive(data, path) {
              html += `<div class="space-y-6">`;
         }
 
-        for (const [key, value] of Object.entries(data)) {
+        // Sort keys with custom order for top-level COLOR_CONFIG sections
+        const keys = Object.keys(data);
+        const sortedKeys = path.length === 0 ? sortColorConfigKeys(keys) : keys;
+
+        for (const key of sortedKeys) {
+            const value = data[key];
             if (typeof value === 'object' && value !== null) {
                 html += renderColorRecursive(value, [...path, key]);
             } else {
