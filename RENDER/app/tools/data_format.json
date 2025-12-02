@@ -54,7 +54,26 @@
                     "text-footer-secondary": "color-hex-goes-here"
                 },
                 "admin": {
-                    
+                    "bg-primary": "color-hex-goes-here",
+                    "bg-secondary": "color-hex-goes-here",
+                    "bg-hover": "color-hex-goes-here",
+                    "border-primary": "color-hex-goes-here",
+                    "text-primary": "color-hex-goes-here",
+                    "text-secondary": "color-hex-goes-here",
+                    "text-muted": "color-hex-goes-here",
+                    "accent-blue": "color-hex-goes-here",
+                    "btn-danger-bg": "color-hex-goes-here",
+                    "btn-danger-hover": "color-hex-goes-here",
+                    "input-bg": "color-hex-goes-here",
+                    "input-border": "color-hex-goes-here",
+                    "focus-ring": "color-hex-goes-here",
+                    "btn-primary-bg": "color-hex-goes-here",
+                    "btn-primary-hover": "color-hex-goes-here",
+                    "error-text": "color-hex-goes-here",
+                    "error-bg": "color-hex-goes-here",
+                    "error-border": "color-hex-goes-here",
+                    "success-text": "color-hex-goes-here",
+                    "warning-text": "color-hex-goes-here"
                 }
             },
             "MAIN": {
