@@ -5,140 +5,140 @@
 {% block content %}
 <div class="flex h-screen overflow-hidden">
   <!-- Sidebar -->
-  <div class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col">
-    <div class="p-6 border-b border-gray-700">
-      <h1 class="text-xl font-bold text-white">Admin Panel</h1>
+  <div class="w-64 bg-[var(--admin-bg-secondary)] border-r border-[var(--admin-border-primary)] flex flex-col">
+    <div class="p-6 border-b border-[var(--admin-border-primary)]">
+      <h1 class="text-xl font-bold text-[var(--admin-text-primary)]">Admin Panel</h1>
     </div>
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
       <button
         id="tab-dashboard"
         onclick="switchTab('dashboard')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Main Section
       </button>
       <button
         id="tab-profile"
         onclick="switchTab('profile')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Profile
       </button>
       <button
         id="tab-navbar"
         onclick="switchTab('navbar')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Navbar
       </button>
       <button
         id="tab-socials"
         onclick="switchTab('socials')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Socials
       </button>
       <button
         id="tab-color_config"
         onclick="switchTab('color_config')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Color Config
       </button>
       <button
         id="tab-syntax_colors"
         onclick="switchTab('syntax_colors')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Syntax Colors
       </button>
       <button
         id="tab-live_activities"
         onclick="switchTab('live_activities')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Live Activities
       </button>
       <button
         id="tab-project_categories"
         onclick="switchTab('project_categories')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Project Categories
       </button>
       <button
         id="tab-projects"
         onclick="switchTab('projects')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Projects
       </button>
       <button
         id="tab-skills"
         onclick="switchTab('skills')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Skills
       </button>
       <button
         id="tab-experiences"
         onclick="switchTab('experiences')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Experiences
       </button>
       <button
         id="tab-educations"
         onclick="switchTab('educations')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Educations
       </button>
       <button
         id="tab-certifications"
         onclick="switchTab('certifications')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Certifications
       </button>
       <button
         id="tab-achievements"
         onclick="switchTab('achievements')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Achievements
       </button>
       <button
         id="tab-crm"
         onclick="switchTab('crm')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Manage Contacts
       </button>
       <button
         id="tab-users"
         onclick="switchTab('users')"
-        class="w-full text-left px-4 py-2 rounded text-gray-300 hover:bg-gray-700 transition-colors"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Admin Users
       </button>
     </nav>
-    <div class="p-4 border-t border-gray-700">
+    <div class="p-4 border-t border-[var(--admin-border-primary)]">
       <div class="flex items-center mb-4">
         <div
-          class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-3"
+          class="w-8 h-8 rounded-full bg-[var(--admin-accent-blue)] flex items-center justify-center text-[var(--admin-text-primary)] font-bold mr-3"
         >
           {{ user.email[0].upper() }}
         </div>
-        <span class="text-white text-sm truncate">{{ user.email }}</span>
+        <span class="text-[var(--admin-text-primary)] text-sm truncate">{{ user.email }}</span>
       </div>
-      <div class="text-xs text-gray-500 mb-4 px-1">
+      <div class="text-xs text-[var(--admin-text-muted)] mb-4 px-1">
         Provider: {{ user.firebase.sign_in_provider }}
       </div>
       <form action="/admin/logout" method="post">
         <button
           type="submit"
-          class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors text-sm"
+          class="w-full bg-[var(--admin-btn-danger-bg)] hover:bg-[var(--admin-btn-danger-hover)] text-[var(--admin-text-primary)] font-bold py-2 px-4 rounded transition-colors text-sm"
         >
           Logout
         </button>
@@ -147,26 +147,26 @@
   </div>
 
   <!-- Main Content Area -->
-  <div class="flex-1 overflow-auto p-8 bg-gray-900">
+  <div class="flex-1 overflow-auto p-8 bg-[var(--admin-bg-primary)]">
     <div id="content-area">
         <div class="space-y-6">
             <!-- System Status -->
-            <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-700">
-                    <h3 class="text-lg font-bold text-white">System Status</h3>
+            <div class="bg-[var(--admin-bg-secondary)] rounded-lg border border-[var(--admin-border-primary)] overflow-hidden">
+                <div class="px-6 py-4 border-b border-[var(--admin-border-primary)]">
+                    <h3 class="text-lg font-bold text-[var(--admin-text-primary)]">System Status</h3>
                 </div>
                 <div class="px-6 py-2">
-                    <p class="text-gray-500 py-2">Loading system status...</p>
+                    <p class="text-[var(--admin-text-muted)] py-2">Loading system status...</p>
                 </div>
             </div>
 
             <!-- Recent Activities -->
-            <div class="bg-gray-800 rounded-lg border border-gray-700 overflow-hidden">
-                <div class="px-6 py-4 border-b border-gray-700">
-                    <h3 class="text-lg font-bold text-white">Recent Activities</h3>
+            <div class="bg-[var(--admin-bg-secondary)] rounded-lg border border-[var(--admin-border-primary)] overflow-hidden">
+                <div class="px-6 py-4 border-b border-[var(--admin-border-primary)]">
+                    <h3 class="text-lg font-bold text-[var(--admin-text-primary)]">Recent Activities</h3>
                 </div>
                 <div class="px-6">
-                    <p class="text-gray-500 py-4">Loading recent activities...</p>
+                    <p class="text-[var(--admin-text-muted)] py-4">Loading recent activities...</p>
                 </div>
             </div>
         </div>

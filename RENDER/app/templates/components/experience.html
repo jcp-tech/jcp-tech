@@ -5,7 +5,7 @@
   <div class="flex flex-col gap-12">
     <div class="px-4 md:px-0">
       <h2 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] transition-colors">Experience</h2>
-      <p class="text-gray-600 dark:text-white/60 text-base font-normal leading-normal mt-2 transition-colors">
+      <p class="text-gray-600 dark:text-[var(--text-subtle)] text-base font-normal leading-normal mt-2 transition-colors">
         A timeline of my professional journey and key achievements.
       </p>
     </div>
@@ -25,14 +25,14 @@
                   {% if loop.first %}
                     bg-gradient-to-r from-primary/10 to-transparent
                   {% else %}
-                    hover:bg-gray-100 dark:hover:bg-white/5
+                    hover:bg-[var(--bg-surface-subtle)] dark:hover:bg-[var(--bg-surface-subtle)]
                   {% endif %}
                 "
               >
                 <!-- Active Indicator Line -->
                 <div class="active-indicator absolute left-0 top-0 bottom-0 w-[3px] bg-primary shadow-glow rounded-r-full {% if not loop.first %}hidden{% endif %}"></div>
 
-                <span class="exp-company text-base font-bold transition-colors {% if loop.first %}text-primary{% else %}text-gray-500 dark:text-white/60 group-hover:text-gray-900 dark:group-hover:text-white{% endif %}">
+                <span class="exp-company text-base font-bold transition-colors {% if loop.first %}text-primary{% else %}text-gray-500 dark:text-[var(--text-subtle)] group-hover:text-gray-900 dark:group-hover:text-white{% endif %}">
                     {{ exp.company }}
                 </span>
                 
@@ -47,7 +47,7 @@
          {% for exp in experiences %}
              <div id="exp-{{ exp.id }}" class="exp-content relative fade-in-anim {% if not loop.first %}hidden{% endif %}">
                  <!-- Continuous Vertical Gradient Line (Timeline Spine) -->
-                 <div class="absolute left-[19px] top-4 bottom-10 w-[2px] bg-gradient-to-b from-primary via-primary/30 to-gray-200 dark:to-white/5 rounded-full z-0"></div>
+                 <div class="absolute left-[19px] top-4 bottom-10 w-[2px] bg-gradient-to-b from-primary via-primary/30 to-gray-200 dark:to-[var(--bg-surface-subtle)] rounded-full z-0"></div>
                  
                  <div class="flex flex-col gap-16">
                    {% for role in exp.roles %}
@@ -55,17 +55,17 @@
                  <!-- Timeline Node -->
                          <!-- Timeline Node -->
                          {% if exp.current and loop.first %}
-                             <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[#0d1117] shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)] z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
+                             <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[var(--card-bg-tertiary)] shadow-[0_0_15px_rgba(var(--primary-rgb),0.5)] z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110">
                                 <div class="size-6 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(var(--primary-rgb),0.8)]"></div>
                              </div>
                          {% else %}
-                             <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[#0d1117] shadow-glow-strong z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow-hover">
+                             <div class="absolute left-0 top-1 size-10 rounded-full border-2 border-primary bg-white dark:bg-[var(--card-bg-tertiary)] shadow-glow-strong z-10 flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow-hover">
                                 <div class="size-3 rounded-full bg-primary"></div>
                              </div>
                          {% endif %}
     
                          <!-- Role Content Card -->
-                         <div class="flex flex-col gap-4 p-6 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-md hover:bg-gray-50 dark:hover:bg-white/[0.07] hover:border-primary/50 dark:hover:border-primary/30 transition-all duration-300 relative shadow-sm dark:shadow-none">
+                         <div class="flex flex-col gap-4 p-6 rounded-2xl border border-gray-200 dark:border-[var(--border-subtle)] bg-white dark:bg-[var(--bg-surface-subtle)] backdrop-blur-md hover:bg-gray-50 dark:hover:bg-[var(--bg-surface-subtle)] hover:border-primary/50 dark:hover:border-primary/30 transition-all duration-300 relative shadow-sm dark:shadow-none">
                            <!-- Connection line to node (horizontal) -->
                            <div class="absolute top-6 -left-6 w-6 h-[2px] bg-primary/30 hidden sm:block"></div>
 

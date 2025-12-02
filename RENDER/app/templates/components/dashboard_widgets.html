@@ -7,7 +7,7 @@
     </h3>
 
     {% for activity in live_activities %}
-        <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-white/10 bg-white dark:bg-[#161b22] transition-transform hover:scale-[1.02] duration-300">
+        <div class="rounded-xl overflow-hidden shadow-lg border border-gray-200 dark:border-[var(--border-subtle)] bg-white dark:bg-[var(--card-bg-secondary)] transition-transform hover:scale-[1.02] duration-300">
             {{ activity | safe }}
         </div>
     {% endfor %}

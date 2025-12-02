@@ -7,14 +7,16 @@ from app.utils.firebase_utils import get_realtime_data, update_realtime_data, ge
 from firebase_admin import firestore
 from pydantic import BaseModel
 from typing import Any, List, Dict, Union
+import shutil
+import os
+from datetime import datetime
+from app.tools.data import get_portfolio_data
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 templates = Jinja2Templates(directory="app/templates")
 
-
 class LoginRequest(BaseModel):
     idToken: str
-
 
 @router.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
@@ -22,8 +24,14 @@ async def login_page(request: Request):
     user = await get_current_user(request, request.cookies.get("__session"))
     if user:
         return RedirectResponse(url="/admin", status_code=302)
-    return templates.TemplateResponse("admin/login.html", {"request": request})
 
+    portfolio_data = get_portfolio_data()
+    color_config = portfolio_data.get("COLOR_CONFIG", {})
+
+    return templates.TemplateResponse("admin/login.html", {
+        "request": request,
+        "color_config": color_config
+    })
 
 @router.post("/login")
 async def login(request: Request, login_request: LoginRequest):
@@ -53,7 +61,6 @@ async def login(request: Request, login_request: LoginRequest):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.get("", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, user: dict = Depends(get_current_user)):
     if not user:
@@ -70,12 +77,14 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
         # For now, let's re-raise to show the standard error page or JSON
         raise e
 
-    from app.tools.data import get_portfolio_data
     portfolio_data = get_portfolio_data()
+    color_config = portfolio_data.get("COLOR_CONFIG", {})
+
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
         "user": user,
-        "project_categories": portfolio_data.get("PROJECT_CATEGORIES", [])
+        "project_categories": portfolio_data.get("PROJECT_CATEGORIES", []),
+        "color_config": color_config
     })
 
 
@@ -207,11 +216,9 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
     else:
         raise HTTPException(status_code=404, detail="Section not found")
 
-
 class CRMStatusRequest(BaseModel):
     id: str
     status: str
-
 
 @router.get("/api/crm")
 async def get_crm_data(user: dict = Depends(require_admin)):
@@ -230,7 +237,6 @@ async def get_crm_data(user: dict = Depends(require_admin)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.post("/api/crm/status")
 async def update_crm_status(request: CRMStatusRequest, user: dict = Depends(require_admin)):
     try:
@@ -241,7 +247,6 @@ async def update_crm_status(request: CRMStatusRequest, user: dict = Depends(requ
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.delete("/api/crm/{id}")
 async def delete_crm_request(id: str, user: dict = Depends(require_admin)):
     try:
@@ -251,7 +256,6 @@ async def delete_crm_request(id: str, user: dict = Depends(require_admin)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.get("/api/users")
 async def get_admin_users(user: dict = Depends(require_admin)):
     try:
@@ -260,7 +264,6 @@ async def get_admin_users(user: dict = Depends(require_admin)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @router.post("/api/users")
 async def update_admin_users(payload: dict = Body(...), user: dict = Depends(require_admin)):
     try:
@@ -268,7 +271,6 @@ async def update_admin_users(payload: dict = Body(...), user: dict = Depends(req
         return {"message": "Admin users updated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
-
 
 @router.get("/api/dashboard-stats")
 async def get_dashboard_stats(user: dict = Depends(require_admin)):
@@ -306,13 +308,13 @@ async def get_dashboard_stats(user: dict = Depends(require_admin)):
                 for run in data.get("workflow_runs", []):
                     # Determine status color/icon based on conclusion
                     status_icon = "check_circle"
-                    status_color = "text-green-500"
+                    status_color = "text-[var(--admin-success-text)]"
                     if run["conclusion"] == "failure":
                         status_icon = "cancel"
-                        status_color = "text-red-500"
+                        status_color = "text-[var(--admin-error-text)]"
                     elif run["status"] == "in_progress" or run["status"] == "queued":
                         status_icon = "pending"
-                        status_color = "text-yellow-500"
+                        status_color = "text-[var(--admin-warning-text)]"
 
                     # Format date
                     from datetime import datetime
@@ -335,24 +337,15 @@ async def get_dashboard_stats(user: dict = Depends(require_admin)):
 
     return {
         "system_status": [
-            {"name": "Server Health", "status": server_health,
-                "color": "text-green-500" if server_health == "Operational" else "text-red-500"},
-            {"name": "Database Connection", "status": db_connection,
-                "color": "text-green-500" if db_connection == "Connected" else "text-red-500"},
-            {"name": "API Uptime", "status": api_uptime, "color": "text-yellow-500" if api_uptime !=
-                "Operational" else "text-green-500"}  # Mocking yellow for demo if needed, but logic says green
+            {"name": "Server Health", "status": server_health, "color": "text-[var(--admin-success-text)]" if server_health == "Operational" else "text-[var(--admin-error-text)]"},
+            {"name": "Database Connection", "status": db_connection, "color": "text-[var(--admin-success-text)]" if db_connection == "Connected" else "text-[var(--admin-error-text)]"},
+            {"name": "API Uptime", "status": api_uptime, "color": "text-[var(--admin-warning-text)]" if api_uptime != "Operational" else "text-[var(--admin-success-text)]"}  # Mocking yellow for demo if needed, but logic says green
         ],
         "recent_activities": recent_activities
     }
 
-
 @router.post("/api/upload-resume")
 async def upload_resume(file: Any = Body(...), user: dict = Depends(get_current_user)):
-    from fastapi import UploadFile, File
-    import shutil
-    import os
-    from datetime import datetime
-
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     require_admin(user)
@@ -366,12 +359,8 @@ async def upload_resume(file: Any = Body(...), user: dict = Depends(get_current_
 
 # Redefining the function with correct signature and imports
 
-
 @router.post("/api/upload-resume")
 async def upload_resume_endpoint(file: UploadFile = File(...), user: dict = Depends(get_current_user)):
-    import shutil
-    import os
-    from datetime import datetime
 
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")

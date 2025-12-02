@@ -5,7 +5,7 @@
       <h2 class="text-gray-900 dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em] transition-colors">
         Active & Selected Works
       </h2>
-      <p class="text-gray-600 dark:text-white/60 text-base font-normal leading-normal transition-colors">
+      <p class="text-gray-600 dark:text-[var(--text-subtle)] text-base font-normal leading-normal transition-colors">
         A curated collection of my projects in AI, automation, and full-stack development.
       </p>
     </div>
@@ -22,7 +22,7 @@
     {% for category in project_categories %}
     <button
         onclick="filterProjects('{{ category }}')"
-        class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-white/5 border-gray-200 dark:border-white/10 hover:bg-gray-50 dark:hover:bg-white/10 text-gray-600 dark:text-white/80"
+        class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-[var(--bg-surface-subtle)] border-gray-200 dark:border-[var(--border-subtle)] hover:bg-gray-50 dark:hover:bg-[var(--bg-surface-medium)] text-gray-600 dark:text-[var(--text-body)]"
         data-filter="{{ category }}"
     >
         <p class="text-sm font-medium leading-normal">{{ category }}</p>
@@ -33,7 +33,7 @@
   <!-- Grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0" id="projects-grid">
     {% for project in projects %}
-      <div class="project-card group relative rounded-xl overflow-hidden bg-white dark:bg-[#161b22] border border-gray-200 dark:border-white/10 hover:border-primary/50 dark:hover:border-primary/80 transition-all duration-500 hover:shadow-lg dark:hover:shadow-glow will-change-transform hover:-translate-y-1" data-category="{{ project.category }}" data-featured="{{ 'true' if project.featured else 'false' }}" data-tags='{{ project.tags | tojson }}'>
+      <div class="project-card group relative rounded-xl overflow-hidden bg-white dark:bg-[var(--card-bg-secondary)] border border-gray-200 dark:border-[var(--border-subtle)] hover:border-primary/50 dark:hover:border-primary/80 transition-all duration-500 hover:shadow-lg dark:hover:shadow-glow will-change-transform hover:-translate-y-1" data-category="{{ project.category }}" data-featured="{{ 'true' if project.featured else 'false' }}" data-tags='{{ project.tags | tojson }}'>
         <!-- Background Image -->
         <div 
             class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out group-hover:scale-110 opacity-100 dark:opacity-60 dark:group-hover:opacity-40" 
@@ -41,7 +41,7 @@
         ></div>
         
         <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[#101018] dark:via-[#101018]/80 dark:to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[var(--overlay-bg)] dark:via-[color-mix(in_srgb,var(--overlay-bg),transparent_20%)] dark:to-transparent"></div>
 
         <!-- Content -->
         <div class="relative flex flex-col justify-end p-6 aspect-[16/10] h-full">
@@ -58,7 +58,7 @@
           </div>
           
           <!-- Hover Action -->
-          <div class="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-[#101018]/60 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <div class="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-[color-mix(in_srgb,var(--overlay-bg),transparent_40%)] backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <button class="text-primary font-bold py-2 px-5 border-2 border-primary rounded-lg hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors shadow-glow">
               View Case Study
             </button>

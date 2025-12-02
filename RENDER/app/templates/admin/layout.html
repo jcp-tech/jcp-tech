@@ -18,8 +18,15 @@
         }
     </script>
     {% block head %}{% endblock %}
+    <style>
+        :root {
+            {% for key, value in color_config.get('admin', {}).items() %}
+            --admin-{{ key }}: {{ value }};
+            {% endfor %}
+        }
+    </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen">
+<body class="bg-[var(--admin-bg-primary)] text-[var(--admin-text-primary)] min-h-screen">
     <div class="container mx-auto px-4 py-8">
         {% block content %}{% endblock %}
     </div>

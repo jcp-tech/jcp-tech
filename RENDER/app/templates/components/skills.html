@@ -3,7 +3,7 @@
   <div class="flex flex-wrap justify-between gap-3 px-4 md:px-0 text-center md:text-left">
     <div class="flex flex-col gap-3 w-full items-center">
       <h2 class="text-gray-900 dark:text-white text-4xl font-black leading-tight tracking-[-0.033em] transition-colors">Skill Matrix</h2>
-      <p class="text-gray-600 dark:text-white/60 text-base font-normal leading-normal transition-colors">
+      <p class="text-gray-600 dark:text-[var(--text-subtle)] text-base font-normal leading-normal transition-colors">
         An interactive showcase of my technical toolkit and proficiency.
       </p>
     </div>
@@ -35,7 +35,7 @@
           {% if loop.first %}
             bg-primary text-white shadow-lg shadow-primary/25 scale-105
           {% else %}
-            bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-white/60 hover:bg-gray-200 dark:hover:bg-white/10 hover:text-gray-900 dark:hover:text-white
+            bg-[var(--bg-surface-subtle)] dark:bg-[var(--bg-surface-subtle)] text-gray-600 dark:text-[var(--text-subtle)] hover:bg-[var(--bg-surface-medium)] dark:hover:bg-[var(--bg-surface-medium)] hover:text-gray-900 dark:hover:text-white
           {% endif %}"
         >
           {{ category }}
@@ -51,7 +51,7 @@
       {% for skill in skills_data[category] %}
         <div
           data-skill-category="{{ category }}"
-          class="skill-card group flex flex-col gap-3 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/5 p-6 items-center text-center backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:bg-gradient-to-br hover:from-white hover:to-primary/5 dark:hover:from-white/5 dark:hover:to-primary/10 hover:shadow-xl dark:hover:shadow-glow hover:-translate-y-1 {% if not outer_loop.first %}hidden{% endif %}"
+          class="skill-card group flex flex-col gap-3 rounded-2xl border border-gray-200 dark:border-[var(--bg-surface-subtle)] bg-white dark:bg-[var(--bg-surface-subtle)] p-6 items-center text-center backdrop-blur-md transition-all duration-300 hover:border-primary/50 hover:bg-gradient-to-br hover:from-white hover:to-primary/5 dark:hover:from-[var(--bg-surface-subtle)] dark:hover:to-primary/10 hover:shadow-xl dark:hover:shadow-glow hover:-translate-y-1 {% if not outer_loop.first %}hidden{% endif %}"
         >
           {% if skill.icon.startswith('devicon-') %}
             <i class="{{ skill.icon }} text-4xl text-primary group-hover:scale-110 transition-transform duration-300"></i>

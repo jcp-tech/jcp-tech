@@ -11,7 +11,7 @@
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
     {% for item in achievements %}
     <div
-      class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1 group"
+      class="flex flex-1 gap-4 rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[var(--bg-surface-subtle)] backdrop-blur-sm p-6 flex-col transition-all duration-300 hover:border-primary/50 dark:hover:border-primary/40 hover:shadow-lg dark:hover:shadow-glow hover:-translate-y-1 group"
     >
       <div
         class="text-primary transition-colors duration-300"
@@ -56,7 +56,7 @@
           </h3>
         </div>
         <p
-          class="text-gray-600 dark:text-white/70 text-sm font-normal leading-normal transition-colors flex-grow"
+          class="text-gray-600 dark:text-[var(--text-subtle)] text-sm font-normal leading-normal transition-colors flex-grow"
         >
           {{ item.description }}
         </p>

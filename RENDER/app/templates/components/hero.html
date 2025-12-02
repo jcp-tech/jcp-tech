@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-8 relative z-10">
       <!-- Interactive Python Editor Card -->
       <div
-        class="relative rounded-xl border shadow-2xl overflow-hidden group transition-all duration-300 hover:shadow-[0_0_30px_rgba(37,244,244,0.1)]"
+        class="relative rounded-xl border shadow-2xl overflow-hidden group transition-all duration-300 hover:shadow-[0_0_30px_var(--shadow-cyan)]"
         style="background-color: {{ syntax_colors.editor_bg }}; border-color: {{ syntax_colors.editor_border }};"
       >
         <!-- Editor Header -->
@@ -34,7 +34,7 @@
           <button
             id="run-code-btn"
             onclick="runCode()"
-            class="flex items-center gap-1.5 px-3 py-1 rounded-md transition-all duration-300 hover:shadow-[0_0_10px_rgba(74,222,128,0.3)] cursor-pointer"
+            class="flex items-center gap-1.5 px-3 py-1 rounded-md transition-all duration-300 hover:shadow-[0_0_10px_var(--shadow-green)] cursor-pointer"
             style="background-color: {{ syntax_colors.run_btn_bg }}; color: {{ syntax_colors.run_btn_text }};"
             onmouseover="this.style.backgroundColor='{{ syntax_colors.run_btn_hover_bg }}'"
             onmouseout="this.style.backgroundColor='{{ syntax_colors.run_btn_bg }}'"

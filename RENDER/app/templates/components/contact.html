@@ -17,23 +17,23 @@
             <div class="flex gap-4 mt-4">
                  <!-- Social Placeholders -->
                  {% if PRIMARY_EMAIL %}
-                 <a href="mailto:{{ PRIMARY_EMAIL }}" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
+                 <a href="mailto:{{ PRIMARY_EMAIL }}" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-[var(--bg-surface-medium)] flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
                     <span class="material-symbols-outlined text-sm">mail</span>
                  </a>
                  {% endif %}
                  {% if PRIMARY_LINKEDIN %}
-                 <a href="{{ PRIMARY_LINKEDIN }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-white/10 flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
+                 <a href="{{ PRIMARY_LINKEDIN }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-[var(--bg-surface-medium)] flex items-center justify-center text-gray-600 dark:text-white hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors cursor-pointer">
                     <span class="material-symbols-outlined text-sm">link</span>
                  </a>
                  {% endif %}
             </div>
         </div>
         
-        <form id="contact-form" class="flex flex-col gap-5 p-6 rounded-2xl border border-gray-200 dark:border-white/5 bg-white dark:bg-white/[0.02] shadow-sm dark:shadow-none" onsubmit="submitContactForm(event)">
+        <form id="contact-form" class="flex flex-col gap-5 p-6 rounded-2xl border border-gray-200 dark:border-[var(--bg-surface-subtle)] bg-white dark:bg-[var(--bg-surface-subtle)] shadow-sm dark:shadow-none" onsubmit="submitContactForm(event)">
             <div>
                 <label class="sr-only" for="name">Name</label>
                 <input 
-                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300" 
+                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[var(--text-faint)] focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300" 
                     id="name" 
                     name="name" 
                     placeholder="Name" 
@@ -44,7 +44,7 @@
             <div>
                 <label class="sr-only" for="email">Email</label>
                 <input 
-                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300" 
+                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[var(--text-faint)] focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300" 
                     id="email" 
                     name="email" 
                     placeholder="Email" 
@@ -55,7 +55,7 @@
             <div>
                 <label class="sr-only" for="message">Message</label>
                 <textarea 
-                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-white/30 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300 resize-none" 
+                    class="w-full bg-gray-50 dark:bg-background-main border border-gray-200 dark:border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-[var(--text-faint)] focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition-all duration-300 resize-none" 
                     id="message" 
                     name="message" 
                     placeholder="Message" 
