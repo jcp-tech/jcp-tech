@@ -1,6 +1,5 @@
 from fastapi import Request
 
-
 async def add_no_cache_header(request: Request, call_next):
     response = await call_next(request)
     if request.url.path.startswith("/admin"):
