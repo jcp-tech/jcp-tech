@@ -67,7 +67,6 @@ def require_admin(user: dict = Depends(get_current_user)):
 
     return user
 
-
 async def create_session_cookie(id_token: str, expires_in: int = 60 * 60 * 24 * 5):
     try:
         # Create the session cookie. This will also verify the ID token.

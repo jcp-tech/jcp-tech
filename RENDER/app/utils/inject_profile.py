@@ -3,7 +3,6 @@ import subprocess
 import re
 import sys
 
-
 def main():
     base_dir = os.getcwd()
     profile_script = os.path.join(
@@ -30,7 +29,6 @@ def main():
     with open(log_file, 'w') as f:
         f.write(output)
     print(f"Output saved to {log_file}")
-
 
 if __name__ == "__main__":
     main()

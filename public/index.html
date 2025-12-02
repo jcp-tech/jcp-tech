@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jonathan Chacko - Resume</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0077B5;
+      --secondary-color: #333;
+      --accent-color: #4CAF50;
+      --text-color: #333;
+      --light-bg: #f9f9f9;
+      --card-bg: #fff;
+      --border-radius: 8px;
+      --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    /* Dark theme variables */
+    .dark-theme {
+      --primary-color: #1E88E5;
+      --secondary-color: #E0E0E0;
+      --accent-color: #69F0AE;
+      --text-color: #E0E0E0;
+      --light-bg: #121212;
+      --card-bg: #1E1E1E;
+      --box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: var(--text-color);
+      background-color: var(--light-bg);
+      padding: 20px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      padding: 30px;
+      transition: background-color 0.3s ease;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    
+    /* Theme toggle switch styles */
+    .theme-switch-wrapper {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 100;
+    }
+    
+    .theme-switch {
+      display: inline-block;
+      height: 34px;
+      position: relative;
+      width: 60px;
+    }
+    
+    .theme-switch input {
+      display: none;
+    }
+    
+    .slider {
+      background-color: #ccc;
+      bottom: 0;
+      cursor: pointer;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+      transition: .4s;
+      border-radius: 34px;
+    }
+    
+    .slider:before {
+      background-color: white;
+      bottom: 4px;
+      content: "";
+      height: 26px;
+      left: 4px;
+      position: absolute;
+      transition: .4s;
+      width: 26px;
+      border-radius: 50%;
+    }
+    
+    input:checked + .slider {
+      background-color: var(--primary-color);
+    }
+    
+    input:checked + .slider:before {
+      transform: translateX(26px);
+    }
+    
+    .slider .icon {
+      color: #FFD700;
+      position: absolute;
+      top: 8px;
+    }
+    
+    .slider .icon-moon {
+      right: 7px;
+      display: none;
+    }
+    
+    .slider .icon-sun {
+      left: 7px;
+    }
+    
+    input:checked + .slider .icon-moon {
+      display: block;
+    }
+    
+    input:checked + .slider .icon-sun {
+      display: none;
+    }
+    
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    
+    .tagline {
+      font-style: italic;
+      font-size: 1.2rem;
+      color: var(--secondary-color);
+      margin-bottom: 15px;
+    }
+    
+    .intro {
+      text-align: justify;
+      margin-bottom: 25px;
+    }
+    
+    section {
+      margin-bottom: 30px;
+    }
+    
+    h2 {
+      font-size: 1.8rem;
+      border-bottom: 2px solid var(--primary-color);
+      padding-bottom: 5px;
+      margin-bottom: 15px;
+      color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h3 {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+    }
+    
+    /* Left-aligned connect links */
+    .connect {
+      display: flex;
+      justify-content: flex-start;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+    
+    .connect a {
+      display: inline-flex;
+      align-items: center;
+      background-color: var(--primary-color);
+      color: white;
+      padding: 8px 15px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+    
+    .connect a i {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+    
+    .connect a:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .github {
+      background-color: #181717 !important;
+    }
+    
+    .discord {
+      background-color: #5865F2 !important;
+    }
+    
+    .whatsapp {
+      background-color: #25D366 !important;
+    }
+    
+    .gmail {
+      background-color: #D14836 !important;
+    }
+    
+    .resume-download {
+      background-color: var(--accent-color) !important;
+    }
+    
+    .instagram {
+      background-color: #E4405F !important;
+    }
+    
+    .spotify-section {
+      text-align: center;
+    }
+    
+    .github-stats {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .github-stats img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+    
+    .current-focus {
+      list-style: none;
+    }
+    
+    .current-focus li {
+      margin-bottom: 10px;
+      position: relative;
+      padding-left: 30px;
+    }
+    
+    .current-focus li:before {
+      content: "🚀";
+      position: absolute;
+      left: 0;
+    }
+    
+    .skills-container {
+      margin-top: 20px;
+    }
+    
+    .skill-category {
+      margin-bottom: 20px;
+    }
+    
+    .skill-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    
+    /*
+    .experience-item {
+      margin-bottom: 2.5rem;
+    }
+   */
+
+    .job-title {
+      font-weight: bold;
+      font-size: 1.18em;
+      margin-bottom: 0.25em;
+      line-height: 1.4;
+    }
+    
+    .job-title span {
+      margin-right: 10px;
+    }
+    
+    .job-duration {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 0.85em;  /* Adds space before bullets */
+      margin-top: 0.1em;
+      display: block;
+    }
+    
+    .job-desc {
+      margin: 0 0 0.5em 1.5em; /* Only left indent, less bottom gap */
+      padding: 0;
+    }
+    
+    .job-desc li {
+      margin-bottom: 0.5em;
+      line-height: 1.5;
+    }
+    
+    .job-desc li:before {
+      content: "•";
+      position: absolute;
+      left: 5px;
+      color: var(--primary-color);
+    }
+    
+    .education-item {
+      margin-bottom: 15px;
+    }
+    
+    .certification-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .certification-badge {
+      padding: 8px 15px;
+      border-radius: 4px;
+      background-color: #3A5FCD;
+      color: white;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+    }
+    
+    .certification-badge i {
+      margin-right: 8px;
+    }
+    
+    .discord-widget {
+      width: 100%;
+      text-align: left;  /* Changed from center to left */
+      margin: 15px 0;
+      display: block;
+    }
+
+    .discord-widget img {
+      max-width: 100%;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+    }
+
+    .spotify-widget {
+      width: 100%;
+      height: 140px; /* Increased height for better visibility */
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      margin: 15px 0;
+      box-shadow: var(--box-shadow);
+    }
+
+    .profile-image {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: block;
+      object-fit: cover;
+      border: 4px solid var(--primary-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    
+    .profile-image:hover {
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 15px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .github-stats {
+        flex-direction: column;
+      }
+    }
+
+    /* Seneca Achievement Layout Fix */
+    .seneca-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .seneca-content {
+      flex: 1;
+    }
+
+    .seneca-badge img {
+      width: 160px;
+      height: auto;
+      max-width: 100%;
+    }
+
+    /* Responsive Fix */
+    @media (max-width: 768px) {
+      .seneca-wrapper {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .seneca-badge img {
+        margin-top: 15px;
+        width: 140px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+          <input type="checkbox" id="checkbox" />
+          <div class="slider">
+            <i class="fas fa-sun icon icon-sun"></i>
+            <i class="fas fa-moon icon icon-moon"></i>
+          </div>
+        </label>
+      </div>
+      
+      <img src="https://avatars.githubusercontent.com/u/66247724?v=4" alt="Jonathan Chacko" class="profile-image">
+      <h1>👨‍💻 Jonathan Chacko</h1>
+        <!--
+        <div align="center">
+        <img src="https://readme-typing-svg.herokuapp.com?font=Architects+Daughter&color=7AF79A&size=40&center=true&vCenter=true&width=600&lines=Hi+There!+👋;I'm+Jonathan+Chacko!;Automation+%26+Data+Science+Specialist" alt="Title" />
+        </div>
+        -->
+      <p class="tagline">Python/Java Developer</p>
+      <p class="intro">
+        I specialize in automation and data science. My expertise includes developing automation scripts that have reduced manual processing time and analyzing large datasets to identify trends, informing strategic decisions. I thrive in dynamic environments, quickly adapting to new technologies and methodologies, and excel both independently and within teams. I am passionate about leveraging data-driven solutions to drive business success and am eager to connect with professionals who share this interest.
+      </p>
+    </header>
+
+    <section>
+      <h2><i class="fas fa-address-book"></i> Connect With Me</h2>
+      <div class="connect">
+        <a href="https://www.linkedin.com/in/jcp-tech/" target="_blank" rel="noopener noreferrer">
+          <i class="fab fa-linkedin"></i> LinkedIn
+        </a>
+        <a href="https://github.com/jcp-tech" target="_blank" rel="noopener noreferrer" class="github">
+          <i class="fab fa-github"></i> GitHub
+        </a>
+        <!--
+        <a href="https://www.instagram.com/jcp99gamer/" target="_blank" rel="noopener noreferrer" class="instagram">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+        <a href="https://wa.me/13653842257" target="_blank" rel="noopener noreferrer" class="whatsapp">
+          <i class="fab fa-whatsapp"></i> WhatsApp
+        </a>
+        -->
+        <a href="mailto:jonathanchacko1805+git@gmail.com" target="_blank" rel="noopener noreferrer" class="gmail">
+          <i class="fas fa-envelope"></i> Gmail
+        </a>
+        <a href="https://jcp-tech.web.app/media/pdfs/Jonathan%20Chacko%20-%20Resume.pdf" target="_blank" rel="noopener noreferrer" class="resume-download">
+          <i class="fas fa-file-pdf"></i> Download Resume
+        </a>
+        <!--
+        <a href="https://discordapp.com/users/686190428634349751/" target="_blank" rel="noopener noreferrer" class="discord">
+          <i class="fab fa-discord"></i> Discord
+        </a>
+        -->
+      </div>
+      <!-- Discord status widget as a separate element -->
+      <div class="discord-widget">
+        <a href="https://discordapp.com/users/686190428634349751/" target="_blank" rel="noopener noreferrer">
+          <img src="https://discord-readme-badge.vercel.app/api?id=686190428634349751" alt="Discord Status" width="480"> <!-- 650 is the Ideal Hight but the Spotify is Locked at 480. -->
+        </a>
+      </div>
+    </section>
+
+    <section class="spotify-section">
+    <h2><i class="fab fa-spotify"></i> Currently Listening To</h2> <!-- style="color: #1ED760;" -->
+      <!-- Updated Spotify iframe with proper class and dimensions -->
+      <div class="spotify-widget">
+        <iframe src="https://novatorem-zeta-eosin.vercel.app/api/spotify" width="100%" height="100%" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-chart-line"></i> GitHub Stats</h2>
+      <div class="github-stats">
+        <img src="https://github-readme-stats-teal-six-35.vercel.app/api?username=jcp-tech&include_all_commits=true&show_icons=true&title_color=000000&locale=en" alt="GitHub Stats">
+        <img src="https://github-readme-stats-teal-six-35.vercel.app/api/top-langs?username=jcp-tech&show_icons=true&locale=en&layout=compact" alt="Top Languages">
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-rocket"></i> Current Focus</h2>
+      <ul class="current-focus">
+        <li>
+          🔭 Worked on
+          <a href="https://github.com/jcp-tech/Spendify" target="_blank" rel="noopener noreferrer"><strong>Spendify</strong></a>
+          - AI-powered expense optimizer using Discord uploads, GCP Vertex AI OCR, and a multi-agent ADK pipeline for explainable receipt classification. End-to-end automated, schema-validated, and fully containerized with CI/CD.
+          <!--
+          <br>
+          <a href="https://github.com/jcp-tech/Spendify" target="_blank" rel="noopener noreferrer">
+            <img src="https://github-readme-stats-teal-six-35.vercel.app/api/pin/?username=jcp-tech&repo=Spendify" alt="Spendify GitHub repo card">
+          </a>
+          -->
+        </li>
+        <li>
+          🤖 Looking to collaborate on
+          <a href="https://github.com/jcp-tech/DevTools" target="_blank" rel="noopener noreferrer"><strong>DevTools</strong></a>
+          - AI-powered Developer Support System built on Google’s Agent Development Kit (ADK) for debugging Django + MySQL applications. It helps developers trace issues from yellow error pages, raw HTML, screenshots, or free-form descriptions through a multi-agent pipeline that inspects views, functions, and models to reconstruct logic and map data flow. The system integrates with MySQL (read-only, expanding to controlled write), a custom MCP code inspector, GitHub MCP/code-parsing tools, and Notion-based mitigation playbooks. Outputs are schema-guaranteed for explainability, delivering validated, step-by-step debugging insights. Fully containerized and extensible, with a roadmap including audit trails, controlled DB writes, and expanded pipelines for scalable, collaborative debugging.
+          <!--
+          <br>
+          <a href="https://github.com/jcp-tech/DevTools" target="_blank" rel="noopener noreferrer">
+            <img src="https://github-readme-stats-teal-six-35.vercel.app/api/pin/?username=jcp-tech&repo=DevTools" alt="DevTools GitHub repo card">
+          </a>
+          -->
+        </li>
+        <li>Ask me about <strong>Python</strong>, <strong>Java</strong>, <strong>Django</strong>, and <a href="https://www.linkedin.com/in/jcp-tech/details/skills/" target="_blank" rel="noopener noreferrer">more</a></li>
+        <li>Hobbies include <strong>Gaming</strong>, <strong>Content Creation</strong> & <strong>Video Editing</strong> as <a href="https://www.instagram.com/noxic.gamers/" target="_blank" rel="noopener noreferrer">Noxic Gamers</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-cogs"></i> Skills</h2>
+      <div class="skills-container">
+        <div class="skill-category">
+          <h3>💻 Programming Languages</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=python,java,cpp" alt="Programming Languages" />
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>🗃️ Database Systems</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=mysql,sqlite,firebase" alt="Database Systems" />
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>☁️ Cloud Services</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=gcp,aws" alt="Cloud Services" />
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>🤖 AI/ML Tools</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=tensorflow,pytorch,sklearn,opencv" alt="AI/ML Tools" />
+            <img src="https://img.shields.io/badge/GCP_ADK-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="GCP ADK" />
+            <img src="https://img.shields.io/badge/Google_Vertex_Tools-4285F4?style=for-the-badge&logo=google&logoColor=white" alt="Google Vertex Tools" />
+            <img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" />
+            <img src="https://img.shields.io/badge/Hugging_Face-FFD21E?style=for-the-badge&logo=huggingface&logoColor=black" alt="Hugging Face" />
+            <img src="https://img.shields.io/badge/LangChain-00C65E?style=for-the-badge&logo=langchain&logoColor=white" alt="LangChain" />
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>🧪 Testing Frameworks & Tools</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=selenium" alt="Testing Tools" />
+            <img src="https://img.shields.io/badge/BeautifulSoup-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="BeautifulSoup" />
+            <img src="https://img.shields.io/badge/JSoup-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="JSoup" />
+          </div>
+        </div>
+                
+        <div class="skill-category">
+          <h3>🌐 GUI & Web Development</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=django,html,css,js,androidstudio" alt="Web Development" />
+            <img src="https://img.shields.io/badge/Tkinter-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Tkinter" />
+            <img src="https://img.shields.io/badge/Java_Swing-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white" alt="Java Swing" />
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>📊 Visualization Tools</h3>
+          <div class="skill-icons">
+            <img src="https://img.shields.io/badge/Tableau-E97627?style=for-the-badge&logo=tableau&logoColor=white" alt="Tableau" />
+            <img src="https://img.shields.io/badge/Matplotlib-3776AB?style=for-the-badge&logo=matplotlib&logoColor=white" alt="Matplotlib" />
+            <img src="https://img.shields.io/badge/Seaborn-3776AB?style=for-the-badge&logo=seaborn&logoColor=white" alt="Seaborn" />
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>💾 Operating Systems</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=linux,windows" alt="Operating Systems" />
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>🌍 Web Hosting & Services</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=firebase" alt="Web Hosting" />
+            <img src="https://img.shields.io/badge/Hostinger-673DE6?style=for-the-badge&logo=hostinger&logoColor=white" alt="Hostinger" />
+            <img src="https://img.shields.io/badge/cPanel-FF6C2C?style=for-the-badge&logo=cpanel&logoColor=white" alt="cPanel" />
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>🛠️ IDEs & Development Tools</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=vscode,androidstudio,eclipse,idea" alt="IDEs" />
+            <img src="https://img.shields.io/badge/Anaconda-44A833?style=for-the-badge&logo=anaconda&logoColor=white" alt="Anaconda" />
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>🔧 Other Tools & Technologies</h3>
+          <div class="skill-icons">
+            <img src="https://skillicons.dev/icons?i=raspberrypi,git,github,postman,powershell" alt="Other Tools" />
+            <img src="https://img.shields.io/badge/WSL-4D4D4D?style=for-the-badge&logo=windows-terminal&logoColor=white" alt="WSL" />
+            <img src="https://img.shields.io/badge/Power_Automate-0066FF?style=for-the-badge&logo=power-automate&logoColor=white" alt="Power Automate" />
+            <img src="https://img.shields.io/badge/ROS-22314E?style=for-the-badge&logo=ros&logoColor=white" alt="ROS (Robot Operating System)" />
+          </div>
+        </div>
+
+        <div class="skill-category">
+          <h3>📚 Currently Learning</h3>
+          <div class="skill-icons">
+            <img src="https://img.shields.io/badge/KNIME-FFC000?style=for-the-badge&logo=knime&logoColor=white" alt="KNIME" />
+            <img src="https://img.shields.io/badge/Video_Editing-9999FF?style=for-the-badge&logo=adobe-premiere-pro&logoColor=white" alt="Video Editing" />
+            <img src="https://img.shields.io/badge/Power_BI-F2C811?style=for-the-badge&logo=power-bi&logoColor=black" alt="Power BI" />
+            <img src="https://img.shields.io/badge/n8n-1A047D?style=for-the-badge&logo=n8n&logoColor=white" alt="n8n" />
+            <img src="https://img.shields.io/badge/GCP_A2A-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="GCP A2A" />
+            <img src="https://img.shields.io/badge/GCP_MCP-4285F4?style=for-the-badge&logo=google-cloud&logoColor=white" alt="GCP MCP" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-briefcase"></i> Professional Experience</h2>
+      
+      <div class="experience-item">
+        <div class="job-title">
+          <span>💻</span> Software Developer Consultant at MÖBEL Cabinetry, Hamilton, Canada
+        </div>
+        <div class="job-duration">(September 2024 - February 2025)</div>
+        <ul class="job-desc">
+          <li>Diagnosed and resolved critical bugs in Version 1, improving system stability and user experience</li>
+          <li>Contributed to feature development that expanded product functionality and met evolving client needs</li>
+          <li>Participated in full development lifecycle of Version 2, from initial design through implementation and testing</li>
+          <li>Collaborated closely with cross-functional teams to ensure alignment with business requirements</li>
+        </ul>
+      </div>
+      
+      <div class="experience-item">
+        <div class="job-title">
+          <span>🏢</span> Lead Software Developer - Automation at <a href="https://www.linkedin.com/company/maritime-support-solutions/" target="_blank" rel="noopener noreferrer">Maritime Support Solutions</a>
+        </div>
+        <div class="job-duration">(June 2023 - Present)</div>
+        <ul class="job-desc">
+          <li>Architected and developed <a href="https://smooth-ocean.tech/" target="_blank" rel="noopener noreferrer">Smooth-Ocean.tech</a>, a comprehensive automation platform for shipping liner agencies</li>
+          <li>Engineered data processing pipeline that handles multi-format sources (PDF, Excel, CSV) with advanced error detection</li>
+          <li>Implemented API integrations enabling seamless data exchange with Power BI and third-party systems</li>
+          <li>Served as Global IT lead across partner organizations, managing infrastructure and securing ISO 27001 certification</li>
+          <li>Reduced manual processing time by 70% and nearly eliminated human input errors through intelligent automation</li>
+        </ul>
+      </div>
+      
+      <div class="experience-item">
+        <div class="job-title">
+          <span>👨‍🏫</span> Professional IT Trainer at <a href="https://www.linkedin.com/company/rogersoft-com/" target="_blank" rel="noopener noreferrer">Rogersoft Technologies PVT LTD</a>
+        </div>
+        <div class="job-duration">(January 2023 - August 2023)</div>
+        <ul class="job-desc">
+          <li>Designed and delivered comprehensive curriculum for Python, Django, Data Science, SQL, and Statistics</li>
+          <li>Developed personalized learning paths for students based on individual skill levels and career goals</li>
+          <li>Mentored students through real-world projects that demonstrated practical application of technical skills</li>
+          <li>Created extensive documentation and training materials that became company standard resources</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <div class="job-title">
+          <span>📱</span> Mobile Application Developer at Bohanee, Pune, India
+        </div>
+        <div class="job-duration">(January 2022 - July 2023)</div>
+        <ul class="job-desc">
+          <li>Designed and built an affordable inventory management solution for small business owners across India</li>
+          <li>Implemented barcode scanning functionality and automated product identification to streamline operations</li>
+          <li>Created data collection infrastructure that provided valuable market insights for wholesale opportunities</li>
+          <li>Developed user-friendly interface that required minimal technical knowledge from end users</li>
+        </ul>
+      </div>
+
+      <div class="experience-item">
+        <div class="job-title">
+          <span>🎮</span> Campus Coordinator at Viral Fission, Pune, India
+        </div>
+        <div class="job-duration">(April 2022 - June 2022)</div>
+        <ul class="job-desc">
+          <li>Coordinated competitive gaming events in partnership with Good Game Nation (GGN)</li>
+          <li>Managed logistics, scheduling, and promotion to drive student participation</li>
+          <li>Served as liaison between college administration and external gaming organizations</li>
+          <li>Created opportunities for students to engage with emerging esports ecosystem</li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-graduation-cap"></i> Educational Journey</h2>
+      
+      <div class="education-item">
+        <p>📚 Completed <strong>AI Graduate Program</strong> at <a href="https://www.senecacollege.ca/" target="_blank" rel="noopener noreferrer">Seneca Polytechnic</a> in Ontario, Canada</p>
+      </div>
+      
+      <div class="education-item">
+        <p>🎓 Completed <strong>Bachelor of Computer Applications</strong> at <a href="https://www.sicsr.ac.in/" target="_blank" rel="noopener noreferrer">Symbiosis Institute of Computer Studies and Research</a></p>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-award"></i> Certifications</h2>
+      
+      <div class="certification-badges">
+        <div class="certification-badge">
+          <i class="fas fa-book"></i> Business Ethics
+        </div>
+        <div class="certification-badge">
+          <i class="fas fa-cloud"></i> Database and Cloud Services
+        </div>
+        <div class="certification-badge">
+          <i class="fas fa-brain"></i> Artificial Intelligence & Machine Learning
+        </div>
+        <div class="certification-badge">
+          <i class="fab fa-python"></i> Python
+        </div>
+        <div class="certification-badge">
+          <i class="fas fa-code"></i> C++
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2><i class="fas fa-trophy"></i> Achievements</h2>
+
+      <!-- Google Hackathon -->
+      <div class="experience-item">
+        <div class="job-title">
+          <span>🏆</span> Google Cloud x AI Tinkerers Toronto Hackathon
+        </div>
+        <div class="job-duration">(September 2025)</div>
+        <ul class="job-desc">
+          <li><strong>Team <a href="https://toronto.aitinkerers.org/hackathons/h_KQnA_tMSu9Y/teams/ht_kLrU9QavpGg">V.I.S.I.O.N</a></strong> - Runner Up + Crowd Favorite</li>
+          <li><a href="https://toronto.aitinkerers.org/hackathons/h_KQnA_tMSu9Y/results" target="_blank" rel="noopener noreferrer">Event Details</a></li>
+        </ul>
+      </div>
+
+      <!-- Seneca Hackathon -->
+      <div class="experience-item seneca-achievement">
+        <div class="seneca-wrapper">
+          
+          <div class="seneca-content">
+            <div class="job-title">
+              <span>🏅</span> Seneca Hackathon 2025 - Finalist
+            </div>
+            <div class="job-duration">(April 2025)</div>
+            <ul class="job-desc">
+              <li>Achieved Finalist status in the 2025 Seneca Polytechnic <a href="https://factory.cancred.ca/obv3/credentials/1b0444a5742c2b69bfc2c7fbe0a735c704dcaf8d">Hackathon</a>.</li>
+              <li>
+                <a href="https://factory.cancred.ca/obv3/credentials/2dc8425a65563dcbf7e12c39e11940df9e2e56f9" target="_blank" rel="noopener noreferrer">
+                  View Credential
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="seneca-badge">
+            <a href="https://factory.cancred.ca/obv3/credentials/2dc8425a65563dcbf7e12c39e11940df9e2e56f9" target="_blank" rel="noopener noreferrer">
+              <img src="https://factory.cancred.ca/obv3/images/badge/4dea917162b6230189acc42a2349f81a89ab17bfe3fe823ff1856ccc8e108212" alt="Seneca Hackathon Badge">
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // Theme switcher functionality
+    const toggleSwitch = document.querySelector('.theme-switch input[type="checkbox"]');
+    
+    // Check for saved theme preference
+    const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : null;
+    
+    // Apply saved theme if it exists
+    if (currentTheme) {
+      document.documentElement.classList.toggle('dark-theme', currentTheme === 'dark');
+      // Update toggle position if dark theme
+      toggleSwitch.checked = currentTheme === 'dark';
+    }
+    
+    // Handle theme switch
+    function switchTheme(e) {
+      if (e.target.checked) {
+        document.documentElement.classList.add('dark-theme');
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.documentElement.classList.remove('dark-theme');
+        localStorage.setItem('theme', 'light');
+      }    
+    }
+    
+    // Event listener for theme toggle
+    toggleSwitch.addEventListener('change', switchTheme, false);
+  </script>
+</body>
+</html>

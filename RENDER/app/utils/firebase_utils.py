@@ -62,7 +62,6 @@ if not firebase_admin._apps:
         else:
             print("[Firebase] No valid service account file found. Firebase disabled.")
 
-
 def get_realtime_data(path):
     """Fetch data from Realtime Database."""
     if not firebase_admin._apps:
@@ -73,7 +72,6 @@ def get_realtime_data(path):
     except Exception as e:
         print(f"Error fetching Realtime DB data from {path}: {e}")
         return None
-
 
 def update_realtime_data(path, data):
     """Update data in Realtime Database."""
@@ -86,7 +84,6 @@ def update_realtime_data(path, data):
     except Exception as e:
         print(f"Error updating Realtime DB data at {path}: {e}")
         return False
-
 
 def get_firestore_data(path: str):
     """
@@ -136,7 +133,6 @@ def get_firestore_data(path: str):
     except Exception as e:
         print(f"Error fetching Firestore data from {path}: {e}")
         return None
-
 
 def update_firestore_data(path: str, data: dict): # , merge: bool = False
     """

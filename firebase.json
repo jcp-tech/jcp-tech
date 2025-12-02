@@ -1,16 +1,41 @@
 {
-  "hosting": {
-    "site": "jcp-tech",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "rewrites": [{
+  "hosting": [
+    {
+      "target": "prod",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [{
         "source": "**",
         "run": {
           "serviceId": "portfolio"
         }
-    }]
-  }
+      }]
+    },
+    {
+      "target": "test",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [{
+        "source": "**",
+        "run": {
+          "serviceId": "project-test"
+        }
+      }]
+    },
+    {
+      "target": "old",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
 }

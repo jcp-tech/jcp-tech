@@ -1,5 +1,21 @@
 {
   "projects": {
     "default": "cv-jcp"
+  },
+  "targets": {
+    "cv-jcp": {
+      "hosting": {
+        "prod": [
+          "jcp-tech"
+        ],
+        "test": [
+          "cv-jonathan-chacko-1805"
+        ],
+        "old": [
+          "cv-jonathan-chacko",
+          "cv-jcp"
+        ]
+      }
+    }
   }
 }
