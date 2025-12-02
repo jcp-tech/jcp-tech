@@ -15,7 +15,7 @@ def extract_list(doc_data, key='items'):
     return None
 
 
-def to_rgb_string(color, hex=False):
+def to_rgba_string(color, hex=False):
     """Convert hex, rgb string, or (r,g,b) tuple into:
        - 'R G B'  (default)
        - '#RRGGBB' if hex=True
@@ -71,7 +71,7 @@ def normalize_color_config(config, hex=False):
     for mode, values in config.items():
         new_config[mode] = {}
         for key, color in values.items():
-            new_config[mode][key] = to_rgb_string(color, hex)
+            new_config[mode][key] = to_rgba_string(color, hex)
 
     return new_config
 
