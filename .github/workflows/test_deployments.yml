@@ -125,7 +125,7 @@ jobs:
         # We need to go up one level or specify config
         run: |
           cd ..
-          firebase deploy --only hosting:test --project cv-jonathan-chacko-1805
+          firebase deploy --only hosting:test --project cv-jcp
 
       - name: Create Pull Request
         env:
