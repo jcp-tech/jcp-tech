@@ -6,6 +6,10 @@ on:
     paths:
       - "RENDER/**"
 
+permissions:
+  contents: read
+  pull-requests: write
+
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   SERVICE_NAME: project-test
