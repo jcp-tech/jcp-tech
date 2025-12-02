@@ -30,7 +30,12 @@
                     "border-subtle": "color-hex-goes-here",
                     "border-medium": "color-hex-goes-here",
                     "text-footer-primary": "color-hex-goes-here",
-                    "text-footer-secondary": "color-hex-goes-here"
+                    "text-footer-secondary": "color-hex-goes-here",
+                    "bg-surface-subtle": "color-hex-goes-here",
+                    "bg-surface-medium": "color-hex-goes-here",
+                    "text-body": "color-hex-goes-here",
+                    "text-subtle": "color-hex-goes-here",
+                    "text-faint": "color-hex-goes-here"
                 },
                 "light": {
                     "bg-rgb": "color-hex-goes-here",
@@ -51,7 +56,12 @@
                     "border-subtle": "color-hex-goes-here",
                     "border-medium": "color-hex-goes-here",
                     "text-footer-primary": "color-hex-goes-here",
-                    "text-footer-secondary": "color-hex-goes-here"
+                    "text-footer-secondary": "color-hex-goes-here",
+                    "bg-surface-subtle": "color-hex-goes-here",
+                    "bg-surface-medium": "color-hex-goes-here",
+                    "text-body": "color-hex-goes-here",
+                    "text-subtle": "color-hex-goes-here",
+                    "text-faint": "color-hex-goes-here"
                 },
                 "admin": {
                     "bg-primary": "color-hex-goes-here",
