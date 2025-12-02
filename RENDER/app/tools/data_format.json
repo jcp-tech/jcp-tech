@@ -3,7 +3,13 @@
         "PORTFOLIO": {
             "COLOR_CONFIG": {
                 "general": {
-                    
+                    "shadow-cyan": "color-hex-goes-here",
+                    "shadow-green": "color-hex-goes-here",
+                    "gradient-purple": "color-hex-goes-here",
+                    "btn-admin-bg": "color-hex-goes-here",
+                    "btn-admin-hover-bg": "color-hex-goes-here",
+                    "btn-admin-text": "color-hex-goes-here",
+                    "btn-admin-shadow": "color-hex-goes-here"
                 },
                 "dark": {
                     "bg-rgb": "color-hex-goes-here",
@@ -17,13 +23,20 @@
                     "social_pill_bg": "color-hex-goes-here",
                     "social_pill_hover_bg": "color-hex-goes-here",
                     "social_pill_text": "color-hex-goes-here",
-                    "social_pill_hover_text": "color-hex-goes-here"
+                    "social_pill_hover_text": "color-hex-goes-here",
+                    "card-bg-secondary": "color-hex-goes-here",
+                    "card-bg-tertiary": "color-hex-goes-here",
+                    "overlay-bg": "color-hex-goes-here",
+                    "border-subtle": "color-hex-goes-here",
+                    "border-medium": "color-hex-goes-here",
+                    "text-footer-primary": "color-hex-goes-here",
+                    "text-footer-secondary": "color-hex-goes-here"
                 },
                 "light": {
                     "bg-rgb": "color-hex-goes-here",
                     "border-color": "color-hex-goes-here",
                     "card-bg-rgb": "color-hex-goes-here",
-                    "nav-bar-rgb": "#fcfdfe",
+                    "nav-bar-rgb": "color-hex-goes-here",
                     "primary-rgb": "color-hex-goes-here",
                     "text-main": "color-hex-goes-here",
                     "text-muted": "color-hex-goes-here",
@@ -31,7 +44,14 @@
                     "social_pill_bg": "color-hex-goes-here",
                     "social_pill_hover_bg": "color-hex-goes-here",
                     "social_pill_text": "color-hex-goes-here",
-                    "social_pill_hover_text": "color-hex-goes-here"
+                    "social_pill_hover_text": "color-hex-goes-here",
+                    "card-bg-secondary": "color-hex-goes-here",
+                    "card-bg-tertiary": "color-hex-goes-here",
+                    "overlay-bg": "color-hex-goes-here",
+                    "border-subtle": "color-hex-goes-here",
+                    "border-medium": "color-hex-goes-here",
+                    "text-footer-primary": "color-hex-goes-here",
+                    "text-footer-secondary": "color-hex-goes-here"
                 },
                 "admin": {
                     
