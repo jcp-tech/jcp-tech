@@ -7,12 +7,14 @@ on:
     paths:
       - "RENDER/**"
       - "firebase.json"
+      - ".firebaserc"
   pull_request:
     branches:
       - "**"
     paths:
       - "RENDER/**"
       - "firebase.json"
+      - ".firebaserc"
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
