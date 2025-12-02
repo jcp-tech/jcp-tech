@@ -1,4 +1,4 @@
-name: Build and Deploy to Cloud Run (Testing)
+name: Testing - Make Sure Deployments will Work
 on:
   push:
     branches:

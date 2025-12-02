@@ -1,4 +1,4 @@
-name: Build and Deploy to Cloud Run (Production)
+name: Production - Build and Deploy to Cloud Run
 
 on:
   push:
