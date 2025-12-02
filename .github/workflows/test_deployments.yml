@@ -137,14 +137,14 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Create Pull Request on Success
-        if: success()
+        if: needs.lint.result == 'success' && needs.test.result == 'success' && needs.deploy.result == 'success'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create --base main --head master --title "Merge master to main" --body "Automated PR after successful test deployment." || echo "PR might already exist or failed"
 
       - name: Close Pull Request on Failure
-        if: failure()
+        if: needs.lint.result == 'failure' || needs.test.result == 'failure' || needs.deploy.result == 'failure'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
