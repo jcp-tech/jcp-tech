@@ -129,3 +129,16 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh pr create --base main --head master --title "Merge master to main" --body "Automated PR after successful test deployment to ${{ steps.deploy.outputs.url }}" || echo "PR might already exist or failed"
+
+      - name: Close Pull Request on Failure
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --head master --base main --state open --json number --jq '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Closing PR #$PR_NUMBER due to deployment failure"
+            gh pr close "$PR_NUMBER" --comment "Deployment failed. Closing PR to prevent merging."
+          else
+            echo "No open PR found to close."
+          fi
