@@ -16,9 +16,12 @@ export function renderProjects(data) {
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Category</label>
                         <select data-field="category" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                            ${window.PROJECT_CATEGORIES.map(cat => `
-                                <option value="${cat}" ${item.category === cat ? 'selected' : ''}>${cat}</option>
-                            `).join('')}
+                            ${window.PROJECT_CATEGORIES.map(cat => {
+                                const name = typeof cat === 'string' ? cat : cat.name;
+                                const active = typeof cat === 'string' ? true : (cat.active !== false);
+                                if (!active) return '';
+                                return `<option value="${name}" ${item.category === name ? 'selected' : ''}>${name}</option>`;
+                            }).join('')}
                         </select>
                     </div>
                 </div>
@@ -40,9 +43,15 @@ export function renderProjects(data) {
                             <label class="block text-xs text-gray-500 mb-1">Tags (comma separated)</label>
                             <input type="text" data-field="tags" value="${(item.tags || []).join(', ')}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                         </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" data-field="featured" ${item.featured ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
-                            <label class="ml-2 text-sm text-gray-400">Featured</label>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <input type="checkbox" data-field="featured" ${item.featured ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                                <label class="ml-2 text-sm text-gray-400">Featured</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" data-field="active" ${item.active !== false ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                                <label class="ml-2 text-sm text-gray-400">Active</label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -93,7 +102,12 @@ export function addProjectItem() {
                     <div>
                         <label class="block text-xs text-gray-500 mb-1">Category</label>
                         <select data-field="category" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                            ${window.PROJECT_CATEGORIES.map(cat => `<option value="${cat}">${cat}</option>`).join('')}
+                            ${window.PROJECT_CATEGORIES.map(cat => {
+                                const name = typeof cat === 'string' ? cat : cat.name;
+                                const active = typeof cat === 'string' ? true : (cat.active !== false);
+                                if (!active) return '';
+                                return `<option value="${name}">${name}</option>`;
+                            }).join('')}
                         </select>
                     </div>
                 </div>
@@ -115,9 +129,15 @@ export function addProjectItem() {
                             <label class="block text-xs text-gray-500 mb-1">Tags (comma separated)</label>
                             <input type="text" data-field="tags" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                         </div>
-                        <div class="flex items-center">
-                            <input type="checkbox" data-field="featured" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
-                            <label class="ml-2 text-sm text-gray-400">Featured</label>
+                        <div class="flex items-center space-x-4">
+                            <div class="flex items-center">
+                                <input type="checkbox" data-field="featured" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                                <label class="ml-2 text-sm text-gray-400">Featured</label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" data-field="active" checked class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                                <label class="ml-2 text-sm text-gray-400">Active</label>
+                            </div>
                         </div>
                     </div>
                 </div>

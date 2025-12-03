@@ -204,7 +204,10 @@ export async function handleSave(eventOrSection, payloadIfManual) {
         }
     } else if (currentSection === 'live_activities') {
         const items = Array.from(document.querySelectorAll('#activity-items > div'));
-        payload = items.map(item => item.querySelector('[data-field="html"]').value);
+        payload = items.map(item => ({
+            html: item.querySelector('[data-field="html"]').value,
+            active: item.querySelector('[data-field="active"]').checked
+        }));
     } else if (currentSection === 'projects') {
         const items = Array.from(document.querySelectorAll('#project-items > div'));
         payload = items.map(item => ({
@@ -213,7 +216,8 @@ export async function handleSave(eventOrSection, payloadIfManual) {
             description: item.querySelector('[data-field="description"]').value,
             image: item.querySelector('[data-field="image"]').value,
             tags: item.querySelector('[data-field="tags"]').value.split(',').map(t => t.trim()).filter(t => t),
-            featured: item.querySelector('[data-field="featured"]').checked
+            featured: item.querySelector('[data-field="featured"]').checked,
+            active: item.querySelector('[data-field="active"]').checked
         }));
     } else if (currentSection === 'skills') {
         const items = Array.from(document.querySelectorAll('#skill-items > div'));
@@ -221,16 +225,19 @@ export async function handleSave(eventOrSection, payloadIfManual) {
             name: item.querySelector('[data-field="name"]').value,
             category: item.querySelector('[data-field="category"]').value,
             icon: item.querySelector('[data-field="icon"]').value,
-            featured: item.querySelector('[data-field="featured"]').checked
+            featured: item.querySelector('[data-field="featured"]').checked,
+            active: item.querySelector('[data-field="active"]').checked
         }));
     } else if (currentSection === 'experiences') {
         const items = Array.from(document.querySelectorAll('#experience-items > div'));
         payload = items.map(item => ({
             company: item.querySelector('[data-field="company"]').value,
             current: item.querySelector('[data-field="current"]').checked,
+            active: item.querySelector('[data-field="active"]').checked,
             roles: Array.from(item.querySelectorAll('.role-item')).map(role => ({
                 title: role.querySelector('[data-role-field="title"]').value,
                 period: role.querySelector('[data-role-field="period"]').value,
+                active: role.querySelector('[data-role-field="active"]').checked,
                 points: role.querySelector('[data-role-field="points"]').value.split('\n').filter(p => p.trim())
             }))
         }));
@@ -241,13 +248,15 @@ export async function handleSave(eventOrSection, payloadIfManual) {
             degree: item.querySelector('[data-field="degree"]').value,
             location: item.querySelector('[data-field="location"]').value,
             year: item.querySelector('[data-field="year"]').value,
-            current: item.querySelector('[data-field="current"]').checked
+            current: item.querySelector('[data-field="current"]').checked,
+            active: item.querySelector('[data-field="active"]').checked
         }));
     } else if (currentSection === 'certifications') {
         const items = Array.from(document.querySelectorAll('#certification-items > div'));
         payload = items.map(item => ({
             name: item.querySelector('[data-field="name"]').value,
-            issuer: item.querySelector('[data-field="issuer"]').value
+            issuer: item.querySelector('[data-field="issuer"]').value,
+            active: item.querySelector('[data-field="active"]').checked
         }));
     } else if (currentSection === 'achievements') {
         const items = Array.from(document.querySelectorAll('#achievement-items > div'));
@@ -256,7 +265,8 @@ export async function handleSave(eventOrSection, payloadIfManual) {
             description: item.querySelector('[data-field="description"]').value,
             date: item.querySelector('[data-field="date"]').value,
             icon: item.querySelector('[data-field="icon"]').value,
-            link: item.querySelector('[data-field="link"]').value
+            link: item.querySelector('[data-field="link"]').value,
+            active: item.querySelector('[data-field="active"]').checked
         }));
     } else if (currentSection === 'socials') {
         const items = Array.from(document.querySelectorAll('#social-items > div'));

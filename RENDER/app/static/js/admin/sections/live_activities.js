@@ -2,7 +2,12 @@ export function renderLiveActivities(data) {
     const contentArea = document.getElementById('content-area');
     const items = Array.isArray(data) ? data : [];
     
-    const itemsHtml = items.map((item, index) => `
+    const itemsHtml = items.map((item, index) => {
+        const isString = typeof item === 'string';
+        const htmlContent = isString ? item : (item.html || '');
+        const isActive = isString ? true : (item.active !== false); // Default to true
+
+        return `
         <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">
             <div class="drag-handle cursor-move text-gray-500 hover:text-white mt-2">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16"></path></svg>
@@ -10,12 +15,18 @@ export function renderLiveActivities(data) {
             <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">HTML Content</label>
-                    <textarea data-field="html" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500" oninput="this.closest('.group').querySelector('.preview-box').innerHTML = this.value">${item || ''}</textarea>
+                    <textarea data-field="html" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500" oninput="this.closest('.group').querySelector('.preview-box').innerHTML = this.value">${htmlContent}</textarea>
+                    <div class="mt-2">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" data-field="active" class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out" ${isActive ? 'checked' : ''}>
+                            <span class="ml-2 text-sm text-gray-300">Active</span>
+                        </label>
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Preview</label>
                     <div class="preview-box bg-gray-900 border border-gray-700 rounded p-2 h-full overflow-auto flex items-center justify-center text-white">
-                        ${item || 'Preview'}
+                        ${htmlContent || 'Preview'}
                     </div>
                 </div>
             </div>
@@ -23,7 +34,7 @@ export function renderLiveActivities(data) {
                 Delete
             </button>
         </div>
-    `).join('');
+    `}).join('');
 
     contentArea.innerHTML = `
         <div class="flex justify-between items-center mb-6">
@@ -60,6 +71,12 @@ export function addLiveActivityItem() {
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">HTML Content</label>
                     <textarea data-field="html" rows="6" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-2 text-sm text-white font-mono focus:outline-none focus:border-blue-500" oninput="this.closest('.group').querySelector('.preview-box').innerHTML = this.value"></textarea>
+                    <div class="mt-2">
+                        <label class="inline-flex items-center cursor-pointer">
+                            <input type="checkbox" data-field="active" class="form-checkbox h-4 w-4 text-blue-600 transition duration-150 ease-in-out" checked>
+                            <span class="ml-2 text-sm text-gray-300">Active</span>
+                        </label>
+                    </div>
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Preview</label>

@@ -25,10 +25,14 @@ export function renderEducations(data) {
                     <input type="text" data-field="year" value="${item.year || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                 </div>
 
-                <div class="flex items-end">
+                <div class="flex items-end space-x-4">
                     <div class="flex items-center">
                         <input type="checkbox" data-field="current" ${item.current ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                         <label class="ml-2 text-sm text-gray-400">Current</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" data-field="active" ${item.active !== false ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                        <label class="ml-2 text-sm text-gray-400">Active</label>
                     </div>
                 </div>
             </div>
@@ -87,10 +91,14 @@ export function addEducationItem() {
                     <input type="text" data-field="year" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                 </div>
 
-                <div class="flex items-end">
+                <div class="flex items-end space-x-4">
                     <div class="flex items-center">
                         <input type="checkbox" data-field="current" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                         <label class="ml-2 text-sm text-gray-400">Current</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" data-field="active" checked class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                        <label class="ml-2 text-sm text-gray-400">Active</label>
                     </div>
                 </div>
             </div>
