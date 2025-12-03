@@ -144,6 +144,8 @@ def normalize_color_config(config, hex=False):
 
 def build_skills_data(master_skills):
     skills_data = defaultdict(list)
+    # Check only for active items 
+    master_skills = [item for item in master_skills if item.get("active")]
     # Add each item under its category
     for item in master_skills:
         skills_data[item["category"]].append(
@@ -279,64 +281,91 @@ def get_portfolio_data():
 
     try:
         # Check if it's wrapped in 'components' key as per notebook
-        data["LIVE_ACTIVITIES_HTML_COMPONENTS"] = extract_list(
+        live_activities = extract_list(
             get_firestore_data('PORTFOLIO/LIVE_ACTIVITIES'),
             'components'
         ) or []
+        data["LIVE_ACTIVITIES_HTML_COMPONENTS"] = [activity.get('html') for activity in live_activities if activity.get('active')]
         print("Loaded LIVE_ACTIVITIES from Firestore")
 
         # PROJECTS
         projects_doc = get_firestore_data('PORTFOLIO/PROJECTS') or {}
-        data["PROJECTS"] = projects_doc.get('items', [])
-        data["PROJECT_CATEGORIES"] = projects_doc.get('categories', [])
-        print("Loaded PROJECTS and CATEGORIES from Firestore")
+        projects = projects_doc.get('items', [])
+        active_projects = [
+            project for project in projects if project.get('active')]
+        data["PROJECTS"] = active_projects
+        available_categories = set()
+        for projectz in active_projects:
+            available_categories.add(projectz.get('category'))
+        project_categories = projects_doc.get('categories', [])
+        data["PROJECT_CATEGORIES"] = [category.get('name') for category in project_categories if category.get(
+            'name') in available_categories and category.get('active')]  # NOTE the category.get('active') is not used cause it's Disabled.
+        print("Loaded all PROJECTS and Related from Firestore.")
 
         # SKILLS
         skills_main = extract_list(
             get_firestore_data('PORTFOLIO/SKILLS'),
             'items'
         ) or []
-        data["SKILLS_DATA"], data["SKILL_CATEGORIES"] = build_skills_data(
-            skills_main)
+        data["SKILLS_DATA"], data["SKILL_CATEGORIES"] = build_skills_data(skills_main)
         print("Loaded SKILLS from Firestore")
 
         # EXPERIENCES
-        data["EXPERIENCES"] = extract_list(
+        experiences = extract_list(
             get_firestore_data('PORTFOLIO/EXPERIENCES'),
             'items'
         ) or []
-        for i, exp in enumerate(data["EXPERIENCES"]):
+        for i, exp in enumerate(experiences):
             exp["id"] = i
+        active_experiences = []
+        for exp in experiences:
+            if exp.get('active'):
+                active_roles = []
+                for roles in exp.get('roles', []):
+                    if roles.get('active'):
+                        active_roles.append(roles)
+                    else:
+                        continue
+                if active_roles:
+                    exp["roles"] = active_roles
+                    active_experiences.append(exp)
+                else:
+                    continue
+            else:
+                continue
+        data["EXPERIENCES"] = active_experiences
         print("Loaded EXPERIENCES from Firestore")
 
         # EDUCATIONS
-        data["EDUCATIONS"] = extract_list(
+        edus = extract_list(
             get_firestore_data('PORTFOLIO/EDUCATIONS'),
             'items'
         ) or []
+        data["EDUCATIONS"] = [edu for edu in edus if edu.get('active')]
         print("Loaded EDUCATIONS from Firestore")
 
         # CERTIFICATIONS
-        data["CERTIFICATIONS"] = extract_list(
+        certs = extract_list(
             get_firestore_data('PORTFOLIO/CERTIFICATIONS'),
             'items'
         ) or []
+        data["CERTIFICATIONS"] = [cert for cert in certs if cert.get('active')]
         print("Loaded CERTIFICATIONS from Firestore")
 
         # ACHIEVEMENTS
-        data["ACHIEVEMENTS"] = extract_list(
+        awards = extract_list(
             get_firestore_data('PORTFOLIO/ACHIEVEMENTS'),
             'items'
         ) or []
+        data["ACHIEVEMENTS"] = [award for award in awards if award.get('active')]
         print("Loaded ACHIEVEMENTS from Firestore")
 
         # SOCIAL PILLS
-        data["SOCIAL_PILLS"] = extract_list(
+        socials = extract_list(
             get_firestore_data('PORTFOLIO/SOCIAL_PILLS'),
             'items'
         ) or []
-        data["SOCIAL_PILLS"] = [
-            link for link in data["SOCIAL_PILLS"] if link.get('active')]
+        data["SOCIAL_PILLS"] = [link for link in socials if link.get('active')]
         print("Loaded SOCIAL PILLS from Firestore")
 
     except Exception as e:

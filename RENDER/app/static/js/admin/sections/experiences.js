@@ -13,9 +13,15 @@ export function renderExperiences(data) {
                         <label class="block text-xs text-gray-500 mb-1">Company</label>
                         <input type="text" data-field="company" value="${item.company || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                     </div>
-                    <div class="flex items-center mt-6">
-                        <input type="checkbox" data-field="current" ${item.current ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
-                        <label class="ml-2 text-sm text-gray-400">Current</label>
+                    <div class="flex items-center mt-6 space-x-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" data-field="current" ${item.current ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                            <label class="ml-2 text-sm text-gray-400">Current</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" data-field="active" ${item.active !== false ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                            <label class="ml-2 text-sm text-gray-400">Active</label>
+                        </div>
                     </div>
                 </div>
                 
@@ -45,6 +51,10 @@ export function renderExperiences(data) {
                                             <label class="block text-xs text-gray-500 mb-1">Period</label>
                                             <input type="text" data-role-field="period" value="${role.period || ''}" class="w-full bg-gray-600 border border-gray-500 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                                         </div>
+                                    </div>
+                                    <div class="flex items-center mb-2">
+                                        <input type="checkbox" data-role-field="active" ${role.active !== false ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-600 border-gray-500 rounded focus:ring-blue-500">
+                                        <label class="ml-2 text-xs text-gray-400">Active</label>
                                     </div>
                                     <div>
                                         <label class="block text-xs text-gray-500 mb-1">Points (one per line)</label>
@@ -108,9 +118,15 @@ export function addExperienceItem() {
                         <label class="block text-xs text-gray-500 mb-1">Company</label>
                         <input type="text" data-field="company" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                     </div>
-                    <div class="flex items-center mt-6">
-                        <input type="checkbox" data-field="current" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
-                        <label class="ml-2 text-sm text-gray-400">Current</label>
+                    <div class="flex items-center mt-6 space-x-4">
+                        <div class="flex items-center">
+                            <input type="checkbox" data-field="current" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                            <label class="ml-2 text-sm text-gray-400">Current</label>
+                        </div>
+                        <div class="flex items-center">
+                            <input type="checkbox" data-field="active" checked class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                            <label class="ml-2 text-sm text-gray-400">Active</label>
+                        </div>
                     </div>
                 </div>
                 
@@ -163,6 +179,10 @@ export function addRole(btn) {
                         <label class="block text-xs text-gray-500 mb-1">Period</label>
                         <input type="text" data-role-field="period" class="w-full bg-gray-600 border border-gray-500 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                     </div>
+                </div>
+                <div class="flex items-center mb-2">
+                    <input type="checkbox" data-role-field="active" checked class="w-4 h-4 text-blue-600 bg-gray-600 border-gray-500 rounded focus:ring-blue-500">
+                    <label class="ml-2 text-xs text-gray-400">Active</label>
                 </div>
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Points (one per line)</label>

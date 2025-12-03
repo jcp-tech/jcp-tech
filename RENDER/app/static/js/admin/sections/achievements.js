@@ -75,6 +75,10 @@ export function renderAchievements(data) {
                     <label class="block text-xs text-gray-500 mb-1">Link</label>
                     <input type="text" data-field="link" value="${item.link || ''}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                 </div>
+                <div class="flex items-center">
+                    <input type="checkbox" data-field="active" ${item.active !== false ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                    <label class="ml-2 text-sm text-gray-400">Active</label>
+                </div>
 
             </div>
             <button type="button" onclick="this.closest('.group').remove()" class="text-red-500 hover:text-red-400 text-sm mt-2">
@@ -172,6 +176,10 @@ export function addAchievementItem() {
                 <div>
                     <label class="block text-xs text-gray-500 mb-1">Link</label>
                     <input type="text" data-field="link" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" data-field="active" checked class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                    <label class="ml-2 text-sm text-gray-400">Active</label>
                 </div>
 
             </div>

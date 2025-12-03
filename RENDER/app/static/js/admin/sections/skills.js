@@ -23,10 +23,14 @@ export function renderSkills(data) {
                          <i class="${item.icon || ''} text-2xl text-white"></i>
                     </div>
                 </div>
-                <div class="flex items-end">
+                <div class="flex items-end space-x-4">
                     <div class="flex items-center">
                         <input type="checkbox" data-field="featured" ${item.featured ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                         <label class="ml-2 text-sm text-gray-400">Featured</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" data-field="active" ${item.active !== false ? 'checked' : ''} class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                        <label class="ml-2 text-sm text-gray-400">Active</label>
                     </div>
                 </div>
             </div>
@@ -82,10 +86,14 @@ export function addSkillItem() {
                          <input type="text" data-field="icon" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                     </div>
                 </div>
-                <div class="flex items-end">
+                <div class="flex items-end space-x-4">
                     <div class="flex items-center">
                         <input type="checkbox" data-field="featured" class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
                         <label class="ml-2 text-sm text-gray-400">Featured</label>
+                    </div>
+                    <div class="flex items-center">
+                        <input type="checkbox" data-field="active" checked class="w-4 h-4 text-blue-600 bg-gray-700 border-gray-600 rounded focus:ring-blue-500">
+                        <label class="ml-2 text-sm text-gray-400">Active</label>
                     </div>
                 </div>
             </div>
