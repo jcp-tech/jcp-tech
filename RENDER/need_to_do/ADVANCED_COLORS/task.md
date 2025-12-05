@@ -140,81 +140,74 @@ Section within `/admin` under **Advanced Colors**.
 ## DATA FORMAT
 
 Stored in Firestore at: `PORTFOLIO / ADVANCED_COLORS`
-
-### Active Theme and Settings
-
 ```
-"items":{
-  "enabled": true,
+{
+  "items":{
+    "enabled": true,
 
-  "darkMode": {
-    "type": "linear",
-    "angle": 125,
-    "centerX": 50,
-    "centerY": 50,
-    "spread": 90,
-    "noise": 0,
-    "mirror": false,
-    "repeat": false,
+    "darkMode": {
+      "type": "linear",
+      "angle": 125,
+      "centerX": 50,
+      "centerY": 50,
+      "spread": 90,
+      "noise": 0,
+      "mirror": false,
+      "repeat": false,
 
-    "colorStops": [
-      { "position": 0, "color": "#111111", "opacity": 1 },
-      { "position": 100, "color": "#004755", "opacity": 1 }
-    ],
+      "colorStops": [
+        { "position": 0, "color": "#111111", "opacity": 1 },
+        { "position": 100, "color": "#004755", "opacity": 1 }
+      ],
 
-    "applyTo": {
-      "body": false,
-      "navbar": true
+      "applyTo": {
+        "body": false,
+        "navbar": true
+      }
+    },
+
+    "lightMode": {
+      "type": "radial",
+      "angle": 90,
+      "centerX": 40,
+      "centerY": 60,
+      "spread": 75,
+      "noise": 5,
+      "mirror": false,
+      "repeat": false,
+
+      "colorStops": [
+        { "position": 0, "color": "#FFFFFF", "opacity": 1 },
+        { "position": 100, "color": "#C7FAFF", "opacity": 1 }
+      ],
+
+      "applyTo": {
+        "body": true,
+        "navbar": false
+      }
     }
   },
+  "presets":{
+    "id": "uuid",
+    "name": "Ocean Split Glow",
+    "description": "Blue–Purple smooth transition center biased",
 
-  "lightMode": {
-    "type": "radial",
-    "angle": 90,
-    "centerX": 40,
-    "centerY": 60,
-    "spread": 75,
-    "noise": 5,
-    "mirror": false,
-    "repeat": false,
+    "gradient": {
+      "type": "radial",                       
+      "angle": 135,                           
+      "centerX": 48,                          
+      "centerY": 62,                          
+      "spread": 100,                          
+      "noise": 0,                             
+      "mirror": false,                        
+      "repeat": false,                        
 
-    "colorStops": [
-      { "position": 0, "color": "#FFFFFF", "opacity": 1 },
-      { "position": 100, "color": "#C7FAFF", "opacity": 1 }
-    ],
-
-    "applyTo": {
-      "body": true,
-      "navbar": false
+      "colorStops": [
+        { "position": 0, "color": "#0000FF", "opacity": 1 },
+        { "position": 50, "color": "#9B30FF", "opacity": 0.85 },
+        { "position": 100, "color": "#FFFFFF", "opacity": 1 }
+      ]
     }
   }
 }
 ```
-
-### Preset Format
-
-````
-"presets":{
-  "id": "uuid",
-  "name": "Ocean Split Glow",
-  "description": "Blue–Purple smooth transition center biased",
-
-  "gradient": {
-    "type": "radial",                       
-    "angle": 135,                           
-    "centerX": 48,                          
-    "centerY": 62,                          
-    "spread": 100,                          
-    "noise": 0,                             
-    "mirror": false,                        
-    "repeat": false,                        
-
-    "colorStops": [
-      { "position": 0, "color": "#0000FF", "opacity": 1 },
-      { "position": 50, "color": "#9B30FF", "opacity": 0.85 },
-      { "position": 100, "color": "#FFFFFF", "opacity": 1 }
-    ]
-  }
-}
-
-````
