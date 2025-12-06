@@ -113,9 +113,9 @@
 
     {% if USE_GRADIENTS %}
     <style>
-        /* Body Gradients */
+        /* Body Gradients - Light Mode Only */
         {% if GRADIENT_BODY_LIGHT %}
-        body {
+        html:not(.dark) body {
             background: {{ GRADIENT_BODY_LIGHT }} !important;
             background-attachment: fixed !important;
             background-size: cover !important;
@@ -123,19 +123,19 @@
         {% endif %}
 
         {% if GRADIENT_NAV_LIGHT %}
-        #main-navbar-container {
+        html:not(.dark) #main-navbar-container {
             background: {{ GRADIENT_NAV_LIGHT }} !important;
         }
         {% endif %}
 
         /* Dark Mode Overrides */
+        {% if GRADIENT_BODY_DARK %}
         html.dark body {
-             {% if GRADIENT_BODY_DARK %}
             background: {{ GRADIENT_BODY_DARK }} !important;
             background-attachment: fixed !important;
             background-size: cover !important;
-             {% endif %}
         }
+        {% endif %}
 
         {% if GRADIENT_NAV_DARK %}
         html.dark #main-navbar-container {
