@@ -219,6 +219,7 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
                 data_to_save = {"components": payload}
             elif section == "project_categories":
                 data_to_save = {"categories": payload}
+            else:
                 data_to_save = {"items": payload}
         elif isinstance(payload, dict):
             if section == "advanced_colors":
