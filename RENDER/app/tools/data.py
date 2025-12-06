@@ -217,6 +217,83 @@ def get_developer_profile_data():
     return code_html, line_count, terminal_output
 
 
+def generate_css_gradient(config):
+    """
+    Generates a CSS gradient string from the advanced colors config object.
+    Matches logic in advanced_colors.js (Linear, Radial, Conic).
+    """
+    if not config:
+        return ""
+
+    g_type = config.get('type', 'linear')
+    # Default gamma to 50 if not present (midpoint)
+    gamma = config.get('gamma', 50)
+    stops = config.get('colorStops', [])
+
+    # Sort stops by position
+    stops = sorted(stops, key=lambda x: x.get('position', 0))
+
+    if not stops:
+        return "none"
+
+    # Build stop string with potential gamma midpoints
+    stop_strs = []
+    for i, stop in enumerate(stops):
+        color = stop.get('color', '#000000')
+        # Ensure proper hex/rgba format if needed, but usually stored as Hex8 or Hex6
+        # Data migration ensures hex8, but we can trust the value or use to_rgba_string if strictly needed.
+        # Assuming direct mapping for now as JS does.
+
+        pos = stop.get('position', 0)
+        stop_strs.append(f"{color} {pos}%")
+
+        # Add gamma hint if not last
+        if i < len(stops) - 1:
+            next_stop = stops[i+1]
+            if gamma != 50:
+                # Calculate midpoint hint
+                # hint = start + (end - start) * (gamma / 100)
+                next_pos = next_stop.get('position', 100)
+                midpoint = pos + (next_pos - pos) * (gamma / 100)
+                stop_strs.append(f"{midpoint:.2f}%")
+
+    stops_joined = ", ".join(stop_strs)
+
+    if g_type == 'linear':
+        angle = config.get('angle', 90)
+        return f"linear-gradient({angle}deg, {stops_joined})"
+
+    elif g_type == 'radial':
+        # Shape
+        aspect_lock = config.get('aspectRatioLock', False)
+        shape = 'circle' if aspect_lock else 'ellipse'
+
+        # Size (Spread)
+        spread = config.get('spread', 100)
+        # JS logic:
+        # Circle: `${spread}%`
+        # Ellipse: `${spread}% ${spread}%` (simplified to same x/y for now in JS too)
+        size_part = f"{spread}%"
+        if not aspect_lock:
+            size_part = f"{spread}% {spread}%"
+
+        center_x = config.get('centerX', 50)
+        center_y = config.get('centerY', 50)
+
+        return f"radial-gradient({shape} {size_part} at {center_x}% {center_y}%, {stops_joined})"
+
+    elif g_type == 'conic':
+        angle = config.get('angle', 0)
+        center_x = config.get('centerX', 50)
+        center_y = config.get('centerY', 50)
+        repeat = config.get('repeat', False)
+        fn = "repeating-conic-gradient" if repeat else "conic-gradient"
+
+        return f"{fn}(from {angle}deg at {center_x}% {center_y}%, {stops_joined})"
+
+    return "none"
+
+
 def get_portfolio_data():
     """Fetch all portfolio data from Firebase."""
     print("Attempting to load data from Firebase...")
@@ -240,6 +317,10 @@ def get_portfolio_data():
         "USE_GRADIENT": False,
         "ADVANCED_COLORS": {},
         "COLOR_PRESETS": [],
+        "GRADIENT_BODY_LIGHT": "",
+        "GRADIENT_BODY_DARK": "",
+        "GRADIENT_NAV_LIGHT": "",
+        "GRADIENT_NAV_DARK": ""
     }
 
     # 1. Realtime Database Updates
@@ -288,7 +369,8 @@ def get_portfolio_data():
             get_firestore_data('PORTFOLIO/LIVE_ACTIVITIES'),
             'components'
         ) or []
-        data["LIVE_ACTIVITIES_HTML_COMPONENTS"] = [activity.get('html') for activity in live_activities if activity.get('active')]
+        data["LIVE_ACTIVITIES_HTML_COMPONENTS"] = [activity.get(
+            'html') for activity in live_activities if activity.get('active')]
         print("Loaded LIVE_ACTIVITIES from Firestore")
 
         # PROJECTS
@@ -310,7 +392,8 @@ def get_portfolio_data():
             get_firestore_data('PORTFOLIO/SKILLS'),
             'items'
         ) or []
-        data["SKILLS_DATA"], data["SKILL_CATEGORIES"] = build_skills_data(skills_main)
+        data["SKILLS_DATA"], data["SKILL_CATEGORIES"] = build_skills_data(
+            skills_main)
         print("Loaded SKILLS from Firestore")
 
         # EXPERIENCES
@@ -360,7 +443,8 @@ def get_portfolio_data():
             get_firestore_data('PORTFOLIO/ACHIEVEMENTS'),
             'items'
         ) or []
-        data["ACHIEVEMENTS"] = [award for award in awards if award.get('active')]
+        data["ACHIEVEMENTS"] = [
+            award for award in awards if award.get('active')]
         print("Loaded ACHIEVEMENTS from Firestore")
 
         # SOCIAL PILLS
@@ -377,6 +461,23 @@ def get_portfolio_data():
         data['USE_GRADIENTS'] = ADVANCED_COLORS.get('enabled', False)
         data['COLOR_PRESETS'] = adv_colors.get('presets', [])
         data["ADVANCED_COLORS"] = ADVANCED_COLORS
+
+        if data['USE_GRADIENTS']:
+            dark_conf = ADVANCED_COLORS.get('darkMode', {})
+            light_conf = ADVANCED_COLORS.get('lightMode', {})
+
+            # Body Gradients
+            if dark_conf.get('applyTo', {}).get('body'):
+                data["GRADIENT_BODY_DARK"] = generate_css_gradient(dark_conf)
+            if light_conf.get('applyTo', {}).get('body'):
+                data["GRADIENT_BODY_LIGHT"] = generate_css_gradient(light_conf)
+
+            # Navbar Gradients
+            if dark_conf.get('applyTo', {}).get('navbar'):
+                data["GRADIENT_NAV_DARK"] = generate_css_gradient(dark_conf)
+            if light_conf.get('applyTo', {}).get('navbar'):
+                data["GRADIENT_NAV_LIGHT"] = generate_css_gradient(light_conf)
+
         print("Loaded ADVANCED_COLORS from Firestore")
 
     except Exception as e:

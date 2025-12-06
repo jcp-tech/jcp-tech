@@ -110,6 +110,41 @@
         transition: background-color 0.3s ease, color 0.3s ease;
       }
     </style>
+
+    {% if USE_GRADIENTS %}
+    <style>
+        /* Body Gradients */
+        {% if GRADIENT_BODY_LIGHT %}
+        body {
+            background: {{ GRADIENT_BODY_LIGHT }} !important;
+            background-attachment: fixed !important;
+            background-size: cover !important;
+        }
+        {% endif %}
+
+        {% if GRADIENT_NAV_LIGHT %}
+        #main-navbar-container {
+            background: {{ GRADIENT_NAV_LIGHT }} !important;
+        }
+        {% endif %}
+
+        /* Dark Mode Overrides */
+        html.dark body {
+             {% if GRADIENT_BODY_DARK %}
+            background: {{ GRADIENT_BODY_DARK }} !important;
+            background-attachment: fixed !important;
+            background-size: cover !important;
+             {% endif %}
+        }
+
+        {% if GRADIENT_NAV_DARK %}
+        html.dark #main-navbar-container {
+            background: {{ GRADIENT_NAV_DARK }} !important;
+        }
+        {% endif %}
+    </style>
+    {% endif %}
+
     {% block head %}{% endblock %}
   </head>
   <body
