@@ -180,6 +180,13 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
         raise HTTPException(status_code=401, detail="Not authenticated")
     require_admin(user)
 
+    # # DEBUG LOG
+    # try:
+    #     with open("app/debug_log.txt", "a") as f:
+    #         f.write(f"SECTION: {section}\nPAYLOAD: {payload}\n\n")
+    # except Exception as e:
+    #     print(f"Log Error: {e}")
+
     # Realtime Database Paths
     rtdb_map = {
         "main": "PORTFOLIO/MAIN",
