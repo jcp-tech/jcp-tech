@@ -29,8 +29,8 @@ function createDefaultGradientConfig(type = 'linear') {
         gamma: 50,
         aspectRatioLock: false,
         colorStops: [
-            { position: 0, color: '#000000', opacity: 1 },
-            { position: 100, color: '#ffffff', opacity: 1 }
+            { position: 0, color: '#000000FF' },
+            { position: 100, color: '#ffffffFF' }
         ],
         applyTo: {
             body: true,
@@ -60,6 +60,24 @@ export function renderAdvancedColors(data) {
     if (!state.data.presets) state.data.presets = {};
     if (!state.data.items.darkMode) state.data.items.darkMode = createDefaultGradientConfig('linear');
     if (!state.data.items.lightMode) state.data.items.lightMode = createDefaultGradientConfig('radial');
+    
+    // MIGRATION: 
+    // Data might have old structure with 'opacity'. Convert to 8-digit hex.
+    [state.data.items.darkMode, state.data.items.lightMode].forEach(cfg => {
+        if(cfg && cfg.colorStops) {
+            cfg.colorStops.forEach(stop => {
+                if(stop.opacity !== undefined) {
+                    // Convert to hex8
+                    const alpha = Math.round(stop.opacity * 255);
+                    const alphaHex = alpha.toString(16).padStart(2, '0');
+                    if (stop.color.length === 7) {
+                        stop.color = (stop.color + alphaHex).toUpperCase();
+                    }
+                    delete stop.opacity;
+                }
+            });
+        }
+    });
 
     const contentArea = document.getElementById('content-area');
     contentArea.innerHTML = generateUI();
@@ -480,7 +498,7 @@ window.saveAdvancedColors = () => {
 window.addStop = () => {
     const config = state.data.items[state.currentMode];
     // Add stop at 50% or near selected
-    const newStop = { position: 50, color: '#888888', opacity: 1 };
+    const newStop = { position: 50, color: '#888888FF' };
     config.colorStops.push(newStop);
     config.colorStops.sort((a,b) => a.position - b.position);
     renderStopsTimeline();
@@ -526,7 +544,7 @@ function renderStopsTimeline() {
         const marker = document.createElement('div');
         marker.className = `stop-marker absolute w-4 h-6 -top-1 bg-white border-2 border-gray-600 rounded cursor-grab shadow-sm transform -translate-x-1/2 hover:scale-110 transition-transform ${index === state.selectedStopIndex ? 'border-blue-500 z-20' : 'z-10'}`;
         marker.style.left = `${stop.position}%`;
-        marker.style.backgroundColor = stop.color;
+        marker.style.backgroundColor = stop.color; // Supports #RRGGBBAA
         
         marker.onmousedown = (e) => {
             e.stopPropagation();
@@ -550,28 +568,31 @@ function updateSelectedStopInputs() {
     const stop = config.colorStops[state.selectedStopIndex];
     if(!stop) return;
 
+    // Parse Alpha from Hex8
+    // stop.color format: #RRGGBBAA or #RRGGBB (fallback)
+    let hex = stop.color;
+    let opacity = 1;
+    if (hex.length === 9) {
+        opacity = parseInt(hex.substring(7, 9), 16) / 255;
+        opacity = parseFloat(opacity.toFixed(2));
+    }
+
     document.getElementById('stop-position').value = stop.position;
     document.getElementById('stop-position-slider').value = stop.position;
-    document.getElementById('stop-opacity').value = stop.opacity;
-    document.getElementById('stop-opacity-val').innerText = stop.opacity;
+    document.getElementById('stop-opacity').value = opacity;
+    document.getElementById('stop-opacity-val').innerText = opacity;
     
     // Sync Visualizer
     const previewBox = document.getElementById('stop-color-preview-box');
     if (previewBox) {
-        previewBox.style.backgroundColor = hexToRgba(stop.color, stop.opacity);
+        previewBox.style.backgroundColor = stop.color;
     }
 
     // Sync Text Input
-    const textInput = document.getElementById('stop-color-text');
-    if (stop.opacity < 1) {
-        // Convert to 8-digit hex
-        const alpha = Math.round(stop.opacity * 255);
-        const alphaHex = alpha.toString(16).padStart(2, '0');
-        textInput.value = (stop.color + alphaHex).toUpperCase();
-    } else {
-        textInput.value = stop.color.toUpperCase();
-    }
+    // Always show full hex now
+    document.getElementById('stop-color-text').value = stop.color.toUpperCase();
     
+    // Sync Picker (Needs 6-digit hex)
     document.getElementById('stop-color-picker').value = stop.color.substring(0, 7);
 }
 
@@ -580,26 +601,31 @@ function updateSelectedStop(key, value, isDrag = false) {
     const stop = config.colorStops[state.selectedStopIndex];
     if(!stop) return;
 
-    stop[key] = value;
-    
     if (key === 'position') {
-        stop.position = Math.max(0, Math.min(100, stop.position));
+        value = Math.max(0, Math.min(100, value));
+        stop.position = value;
+        document.getElementById('stop-position').value = value;
+        document.getElementById('stop-position-slider').value = value;
+        renderStopsTimeline();
     }
     
-    // Update UI Elements directly
-    if (key === 'position') {
-        document.getElementById('stop-position').value = stop.position;
-        document.getElementById('stop-position-slider').value = stop.position;
-        renderStopsTimeline(); // Move marker
-    }
     if (key === 'opacity') {
-        document.getElementById('stop-opacity-val').innerText = stop.opacity;
-        updateSelectedStopInputs(); // Refresh visualizer & text format
+        const opacity = parseFloat(value);
+        document.getElementById('stop-opacity-val').innerText = opacity;
+        
+        // Merge into Hex8
+        let hex6 = stop.color.substring(0, 7); // #RRGGBB
+        const alpha = Math.round(opacity * 255);
+        const alphaHex = alpha.toString(16).padStart(2, '0');
+        stop.color = (hex6 + alphaHex).toUpperCase();
+        
+        updateSelectedStopInputs(); // Text, Visualizer
+        renderStopsTimeline(); // Marker color
         updatePreview();
     }
     
     if (isDrag) {
-       // Drag doesn't need full preview update every frame if optimization needed, but here it's fine
+       // ...
     }
     
     updatePreview();
@@ -610,31 +636,24 @@ function syncStopColor(val, fromPicker) {
     const stop = config.colorStops[state.selectedStopIndex];
     
     if (fromPicker) {
-        stop.color = val; // Hex from picker (always 6-digit)
-        // Update Text Input: Append alpha if needed
-        if (stop.opacity < 1) {
-            const alpha = Math.round(stop.opacity * 255);
-            const alphaHex = alpha.toString(16).padStart(2, '0');
-            document.getElementById('stop-color-text').value = (val + alphaHex).toUpperCase();
-        } else {
-            document.getElementById('stop-color-text').value = val.toUpperCase();
+        // Hex from picker (always 6-digit #RRGGBB)
+        // Check current alpha from existing stop logic or just keep it?
+        // Usually, if picking color, keep existing alpha.
+        let hex6 = val;
+        let currentAlphaHex = 'FF';
+        if (stop.color.length === 9) {
+            currentAlphaHex = stop.color.substring(7, 9);
         }
+        stop.color = (hex6 + currentAlphaHex).toUpperCase();
     } else {
-        // Parse input (Hex 6/8 digit, or legacy RGB/RGBA support just in case)
+        // Parse input (Hex 6/8 digit, or legacy RGB/RGBA support)
         const parsed = parseColorInput(val);
         if (parsed) {
-            stop.color = parsed.hex;
-            if (parsed.opacity !== null) {
-                stop.opacity = parsed.opacity;
-                document.getElementById('stop-opacity').value = stop.opacity;
-                document.getElementById('stop-opacity-val').innerText = stop.opacity;
-            }
-            // Update picker if valid 7-char hex
-            document.getElementById('stop-color-picker').value = parsed.hex;
+             stop.color = parsed.hex; // parseColorInput now returns proper Hex8 or Hex6
         }
     }
-    updateSelectedStopInputs(); // Syncs visualizer
-    renderStopsTimeline(); // Update marker color
+    updateSelectedStopInputs(); 
+    renderStopsTimeline(); 
     updatePreview();
 }
 
@@ -644,32 +663,17 @@ function parseColorInput(str) {
     // Hex
     if (str.startsWith('#')) {
         let hex = str;
-        let a = null;
         if (hex.length === 9) { // #RRGGBBAA
-            const alphaHex = hex.substring(7, 9);
-            a = parseInt(alphaHex, 16) / 255;
-            hex = hex.substring(0, 7);
-            a = parseFloat(a.toFixed(2));
-            return {
-                hex: hex,
-                opacity: a
-            };
+             return { hex: hex.toUpperCase() };
         }
         if (hex.length === 7) { // #RRGGBB
-             return {
-                hex: hex,
-                opacity: 1 // Default to 1 if 6-digit hex provided manually
-            };
+             return { hex: (hex + 'FF').toUpperCase() };
         }
         if (hex.length === 4) { // #RGB
-             // Expand to 6 digit
              const r = hex[1] + hex[1];
              const g = hex[2] + hex[2];
              const b = hex[3] + hex[3];
-             return {
-                hex: `#${r}${g}${b}`,
-                opacity: 1
-             };
+             return { hex: (`#${r}${g}${b}FF`).toUpperCase() };
         }
     }
     
@@ -686,9 +690,14 @@ function parseColorInput(str) {
         const g = parseInt(parts[1]);
         const b = parseInt(parts[2]);
         const a = parts.length > 3 ? parseFloat(parts[3]) : 1;
+        
+        const rHex = r.toString(16).padStart(2, '0');
+        const gHex = g.toString(16).padStart(2, '0');
+        const bHex = b.toString(16).padStart(2, '0');
+        const aHex = Math.round(a * 255).toString(16).padStart(2, '0');
+
         return {
-             hex: "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1),
-             opacity: a
+             hex: (`#${rHex}${gHex}${bHex}${aHex}`).toUpperCase()
         };
     }
 
@@ -725,18 +734,14 @@ function updatePreview() {
     const gamma = config.gamma || 50; // 0-100
     
     stops.forEach((s, i) => {
-        let colorStr = s.opacity < 1 
-            ? hexToRgba(s.color, s.opacity) 
-            : s.color;
-            
+        let colorStr = s.color; // Always Hex8 now
+
         stopStr += `${colorStr} ${s.position}%`;
         
         // Add hint between this stop and next
         if (i < stops.length - 1) {
             const next = stops[i+1];
             if (gamma !== 50) {
-                 // Calculate absolute position for the hint
-                 // relative position % between stops
                  const midpoint = s.position + (next.position - s.position) * (gamma / 100);
                  stopStr += `, ${midpoint.toFixed(2)}%, `;
             } else {
@@ -822,19 +827,7 @@ function updatePreview() {
     // previewBg.style.filter = `contrast(${100 + config.noise}%) brightness(${100 + config.noise}%)`; // Placeholder
 }
 
-function hexToRgba(hex, alpha) {
-    let r = 0, g = 0, b = 0;
-    if (hex.length === 4) {
-        r = parseInt(hex[1] + hex[1], 16);
-        g = parseInt(hex[2] + hex[2], 16);
-        b = parseInt(hex[3] + hex[3], 16);
-    } else if (hex.length === 7) {
-        r = parseInt(hex.substring(1, 3), 16);
-        g = parseInt(hex.substring(3, 5), 16);
-        b = parseInt(hex.substring(5, 7), 16);
-    }
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-}
+// function hexToRgba... Removed, using native hex8
 
 function updateConfigVisibility() {
     const type = document.getElementById('gradient-type').value;
