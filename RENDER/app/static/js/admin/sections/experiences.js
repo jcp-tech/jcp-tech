@@ -106,6 +106,7 @@ export function renderExperiences(data) {
 }
 
 export function addExperienceItem() {
+    const start_from_top = true;
     const container = document.getElementById('experience-items');
     const html = `
         <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">
@@ -149,7 +150,12 @@ export function addExperienceItem() {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = html;
     const newElement = tempDiv.firstElementChild;
-    container.appendChild(newElement);
+    
+    if (start_from_top) {
+        container.prepend(newElement);
+    } else {
+        container.appendChild(newElement);
+    }
 
     // Initialize Sortable for the new roles container
     Sortable.create(newElement.querySelector('.roles-container'), {
@@ -160,6 +166,7 @@ export function addExperienceItem() {
 }
 
 export function addRole(btn) {
+    const start_from_top = true;
     const container = btn.closest('div').nextElementSibling;
     const html = `
         <div class="bg-gray-700 p-3 rounded border border-gray-600 relative role-item flex items-start space-x-3">
@@ -191,7 +198,11 @@ export function addRole(btn) {
             </div>
         </div>
     `;
-    container.insertAdjacentHTML('beforeend', html);
+    if (start_from_top) {
+        container.insertAdjacentHTML('afterbegin', html);
+    } else {
+        container.insertAdjacentHTML('beforeend', html);
+    }
 }
 
 // Attach to window
