@@ -1,3 +1,5 @@
+import { INSERTION_CONFIG } from './config.js';
+
 export function renderProjects(data) {
     const contentArea = document.getElementById('content-area');
     const items = Array.isArray(data) ? data : [];
@@ -87,7 +89,7 @@ export function renderProjects(data) {
 }
 
 export function addProjectItem() {
-    const start_from_top = false;
+    const start_from_top = INSERTION_CONFIG.projects;
     const container = document.getElementById('project-items');
     const html = `
         <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">

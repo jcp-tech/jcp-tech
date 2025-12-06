@@ -1,3 +1,5 @@
+import { INSERTION_CONFIG } from './config.js';
+
 export function renderCertifications(data) {
     const contentArea = document.getElementById('content-area');
     const items = Array.isArray(data) ? data : [];
@@ -52,7 +54,7 @@ export function renderCertifications(data) {
 }
 
 export function addCertificationItem() {
-    const start_from_top = false;
+    const start_from_top = INSERTION_CONFIG.certifications;
     const container = document.getElementById('certification-items');
     const html = `
         <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">

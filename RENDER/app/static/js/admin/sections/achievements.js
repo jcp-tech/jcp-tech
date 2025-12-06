@@ -1,3 +1,5 @@
+import { INSERTION_CONFIG } from './config.js';
+
 export function renderAchievements(data) {
     const contentArea = document.getElementById('content-area');
     const items = Array.isArray(data) ? data : [];
@@ -112,7 +114,7 @@ export function renderAchievements(data) {
 }
 
 export function addAchievementItem() {
-    const start_from_top = false;
+    const start_from_top = INSERTION_CONFIG.achievements;
     const container = document.getElementById('achievement-items');
     const html = `
         <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">

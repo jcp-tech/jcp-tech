@@ -1,3 +1,5 @@
+import { INSERTION_CONFIG } from './config.js';
+
 export function renderEducations(data) {
     const contentArea = document.getElementById('content-area');
     const items = Array.isArray(data) ? data : [];
@@ -67,7 +69,7 @@ export function renderEducations(data) {
 }
 
 export function addEducationItem() {
-    const start_from_top = true;
+    const start_from_top = INSERTION_CONFIG.educations;
     const container = document.getElementById('education-items');
     const html = `
         <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">
