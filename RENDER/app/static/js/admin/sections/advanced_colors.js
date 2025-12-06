@@ -137,8 +137,8 @@ function generateUI() {
                         <div class="flex items-center space-x-2">
                             <label class="text-xs text-gray-400 w-12">Color</label>
                             <div class="flex items-center space-x-2 flex-1">
-                                <input type="color" id="stop-color-picker" class="w-8 h-8 rounded border-0 p-0 bg-transparent cursor-pointer">
                                 <div id="stop-color-preview-box" class="w-8 h-8 rounded border border-gray-600 bg-transparent shadow-sm" title="Opacity Preview"></div>
+                                <input type="color" id="stop-color-picker" class="w-8 h-8 rounded border-0 p-0 bg-transparent cursor-pointer">
                                 <input type="text" id="stop-color-text" class="flex-1 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-xs text-white font-mono">
                             </div>
                         </div>
