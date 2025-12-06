@@ -84,9 +84,13 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
     portfolio_data = get_portfolio_data()
     color_config = portfolio_data.get("COLOR_CONFIG", {})
 
+    datetime_str = datetime.now().strftime("%d%m%Y%H%M%S")
+
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
         "user": user,
+        "debug": False,
+        "session_id": datetime_str,
         "project_categories": portfolio_data.get("PROJECT_CATEGORIES", []),
         "color_config": color_config
     })
