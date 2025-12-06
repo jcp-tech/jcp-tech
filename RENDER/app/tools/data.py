@@ -314,7 +314,7 @@ def get_portfolio_data():
         "ACHIEVEMENTS": [],
         "PROJECT_CATEGORIES": [],
         "SOCIAL_PILLS": [],
-        "USE_GRADIENT": False,
+        "USE_GRADIENTS": False,
         "ADVANCED_COLORS": {},
         "COLOR_PRESETS": [],
         "GRADIENT_BODY_LIGHT": "",
