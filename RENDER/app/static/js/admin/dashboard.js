@@ -2,6 +2,7 @@ import { renderDashboard } from './sections/dashboard.js';
 import { renderMainForm } from './sections/main.js';
 import { renderNavbarForm } from './sections/navbar.js';
 import { renderColorForm } from './sections/colors.js';
+import { renderAdvancedColors } from './sections/advanced_colors.js';
 import { renderLiveActivities } from './sections/live_activities.js';
 import { renderProjects } from './sections/projects.js';
 import { renderSkills } from './sections/skills.js';
@@ -111,6 +112,8 @@ export async function switchTab(section) {
             renderAdminUsers(window.currentData);
         } else if (section === 'socials') {
             renderSocials(window.currentData);
+        } else if (section === 'advanced_colors') {
+            renderAdvancedColors(window.currentData);
         }
     } catch (error) {
         console.error('Error fetching data:', error);

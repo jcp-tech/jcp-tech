@@ -144,7 +144,7 @@ def normalize_color_config(config, hex=False):
 
 def build_skills_data(master_skills):
     skills_data = defaultdict(list)
-    # Check only for active items 
+    # Check only for active items
     master_skills = [item for item in master_skills if item.get("active")]
     # Add each item under its category
     for item in master_skills:
@@ -237,6 +237,7 @@ def get_portfolio_data():
         "ACHIEVEMENTS": [],
         "PROJECT_CATEGORIES": [],
         "SOCIAL_PILLS": [],
+        "ADVANCED_COLORS": {},
     }
 
     # 1. Realtime Database Updates
@@ -367,6 +368,14 @@ def get_portfolio_data():
         ) or []
         data["SOCIAL_PILLS"] = [link for link in socials if link.get('active')]
         print("Loaded SOCIAL PILLS from Firestore")
+
+        # ADVANCED COLORS
+        adv_colors = get_firestore_data('PORTFOLIO/ADVANCED_COLORS') or {}
+        ADVANCED_COLORS = adv_colors.get('items', {})
+        data['USE_GRADIENTS'] = ADVANCED_COLORS.get('enabled', False)
+        data['COLOR_PRESETS'] = adv_colors.get('presets', [])
+        data["ADVANCED_COLORS"] = ADVANCED_COLORS
+        print("Loaded ADVANCED_COLORS from Firestore")
 
     except Exception as e:
         print(f"Error loading Firestore data: {e}")

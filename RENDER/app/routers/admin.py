@@ -15,8 +15,10 @@ from app.tools.data import get_portfolio_data
 router = APIRouter(prefix="/admin", tags=["admin"])
 templates = Jinja2Templates(directory="app/templates")
 
+
 class LoginRequest(BaseModel):
     idToken: str
+
 
 @router.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
@@ -32,6 +34,7 @@ async def login_page(request: Request):
         "request": request,
         "color_config": color_config
     })
+
 
 @router.post("/login")
 async def login(request: Request, login_request: LoginRequest):
@@ -60,6 +63,7 @@ async def login(request: Request, login_request: LoginRequest):
         raise e
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get("", response_class=HTMLResponse)
 async def admin_dashboard(request: Request, user: dict = Depends(get_current_user)):
@@ -126,7 +130,8 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
         "educations": "PORTFOLIO/EDUCATIONS",
         "certifications": "PORTFOLIO/CERTIFICATIONS",
         "achievements": "PORTFOLIO/ACHIEVEMENTS",
-        "social_pills": "PORTFOLIO/SOCIAL_PILLS"
+        "social_pills": "PORTFOLIO/SOCIAL_PILLS",
+        "advanced_colors": "PORTFOLIO/ADVANCED_COLORS"
     }
 
     if section in rtdb_map:
@@ -151,8 +156,19 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
             return data.get("components", [])
         elif section == "project_categories":
             return data.get("categories", [])
-        else:
-            return data.get("items", [])
+        elif section == "advanced_colors":
+            # Return the whole doc for advanced colors
+            # User Requirement: Frontend uses Dict for presets, DB uses List.
+            # Convert List -> Dict
+            if data and 'presets' in data and isinstance(data['presets'], list):
+                presets_list = data['presets']
+                presets_dict = {}
+                for p in presets_list:
+                    p_id = p.get('id')
+                    if p_id:
+                        presets_dict[str(p_id)] = p
+                data['presets'] = presets_dict
+            return data
 
 
 @router.post("/api/data/{section}")
@@ -179,7 +195,8 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
         "educations": "PORTFOLIO/EDUCATIONS",
         "certifications": "PORTFOLIO/CERTIFICATIONS",
         "achievements": "PORTFOLIO/ACHIEVEMENTS",
-        "social_pills": "PORTFOLIO/SOCIAL_PILLS"
+        "social_pills": "PORTFOLIO/SOCIAL_PILLS",
+        "advanced_colors": "PORTFOLIO/ADVANCED_COLORS"
     }
 
     if section in rtdb_map:
@@ -199,10 +216,22 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
                 data_to_save = {"components": payload}
             elif section == "project_categories":
                 data_to_save = {"categories": payload}
-            else:
                 data_to_save = {"items": payload}
         elif isinstance(payload, dict):
-            data_to_save = payload
+            if section == "advanced_colors":
+                # User Requirement: Save presets as List, but JS sends Dict.
+                # Convert Dict -> List before saving.
+                presets_data = payload.get('presets', {})
+                presets_list = []
+                if isinstance(presets_data, dict):
+                    presets_list = list(presets_data.values())
+                elif isinstance(presets_data, list):
+                    presets_list = presets_data
+
+                payload['presets'] = presets_list
+                data_to_save = payload
+            else:
+                data_to_save = payload
         else:
             raise HTTPException(status_code=400, detail="Invalid data format")
 
@@ -216,9 +245,11 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
     else:
         raise HTTPException(status_code=404, detail="Section not found")
 
+
 class CRMStatusRequest(BaseModel):
     id: str
     status: str
+
 
 @router.get("/api/crm")
 async def get_crm_data(user: dict = Depends(require_admin)):
@@ -237,6 +268,7 @@ async def get_crm_data(user: dict = Depends(require_admin)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.post("/api/crm/status")
 async def update_crm_status(request: CRMStatusRequest, user: dict = Depends(require_admin)):
     try:
@@ -247,6 +279,7 @@ async def update_crm_status(request: CRMStatusRequest, user: dict = Depends(requ
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.delete("/api/crm/{id}")
 async def delete_crm_request(id: str, user: dict = Depends(require_admin)):
     try:
@@ -256,6 +289,7 @@ async def delete_crm_request(id: str, user: dict = Depends(require_admin)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.get("/api/users")
 async def get_admin_users(user: dict = Depends(require_admin)):
     try:
@@ -264,6 +298,7 @@ async def get_admin_users(user: dict = Depends(require_admin)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+
 @router.post("/api/users")
 async def update_admin_users(payload: dict = Body(...), user: dict = Depends(require_admin)):
     try:
@@ -271,6 +306,7 @@ async def update_admin_users(payload: dict = Body(...), user: dict = Depends(req
         return {"message": "Admin users updated successfully"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
 
 @router.get("/api/dashboard-stats")
 async def get_dashboard_stats(user: dict = Depends(require_admin)):
@@ -337,27 +373,17 @@ async def get_dashboard_stats(user: dict = Depends(require_admin)):
 
     return {
         "system_status": [
-            {"name": "Server Health", "status": server_health, "color": "text-[var(--admin-success-text)]" if server_health == "Operational" else "text-[var(--admin-error-text)]"},
-            {"name": "Database Connection", "status": db_connection, "color": "text-[var(--admin-success-text)]" if db_connection == "Connected" else "text-[var(--admin-error-text)]"},
-            {"name": "API Uptime", "status": api_uptime, "color": "text-[var(--admin-warning-text)]" if api_uptime != "Operational" else "text-[var(--admin-success-text)]"}  # Mocking yellow for demo if needed, but logic says green
+            {"name": "Server Health", "status": server_health,
+                "color": "text-[var(--admin-success-text)]" if server_health == "Operational" else "text-[var(--admin-error-text)]"},
+            {"name": "Database Connection", "status": db_connection,
+                "color": "text-[var(--admin-success-text)]" if db_connection == "Connected" else "text-[var(--admin-error-text)]"},
+            # Mocking yellow for demo if needed, but logic says green
+            {"name": "API Uptime", "status": api_uptime,
+                "color": "text-[var(--admin-warning-text)]" if api_uptime != "Operational" else "text-[var(--admin-success-text)]"}
         ],
         "recent_activities": recent_activities
     }
 
-@router.post("/api/upload-resume")
-async def upload_resume(file: Any = Body(...), user: dict = Depends(get_current_user)):
-    if not user:
-        raise HTTPException(status_code=401, detail="Not authenticated")
-    require_admin(user)
-
-    # Note: 'file' argument in the function signature above is a placeholder.
-    # We need to use UploadFile for the actual file handling.
-    # However, since we can't easily change the signature in this replace block without imports,
-    # let's do the imports inside and use the request body directly or define the handler correctly.
-    # Actually, let's just define the handler correctly with the imports available or added.
-    pass
-
-# Redefining the function with correct signature and imports
 
 @router.post("/api/upload-resume")
 async def upload_resume_endpoint(file: UploadFile = File(...), user: dict = Depends(get_current_user)):
