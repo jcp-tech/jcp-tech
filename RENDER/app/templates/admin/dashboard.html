@@ -204,5 +204,5 @@
 <script>
   window.PROJECT_CATEGORIES = {{ project_categories | tojson }};
 </script>
-<script type="module" src="/static/js/admin/dashboard.js"></script>
+<script type="module" src="/static/js/admin/dashboard.js{% if debug %}?v={{ session_id }}{% endif %}"></script>
 {% endblock %}

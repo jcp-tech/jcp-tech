@@ -76,5 +76,12 @@ def export_data():
     print(f"Export completed. Data saved to {output_path}")
 
 if __name__ == "__main__":
-    sys.exit(1) # TEMPORARY STOPPING THE CODE CAUSE ALREADY EXPORTED.
-    export_data()
+    if len(sys.argv) > 1:
+        print(sys.argv)
+        if sys.argv[1] == "--update":
+            export_data()
+        else:
+            print("Invalid parameter, Exiting...")
+    else:
+        print("No parameter given, Exiting...")
+    sys.exit(1)

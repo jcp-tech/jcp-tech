@@ -84,9 +84,13 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
     portfolio_data = get_portfolio_data()
     color_config = portfolio_data.get("COLOR_CONFIG", {})
 
+    datetime_str = datetime.now().strftime("%d%m%Y%H%M%S")
+
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
         "user": user,
+        "debug": False,  # Set to False in production & True in development for debugging js more easily!
+        "session_id": datetime_str,
         "project_categories": portfolio_data.get("PROJECT_CATEGORIES", []),
         "color_config": color_config
     })
@@ -179,6 +183,13 @@ async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: 
     if not user:
         raise HTTPException(status_code=401, detail="Not authenticated")
     require_admin(user)
+
+    # # DEBUG LOG
+    # try:
+    #     with open("app/debug_log.txt", "a") as f:
+    #         f.write(f"SECTION: {section}\nPAYLOAD: {payload}\n\n")
+    # except Exception as e:
+    #     print(f"Log Error: {e}")
 
     # Realtime Database Paths
     rtdb_map = {

@@ -1,20 +1,37 @@
-import { renderDashboard } from './sections/dashboard.js';
-import { renderMainForm } from './sections/main.js';
-import { renderNavbarForm } from './sections/navbar.js';
-import { renderColorForm } from './sections/colors.js';
-import { renderAdvancedColors } from './sections/advanced_colors.js';
-import { renderLiveActivities } from './sections/live_activities.js';
-import { renderProjects } from './sections/projects.js';
-import { renderSkills } from './sections/skills.js';
-import { renderExperiences } from './sections/experiences.js';
-import { renderEducations } from './sections/educations.js';
-import { renderCertifications } from './sections/certifications.js';
-import { renderAchievements } from './sections/achievements.js';
-import { renderCRM } from './sections/crm.js';
-import { renderAdminUsers } from './sections/users.js';
-import { renderProjectCategories } from './sections/project_categories.js';
+// Extract version parameter from current script URL if present
+const currentScript = document.currentScript || document.querySelector('script[src*="dashboard.js"]');
+const versionParam = currentScript?.src.match(/[?&]v=([^&]+)/)?.[1];
+const versionSuffix = versionParam ? `?v=${versionParam}` : '';
 
-import { renderSocials } from './sections/socials.js';
+// Helper function to add version suffix to import paths
+const addVersion = (path) => `${path}${versionSuffix}`;
+
+// Dynamic imports with version suffix
+let renderDashboard, renderMainForm, renderNavbarForm, renderColorForm, renderAdvancedColors;
+let renderLiveActivities, renderProjects, renderSkills, renderExperiences, renderEducations;
+let renderCertifications, renderAchievements, renderCRM, renderAdminUsers, renderProjectCategories, renderSocials;
+
+// Load all modules
+Promise.all([
+    import(addVersion('./sections/dashboard.js')).then(m => { renderDashboard = m.renderDashboard; }),
+    import(addVersion('./sections/main.js')).then(m => { renderMainForm = m.renderMainForm; }),
+    import(addVersion('./sections/navbar.js')).then(m => { renderNavbarForm = m.renderNavbarForm; }),
+    import(addVersion('./sections/colors.js')).then(m => { renderColorForm = m.renderColorForm; }),
+    import(addVersion('./sections/advanced_colors.js')).then(m => { renderAdvancedColors = m.renderAdvancedColors; }),
+    import(addVersion('./sections/live_activities.js')).then(m => { renderLiveActivities = m.renderLiveActivities; }),
+    import(addVersion('./sections/projects.js')).then(m => { renderProjects = m.renderProjects; }),
+    import(addVersion('./sections/skills.js')).then(m => { renderSkills = m.renderSkills; }),
+    import(addVersion('./sections/experiences.js')).then(m => { renderExperiences = m.renderExperiences; }),
+    import(addVersion('./sections/educations.js')).then(m => { renderEducations = m.renderEducations; }),
+    import(addVersion('./sections/certifications.js')).then(m => { renderCertifications = m.renderCertifications; }),
+    import(addVersion('./sections/achievements.js')).then(m => { renderAchievements = m.renderAchievements; }),
+    import(addVersion('./sections/crm.js')).then(m => { renderCRM = m.renderCRM; }),
+    import(addVersion('./sections/users.js')).then(m => { renderAdminUsers = m.renderAdminUsers; }),
+    import(addVersion('./sections/project_categories.js')).then(m => { renderProjectCategories = m.renderProjectCategories; }),
+    import(addVersion('./sections/socials.js')).then(m => { renderSocials = m.renderSocials; })
+]).catch(error => {
+    console.error('Error loading modules:', error);
+});
 
 // Global state
 window.currentSection = '';

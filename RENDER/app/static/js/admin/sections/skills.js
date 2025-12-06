@@ -65,6 +65,7 @@ export function renderSkills(data) {
 }
 
 export function addSkillItem() {
+    const start_from_top = false;
     const container = document.getElementById('skill-items');
     const html = `
         <div class="bg-gray-800 p-4 rounded border border-gray-700 flex items-start space-x-4 group">
@@ -102,7 +103,11 @@ export function addSkillItem() {
             </button>
         </div>
     `;
-    container.insertAdjacentHTML('beforeend', html);
+    if (start_from_top) {
+        container.insertAdjacentHTML('afterbegin', html);
+    } else {
+        container.insertAdjacentHTML('beforeend', html);
+    }
 }
 
 // Attach to window
