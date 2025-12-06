@@ -170,6 +170,9 @@ async def get_data(section: str, user: dict = Depends(get_current_user)):
                 data['presets'] = presets_dict
             return data
 
+        # Default unwrap for list-based collections
+        return data.get("items", [])
+
 
 @router.post("/api/data/{section}")
 async def save_data(section: str, payload: Union[Dict, List] = Body(...), user: dict = Depends(get_current_user)):
