@@ -8,6 +8,7 @@ from app.utils.firebase_utils import get_firestore_data
 # Cookie scheme for documentation/Swagger UI
 cookie_scheme = APIKeyCookie(name="__session", auto_error=False)
 
+
 async def get_current_user(request: Request, session: Optional[str] = Depends(cookie_scheme)):
     if not session:
         print("[Auth] No session cookie found.")
@@ -66,6 +67,7 @@ def require_admin(user: dict = Depends(get_current_user)):
         )
 
     return user
+
 
 async def create_session_cookie(id_token: str, expires_in: int = 60 * 60 * 24 * 5):
     try:

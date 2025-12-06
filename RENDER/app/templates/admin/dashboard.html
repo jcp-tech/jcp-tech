@@ -1,13 +1,18 @@
-{% extends "admin/layout.html" %} 
-{% block head %}
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-{% endblock %}
-{% block content %}
+{% extends "admin/layout.html" %} {% block head %}
+<link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+/>
+{% endblock %} {% block content %}
 <div class="flex h-screen overflow-hidden">
   <!-- Sidebar -->
-  <div class="w-64 bg-[var(--admin-bg-secondary)] border-r border-[var(--admin-border-primary)] flex flex-col">
+  <div
+    class="w-64 bg-[var(--admin-bg-secondary)] border-r border-[var(--admin-border-primary)] flex flex-col"
+  >
     <div class="p-6 border-b border-[var(--admin-border-primary)]">
-      <h1 class="text-xl font-bold text-[var(--admin-text-primary)]">Admin Panel</h1>
+      <h1 class="text-xl font-bold text-[var(--admin-text-primary)]">
+        Admin Panel
+      </h1>
     </div>
     <nav class="flex-1 p-4 space-y-2 overflow-y-auto">
       <button
@@ -44,6 +49,13 @@
         class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
       >
         Color Config
+      </button>
+      <button
+        id="tab-advanced_colors"
+        onclick="switchTab('advanced_colors')"
+        class="w-full text-left px-4 py-2 rounded text-[var(--admin-text-secondary)] hover:bg-[var(--admin-bg-hover)] transition-colors"
+      >
+        Advanced Colors
       </button>
       <button
         id="tab-syntax_colors"
@@ -130,7 +142,9 @@
         >
           {{ user.email[0].upper() }}
         </div>
-        <span class="text-[var(--admin-text-primary)] text-sm truncate">{{ user.email }}</span>
+        <span class="text-[var(--admin-text-primary)] text-sm truncate"
+          >{{ user.email }}</span
+        >
       </div>
       <div class="text-xs text-[var(--admin-text-muted)] mb-4 px-1">
         Provider: {{ user.firebase.sign_in_provider }}
@@ -149,27 +163,39 @@
   <!-- Main Content Area -->
   <div class="flex-1 overflow-auto p-8 bg-[var(--admin-bg-primary)]">
     <div id="content-area">
-        <div class="space-y-6">
-            <!-- System Status -->
-            <div class="bg-[var(--admin-bg-secondary)] rounded-lg border border-[var(--admin-border-primary)] overflow-hidden">
-                <div class="px-6 py-4 border-b border-[var(--admin-border-primary)]">
-                    <h3 class="text-lg font-bold text-[var(--admin-text-primary)]">System Status</h3>
-                </div>
-                <div class="px-6 py-2">
-                    <p class="text-[var(--admin-text-muted)] py-2">Loading system status...</p>
-                </div>
-            </div>
-
-            <!-- Recent Activities -->
-            <div class="bg-[var(--admin-bg-secondary)] rounded-lg border border-[var(--admin-border-primary)] overflow-hidden">
-                <div class="px-6 py-4 border-b border-[var(--admin-border-primary)]">
-                    <h3 class="text-lg font-bold text-[var(--admin-text-primary)]">Recent Activities</h3>
-                </div>
-                <div class="px-6">
-                    <p class="text-[var(--admin-text-muted)] py-4">Loading recent activities...</p>
-                </div>
-            </div>
+      <div class="space-y-6">
+        <!-- System Status -->
+        <div
+          class="bg-[var(--admin-bg-secondary)] rounded-lg border border-[var(--admin-border-primary)] overflow-hidden"
+        >
+          <div class="px-6 py-4 border-b border-[var(--admin-border-primary)]">
+            <h3 class="text-lg font-bold text-[var(--admin-text-primary)]">
+              System Status
+            </h3>
+          </div>
+          <div class="px-6 py-2">
+            <p class="text-[var(--admin-text-muted)] py-2">
+              Loading system status...
+            </p>
+          </div>
         </div>
+
+        <!-- Recent Activities -->
+        <div
+          class="bg-[var(--admin-bg-secondary)] rounded-lg border border-[var(--admin-border-primary)] overflow-hidden"
+        >
+          <div class="px-6 py-4 border-b border-[var(--admin-border-primary)]">
+            <h3 class="text-lg font-bold text-[var(--admin-text-primary)]">
+              Recent Activities
+            </h3>
+          </div>
+          <div class="px-6">
+            <p class="text-[var(--admin-text-muted)] py-4">
+              Loading recent activities...
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>

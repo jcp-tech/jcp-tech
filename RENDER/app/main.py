@@ -19,6 +19,7 @@ app.middleware("http")(mc.add_no_cache_header)
 
 templates = Jinja2Templates(directory="app/templates")
 
+
 @app.get("/")
 async def read_root(request: Request):
     from app.tools.data import get_portfolio_data, get_developer_profile_data
@@ -48,10 +49,16 @@ async def read_root(request: Request):
         "syntax_colors": portfolio_data.get("SYNTAX_COLORS", {}),
         "code_base": code_base,
         "line_count": line_count,
-        "terminal_output": terminal_output
+        "terminal_output": terminal_output,
+        "USE_GRADIENTS": portfolio_data.get("USE_GRADIENTS", False),
+        "GRADIENT_BODY_LIGHT": portfolio_data.get("GRADIENT_BODY_LIGHT", ""),
+        "GRADIENT_BODY_DARK": portfolio_data.get("GRADIENT_BODY_DARK", ""),
+        "GRADIENT_NAV_LIGHT": portfolio_data.get("GRADIENT_NAV_LIGHT", ""),
+        "GRADIENT_NAV_DARK": portfolio_data.get("GRADIENT_NAV_DARK", "")
     }
     context.update(portfolio_data.get("MASTER_MAIN", {}))
     return templates.TemplateResponse("index.html", context)
+
 
 @app.get("/health")
 @app.get("/health/")
@@ -64,6 +71,7 @@ async def health_check(response: Response):
         firebase_initialized = False
     response.headers["Access-Control-Allow-Origin"] = "*"
     return {"status": "ok", "firebase_initialized": firebase_initialized}
+
 
 @app.options("/health")
 @app.options("/health/")
