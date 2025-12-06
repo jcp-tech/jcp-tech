@@ -138,6 +138,7 @@ function generateUI() {
                             <label class="text-xs text-gray-400 w-12">Color</label>
                             <div class="flex items-center space-x-2 flex-1">
                                 <input type="color" id="stop-color-picker" class="w-8 h-8 rounded border-0 p-0 bg-transparent cursor-pointer">
+                                <div id="stop-color-preview-box" class="w-8 h-8 rounded border border-gray-600 bg-transparent shadow-sm" title="Opacity Preview"></div>
                                 <input type="text" id="stop-color-text" class="flex-1 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-xs text-white font-mono">
                             </div>
                         </div>
@@ -371,7 +372,42 @@ function bindCheckbox(id, keyPath) {
     }
 }
 
+
 // Logic Functions
+
+// Drag State
+let dragState = { active: false, index: -1, startLeft: 0, timelineWidth: 0, initialPos: 0 };
+
+function startDragging(e, index) {
+    dragState.active = true;
+    dragState.index = index;
+    
+    const timeline = document.getElementById('stops-timeline');
+    const rect = timeline.getBoundingClientRect();
+    dragState.startLeft = rect.left;
+    dragState.timelineWidth = rect.width;
+    
+    document.addEventListener('mousemove', handleDrag);
+    document.addEventListener('mouseup', stopDragging);
+}
+
+function handleDrag(e) {
+    if (!dragState.active) return;
+    
+    let offsetX = e.clientX - dragState.startLeft;
+    let pos = (offsetX / dragState.timelineWidth) * 100;
+    pos = Math.max(0, Math.min(100, pos));
+    pos = Math.round(pos);
+    
+    updateSelectedStop('position', pos, true); // true = skipping sort/render optimization if needed
+}
+
+function stopDragging() {
+    dragState.active = false;
+    document.removeEventListener('mousemove', handleDrag);
+    document.removeEventListener('mouseup', stopDragging);
+}
+
 
 window.setMode = (mode) => {
     state.currentMode = mode;
@@ -458,9 +494,10 @@ function renderStopsTimeline() {
         marker.style.left = `${stop.position}%`;
         marker.style.backgroundColor = stop.color;
         
-        marker.onclick = (e) => {
+        marker.onmousedown = (e) => {
             e.stopPropagation();
             selectStop(index);
+            startDragging(e, index);
         };
         
         timeline.appendChild(marker);
@@ -483,11 +520,28 @@ function updateSelectedStopInputs() {
     document.getElementById('stop-position-slider').value = stop.position;
     document.getElementById('stop-opacity').value = stop.opacity;
     document.getElementById('stop-opacity-val').innerText = stop.opacity;
-    document.getElementById('stop-color-text').value = stop.color;
+    
+    // Sync Visualizer
+    const previewBox = document.getElementById('stop-color-preview-box');
+    if (previewBox) {
+        previewBox.style.backgroundColor = hexToRgba(stop.color, stop.opacity);
+    }
+
+    // Sync Text Input
+    const textInput = document.getElementById('stop-color-text');
+    if (stop.opacity < 1) {
+        // Convert to 8-digit hex
+        const alpha = Math.round(stop.opacity * 255);
+        const alphaHex = alpha.toString(16).padStart(2, '0');
+        textInput.value = (stop.color + alphaHex).toUpperCase();
+    } else {
+        textInput.value = stop.color.toUpperCase();
+    }
+    
     document.getElementById('stop-color-picker').value = stop.color.substring(0, 7);
 }
 
-function updateSelectedStop(key, value) {
+function updateSelectedStop(key, value, isDrag = false) {
     const config = state.data.items[state.currentMode];
     const stop = config.colorStops[state.selectedStopIndex];
     if(!stop) return;
@@ -495,11 +549,6 @@ function updateSelectedStop(key, value) {
     stop[key] = value;
     
     if (key === 'position') {
-        // Keep sorted? Or just allow free movement.
-        // Usually better to sort, but might jump UI.
-        // Let's NOT sort automatically while dragging, only on render or specific action.
-        // But updating timeline needs correct pos.
-        // Just clamp 0-100
         stop.position = Math.max(0, Math.min(100, stop.position));
     }
     
@@ -511,7 +560,12 @@ function updateSelectedStop(key, value) {
     }
     if (key === 'opacity') {
         document.getElementById('stop-opacity-val').innerText = stop.opacity;
+        updateSelectedStopInputs(); // Refresh visualizer & text format
         updatePreview();
+    }
+    
+    if (isDrag) {
+       // Drag doesn't need full preview update every frame if optimization needed, but here it's fine
     }
     
     updatePreview();
@@ -522,17 +576,93 @@ function syncStopColor(val, fromPicker) {
     const stop = config.colorStops[state.selectedStopIndex];
     
     if (fromPicker) {
-        stop.color = val; // Hex from picker
-        document.getElementById('stop-color-text').value = val;
+        stop.color = val; // Hex from picker (always 6-digit)
+        // Update Text Input: Append alpha if needed
+        if (stop.opacity < 1) {
+            const alpha = Math.round(stop.opacity * 255);
+            const alphaHex = alpha.toString(16).padStart(2, '0');
+            document.getElementById('stop-color-text').value = (val + alphaHex).toUpperCase();
+        } else {
+            document.getElementById('stop-color-text').value = val.toUpperCase();
+        }
     } else {
-        stop.color = val;
-        // Verify valid hex before updating picker
-        if (val.startsWith('#') && val.length === 7) {
-            document.getElementById('stop-color-picker').value = val;
+        // Parse input (Hex 6/8 digit, or legacy RGB/RGBA support just in case)
+        const parsed = parseColorInput(val);
+        if (parsed) {
+            stop.color = parsed.hex;
+            if (parsed.opacity !== null) {
+                stop.opacity = parsed.opacity;
+                document.getElementById('stop-opacity').value = stop.opacity;
+                document.getElementById('stop-opacity-val').innerText = stop.opacity;
+            }
+            // Update picker if valid 7-char hex
+            document.getElementById('stop-color-picker').value = parsed.hex;
         }
     }
+    updateSelectedStopInputs(); // Syncs visualizer
     renderStopsTimeline(); // Update marker color
     updatePreview();
+}
+
+function parseColorInput(str) {
+    str = str.trim();
+
+    // Hex
+    if (str.startsWith('#')) {
+        let hex = str;
+        let a = null;
+        if (hex.length === 9) { // #RRGGBBAA
+            const alphaHex = hex.substring(7, 9);
+            a = parseInt(alphaHex, 16) / 255;
+            hex = hex.substring(0, 7);
+            a = parseFloat(a.toFixed(2));
+            return {
+                hex: hex,
+                opacity: a
+            };
+        }
+        if (hex.length === 7) { // #RRGGBB
+             return {
+                hex: hex,
+                opacity: 1 // Default to 1 if 6-digit hex provided manually
+            };
+        }
+        if (hex.length === 4) { // #RGB
+             // Expand to 6 digit
+             const r = hex[1] + hex[1];
+             const g = hex[2] + hex[2];
+             const b = hex[3] + hex[3];
+             return {
+                hex: `#${r}${g}${b}`,
+                opacity: 1
+             };
+        }
+    }
+    
+    // Check for rgb/rgba for legacy/paste support
+    const ctx = document.createElement('canvas').getContext('2d');
+    ctx.fillStyle = str;
+    let fill = ctx.fillStyle; 
+    if (!fill) return null;
+
+    if (str.startsWith('rgb')) {
+        const parts = str.match(/[\d.]+/g);
+        if (!parts || parts.length < 3) return null;
+        const r = parseInt(parts[0]);
+        const g = parseInt(parts[1]);
+        const b = parseInt(parts[2]);
+        const a = parts.length > 3 ? parseFloat(parts[3]) : 1;
+        return {
+             hex: "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1),
+             opacity: a
+        };
+    }
+
+    return null;
+}
+
+function cleanHex(r, g, b) {
+    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 }
 
 // Utils
