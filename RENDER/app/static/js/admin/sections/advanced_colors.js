@@ -58,8 +58,10 @@ export function renderAdvancedColors(data) {
     
     // Ensure data integrity
     if (!state.data.presets) state.data.presets = {};
-    if (!state.data.items.darkMode) state.data.items.darkMode = createDefaultGradientConfig('linear');
-    if (!state.data.items.lightMode) state.data.items.lightMode = createDefaultGradientConfig('radial');
+    
+    // Enforce defaults on loaded configurations
+    if (state.data.items.darkMode) state.data.items.darkMode = ensureConfigDefaults(state.data.items.darkMode, 'linear');
+    if (state.data.items.lightMode) state.data.items.lightMode = ensureConfigDefaults(state.data.items.lightMode, 'radial');
     
     // MIGRATION: 
     // Data might have old structure with 'opacity'. Convert to 8-digit hex.
@@ -83,9 +85,65 @@ export function renderAdvancedColors(data) {
     contentArea.innerHTML = generateUI();
     
     attachEventListeners();
-    updatePreview();
+    
+    // Initial Update with small delay to ensure DOM is ready
+    // And force a retry loop just in case
+    let attempts = 0;
+    const itemsToCheck = ['live-preview-bg', 'live-preview-navbar'];
+    
+    function tryInitialUpdate() {
+        const allFound = itemsToCheck.every(id => document.getElementById(id));
+        if (allFound) {
+            console.log("Advanced Colors: DOM ready, updating preview.");
+            updatePreview();
+        } else if (attempts < 10) {
+            attempts++;
+            setTimeout(tryInitialUpdate, 100);
+        } else {
+             console.warn("Advanced Colors: Failed to find DOM elements after 10 attempts.");
+        }
+    }
+    
+    setTimeout(tryInitialUpdate, 50);
     renderPresets();
 }
+
+// Helper to enforce defaults
+function ensureConfigDefaults(config, defaultType) {
+    const defaults = createDefaultGradientConfig(defaultType);
+    if (!config) return defaults;
+    
+    // Merge missing keys from defaults into config
+    // We stay shallow for top-level props, but strict on critical ones
+    const merged = { ...defaults, ...config };
+    
+    // Ensure nested objects exist
+    if (!merged.applyTo) merged.applyTo = { ...defaults.applyTo };
+    else merged.applyTo = { ...defaults.applyTo, ...merged.applyTo };
+    
+    // Ensure colorStops is an array and has at least one stop if empty (though logic handles empty)
+    if (!Array.isArray(merged.colorStops)) merged.colorStops = [...defaults.colorStops];
+    
+    // Ensure critical numeric values are numbers
+    ['angle', 'centerX', 'centerY', 'spread', 'noise', 'feather', 'gamma'].forEach(k => {
+        if (typeof merged[k] !== 'number') merged[k] = defaults[k];
+    });
+    
+    return merged;
+}
+
+// ... existing generateUI, renderSlider, attachEventListeners ...
+// We need to keep the file structure valid, so I will target specific blocks if possible, 
+// but since I am replacing a large chunk of logic in renderAdvancedColors which is at the top,
+// and I need to insert the helper function, I will proceed carefully. 
+// Actually, I can just append the helper at the end or before logical functions.
+// Let's stick to replacing renderAdvancedColors logic.
+
+// Wait, I need to replace updatePreview as well.
+// Let's do this in two steps or use multi_replace if they are far apart.
+// They are in the same file. renderAdvancedColors is at the top. updatePreview is further down.
+// I will use multi_replace_file_content.
+
 
 // UI Generation
 function generateUI() {
@@ -723,22 +781,27 @@ function updatePreview() {
     const previewBg = document.getElementById('live-preview-bg');
     const previewNav = document.getElementById('live-preview-navbar');
     
-    if (!previewBg) return;
+    if (!previewBg) {
+        // Retry logic handled by caller now, but safe guard here
+        return;
+    }
 
-    // Generate gradient string
+    if (!config || !config.colorStops) return;
+
     let css = '';
-    const stops = [...config.colorStops].sort((a,b) => a.position - b.position);
+    // Safety copy and validation
+    const stops = (config.colorStops || []).map(s => ({
+        ...s,
+        position: typeof s.position === 'number' ? s.position : 0,
+        color: s.color || '#000000FF'
+    })).sort((a,b) => a.position - b.position);
     
-    // Build stops string with Gamma hints
     let stopStr = '';
-    const gamma = config.gamma || 50; // 0-100
+    const gamma = config.gamma ?? 50; 
     
     stops.forEach((s, i) => {
-        let colorStr = s.color; // Always Hex8 now
-
+        let colorStr = s.color;
         stopStr += `${colorStr} ${s.position}%`;
-        
-        // Add hint between this stop and next
         if (i < stops.length - 1) {
             const next = stops[i+1];
             if (gamma !== 50) {
@@ -750,81 +813,81 @@ function updatePreview() {
         }
     });
 
-    if (config.type === 'linear') {
-        css = `linear-gradient(${config.angle}deg, ${stopStr})`;
-        // Linear request: Add Center X/Y. 
-        // Standard linear-gradient doesn't support center. 
-        // But we can use background-position if we treat the gradient as a layer?
-        // Note: Unless background-size is restricted, background-position does nothing for a full gradient.
-        // Assuming user might want to shift the visual center (only works if we scale/translate or if it's repeating?).
-        // User requested "Disable Repeat" for Linear.
-        // Let's apply background-position to the preview element just in case they utilize it with custom CSS later.
-        previewBg.style.backgroundPosition = `${config.centerX}% ${config.centerY}%`;
-    } else if (config.type === 'radial') {
-        // Feature: Aspect Ratio Lock (ID: config-aspect-ratio) -> circle vs ellipse
+    try {
+        // Robust accesses with fallbacks
+        const angle = config.angle ?? 90;
+        const centerX = config.centerX ?? 50;
+        const centerY = config.centerY ?? 50;
+        const spread = config.spread ?? 100;
         const shape = config.aspectRatioLock ? 'circle' : 'ellipse';
-        
-        // Spread -> Size. 
-        // 100% spread ~ farthest-corner/cover. 
-        // Smaller spread ~ explicit size.
-        let sizePart = '';
-        if (config.aspectRatioLock) {
-             sizePart = `${config.spread}%`; // explicit radius? or part of syntax `circle 50%`? Valid: `radial-gradient(circle 50% ...)`
-        } else {
-             sizePart = `${config.spread}% ${config.spread * 0.8}%`; // Ellipse needs 2 values. 
-             // Ideally ellipse aspect comes from container? 
-             // Let's use spread% for X and spread% for Y? defaults to circle-ish if 1:1.
-             sizePart = `${config.spread}% ${config.spread}%`; 
-             // Actually, if it's ellipse, and we give 50% 50%, it's effectively circle relative to box?
-             // CSS `radial-gradient(ellipse 50% 50% ...)` creates an ellipse that is 50% of width and 50% of height.
+
+        if (config.type === 'linear') {
+            css = `linear-gradient(${angle}deg, ${stopStr})`;
+        } else if (config.type === 'radial') {
+            let sizePart = '';
+            // HACK: 'circle' does not support percentage sizes. 
+            // We force 'ellipse' with equal values if 'aspectRatioLock' is on, 
+            // which creates a circle-ish shape relative to box, or we'd need pixels.
+            // To ensure rendering, we switch to ellipse for now if spread is used.
+            const safeShape = config.aspectRatioLock ? 'ellipse' : 'ellipse';
+            if (config.aspectRatioLock) {
+                 sizePart = `${spread}% ${spread}%`; 
+            } else {
+                 sizePart = `${spread}% ${spread}%`; 
+            }
+            css = `radial-gradient(${safeShape} ${sizePart} at ${centerX}% ${centerY}%, ${stopStr})`;
+        } else if (config.type === 'conic') {
+             const fn = config.repeat ? 'repeating-conic-gradient' : 'conic-gradient';
+             css = `${fn}(from ${angle}deg at ${centerX}% ${centerY}%, ${stopStr})`;
         }
         
-        css = `radial-gradient(${shape} ${sizePart} at ${config.centerX}% ${config.centerY}%, ${stopStr})`;
-        previewBg.style.backgroundPosition = ''; // Reset
-    } else if (config.type === 'conic') {
-        const fn = config.repeat ? 'repeating-conic-gradient' : 'conic-gradient';
-        // Conic doesn't usually use "spread" for size, but strict angular spread? 
-        // Standard syntax: conic-gradient(from [angle] at [center], ...)
-        // We can't easily control "size" of conic unless we mask it?
-        // Or maybe Spread => Angle multiplier for stops? (Too complex for now).
-        // Let's just use angle and center.
-        css = `${fn}(from ${config.angle}deg at ${config.centerX}% ${config.centerY}%, ${stopStr})`;
-        previewBg.style.backgroundPosition = ''; // Reset
-    }
+        console.groupCollapsed('Advanced Colors Preview CSS');
+        console.log('Type:', config.type);
+        console.log('Generated CSS:', css);
+        
 
-    previewBg.style.background = css; // This overwrites background-position if set in shorthand? No, style.background is shorthand.
-    // Setting style.background overwrites specific props. 
-    // We should set style.backgroundImage etc or set shorthand carefully.
-    // Actually, background-position is part of shorthand.
-    // Linear: `linear-gradient(...) center center / cover no-repeat` etc.
-    
-    if (config.type === 'linear') {
-        previewBg.style.background = `${css} no-repeat ${config.centerX}% ${config.centerY}%`;
-        previewBg.style.backgroundSize = '200% 200%'; // HACK: To make position visible, we need size > 100%. 
-        // If size is 100%, moving center does nothing.
-        // User asked for Center X/Y. 
-    } else {
-        previewBg.style.background = css;
-        previewBg.style.backgroundSize = ''; // Reset
-    }
+        // Apply explicitly to avoid shorthand parsing issues
+        previewBg.style.backgroundImage = css;
+        console.log('Readback backgroundImage:', previewBg.style.backgroundImage);
+        console.groupEnd();
+        
+        // DEBUG: Ensure element is visible
+        // previewBg.style.border = '2px solid lime'; 
 
-    // Apply specific element previews
-    if (config.applyTo.navbar) {
-        previewNav.style.background = css;
-    } else {
-        previewNav.style.background = 'rgba(255, 255, 255, 0.1)';
-    }
+        if (config.type === 'linear') {
+            previewBg.style.backgroundRepeat = 'no-repeat';
+            previewBg.style.backgroundPosition = `${centerX}% ${centerY}%`;
+            previewBg.style.backgroundSize = '200% 200%'; 
+        } else {
+            // For radial/conic, usually cover or specific logic
+            // But we generated the "at center" INSIDE the gradient string for radial/conic
+            // so we don't need background-position on the element, and size should be cover/full
+            previewBg.style.backgroundRepeat = 'no-repeat';
+            previewBg.style.backgroundPosition = 'center';
+            previewBg.style.backgroundSize = 'cover'; 
+        }
 
-    // Mirror logic?
-    if (config.mirror) {
-        previewBg.style.transform = 'scaleX(-1)'; // specific usage
-    } else {
-        previewBg.style.transform = 'none';
-    }
+        // Navbar
+        if (previewNav) {
+             if (config.applyTo && config.applyTo.navbar) {
+                previewNav.style.backgroundImage = css;
+                // Navbar typically just needs the gradient texture
+            } else {
+                previewNav.style.backgroundImage = 'none';
+                previewNav.style.backgroundColor = 'rgba(255, 255, 255, 0.1)';
+            }
+        }
 
-    // Noise?
-    // Can simulate noise with an overlay or CSS filter.
-    // previewBg.style.filter = `contrast(${100 + config.noise}%) brightness(${100 + config.noise}%)`; // Placeholder
+        // Mirror
+        if (config.mirror) {
+            previewBg.style.transform = 'scaleX(-1)'; 
+        } else {
+            previewBg.style.transform = 'none';
+        }
+
+    } catch (e) {
+        console.error("Error applying gradient preview:", e);
+    }
 }
 
 // function hexToRgba... Removed, using native hex8
@@ -975,4 +1038,3 @@ window.importJSON = () => {
         alert("Invalid JSON");
     }
 };
-

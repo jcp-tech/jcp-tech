@@ -89,7 +89,7 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
         "user": user,
-        "debug": False,
+        "debug": False,  # Set to False in production & True in development for debugging js more easily!
         "session_id": datetime_str,
         "project_categories": portfolio_data.get("PROJECT_CATEGORIES", []),
         "color_config": color_config
