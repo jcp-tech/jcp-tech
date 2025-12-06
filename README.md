@@ -1,10 +1,12 @@
 <!-- ![Profile Image](https://avatars.githubusercontent.com/u/66247724?v=4) -->
 # 👨‍💻 Jonathan Chacko
+
 <!--
 <div align="center">
   <img src="https://readme-typing-svg.herokuapp.com?font=Architects+Daughter&color=7AF79A&size=40&center=true&vCenter=true&width=600&lines=Hi+There!+👋;I'm+Jonathan+Chacko!;Automation+%26+Data+Science+Specialist" alt="Title" />
 </div>
 -->
+
 > *Python/Java Developer*
 
 I specialize in automation and data science. My expertise includes developing automation scripts that have reduced manual processing time and analyzing large datasets to identify trends, informing strategic decisions. I thrive in dynamic environments, quickly adapting to new technologies and methodologies, and excel both independently and within teams. I am passionate about leveraging data-driven solutions to drive business success and am eager to connect with professionals who share this interest.
@@ -14,6 +16,7 @@ I specialize in automation and data science. My expertise includes developing au
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-jcp--tech-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
 [![GitHub](https://img.shields.io/badge/GitHub-jcp--tech-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jcp-tech)
+
 [![Discord Status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)](https://discordapp.com/users/686190428634349751/)
 
 
@@ -29,6 +32,7 @@ I specialize in automation and data science. My expertise includes developing au
 
 <!--
 ## 🚀 Current Focus
+
 - 🔭 Worked on [Spendify](https://github.com/jcp-tech/Spendify) - AI-powered expense optimizer using Discord uploads, GCP Vertex AI OCR, and a multi-agent ADK pipeline for explainable receipt classification. End-to-end automated, schema-validated, and fully containerized with CI/CD.
 - 🤖 Looking to collaborate on [DevTools](https://github.com/jcp-tech/DevTools)
     <br>
@@ -145,6 +149,7 @@ I specialize in automation and data science. My expertise includes developing au
 
 <!--
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/jcp-tech/jcp-tech)
+
 ## 📄 License
 See the [LICENSE](LICENSE) file for full details.
 -->
