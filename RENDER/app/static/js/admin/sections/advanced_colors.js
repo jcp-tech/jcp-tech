@@ -108,6 +108,7 @@ function generateUI() {
                         <option value="radial" ${activeConfig.type === 'radial' ? 'selected' : ''}>Radial</option>
                         <option value="conic" ${activeConfig.type === 'conic' ? 'selected' : ''}>Conic</option>
                     </select>
+                    <!-- NOTE: Need to add Mesh gradient type | Multi-point blend ~ Needs SVG/CSS4 work; not browser-wide yet. -->
                 </div>
 
                 <!-- Color Stops Editor -->
