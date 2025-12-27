@@ -16,6 +16,7 @@ I specialize in automation and data science. My expertise includes developing au
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-jcp--tech-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/jcp-tech/)
 [![GitHub](https://img.shields.io/badge/GitHub-jcp--tech-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/jcp-tech)
+<!-- [![Steam](https://img.shields.io/badge/Steam-Profile-171a21?style=for-the-badge&logo=steam&logoColor=white)](https://steamcommunity.com/profiles/76561198994898322) -->
 
 [![Discord Status](https://discord-readme-badge.vercel.app/api?id=686190428634349751)](https://discordapp.com/users/686190428634349751/)
 
