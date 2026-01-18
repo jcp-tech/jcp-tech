@@ -16,19 +16,19 @@ Promise.all([
     import(addVersion('./sections/dashboard.js')).then(m => { renderDashboard = m.renderDashboard; }),
     import(addVersion('./sections/main.js')).then(m => { renderMainForm = m.renderMainForm; }),
     import(addVersion('./sections/navbar.js')).then(m => { renderNavbarForm = m.renderNavbarForm; }),
-    import(addVersion('./sections/colors.js')).then(m => { renderColorForm = m.renderColorForm; }),
-    import(addVersion('./sections/advanced_colors.js')).then(m => { renderAdvancedColors = m.renderAdvancedColors; }),
-    import(addVersion('./sections/live_activities.js')).then(m => { renderLiveActivities = m.renderLiveActivities; }),
-    import(addVersion('./sections/projects.js')).then(m => { renderProjects = m.renderProjects; }),
-    import(addVersion('./sections/skills.js')).then(m => { renderSkills = m.renderSkills; }),
-    import(addVersion('./sections/experiences.js')).then(m => { renderExperiences = m.renderExperiences; }),
-    import(addVersion('./sections/educations.js')).then(m => { renderEducations = m.renderEducations; }),
-    import(addVersion('./sections/certifications.js')).then(m => { renderCertifications = m.renderCertifications; }),
-    import(addVersion('./sections/achievements.js')).then(m => { renderAchievements = m.renderAchievements; }),
-    import(addVersion('./sections/crm.js')).then(m => { renderCRM = m.renderCRM; }),
+    // import(addVersion('./sections/colors.js')).then(m => { renderColorForm = m.renderColorForm; }),
+    // import(addVersion('./sections/advanced_colors.js')).then(m => { renderAdvancedColors = m.renderAdvancedColors; }),
+    // import(addVersion('./sections/live_activities.js')).then(m => { renderLiveActivities = m.renderLiveActivities; }),
+    // import(addVersion('./sections/projects.js')).then(m => { renderProjects = m.renderProjects; }),
+    // import(addVersion('./sections/skills.js')).then(m => { renderSkills = m.renderSkills; }),
+    // import(addVersion('./sections/experiences.js')).then(m => { renderExperiences = m.renderExperiences; }),
+    // import(addVersion('./sections/educations.js')).then(m => { renderEducations = m.renderEducations; }),
+    // import(addVersion('./sections/certifications.js')).then(m => { renderCertifications = m.renderCertifications; }),
+    // import(addVersion('./sections/achievements.js')).then(m => { renderAchievements = m.renderAchievements; }),
+    // import(addVersion('./sections/crm.js')).then(m => { renderCRM = m.renderCRM; }),
     import(addVersion('./sections/users.js')).then(m => { renderAdminUsers = m.renderAdminUsers; }),
-    import(addVersion('./sections/project_categories.js')).then(m => { renderProjectCategories = m.renderProjectCategories; }),
-    import(addVersion('./sections/socials.js')).then(m => { renderSocials = m.renderSocials; })
+    // import(addVersion('./sections/project_categories.js')).then(m => { renderProjectCategories = m.renderProjectCategories; }),
+    // import(addVersion('./sections/socials.js')).then(m => { renderSocials = m.renderSocials; })
 ]).catch(error => {
     console.error('Error loading modules:', error);
 });
