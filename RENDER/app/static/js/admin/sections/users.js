@@ -60,20 +60,17 @@ export function renderAdminUsers(data) {
                 </div>
             </div>
 
-            <!-- Microsoft (Disabled) -->
-            <div class="bg-gray-800 p-4 rounded border border-gray-700 opacity-60 relative overflow-hidden">
-                <div class="absolute inset-0 bg-gray-900/50 flex items-center justify-center z-10">
-                    <span class="bg-yellow-600 text-white text-xs font-bold px-2 py-1 rounded">Coming Soon</span>
-                </div>
+            <!-- Microsoft -->
+            <div class="bg-gray-800 p-4 rounded border border-gray-700">
                 <h3 class="text-lg font-bold text-white mb-4 flex items-center">
                     <span class="mr-2">Microsoft</span>
                 </h3>
-                <div class="mb-4">
-                    <p class="text-gray-500 text-sm">Configuration disabled.</p>
+                <div id="list-microsoft.com" class="mb-4">
+                    ${renderList('microsoft.com', data['microsoft.com'])}
                 </div>
                 <div class="flex gap-2">
-                    <input type="email" disabled placeholder="Add Microsoft Email" class="flex-1 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm text-gray-500 cursor-not-allowed">
-                    <button disabled class="bg-gray-600 text-gray-400 px-3 py-1 rounded text-sm cursor-not-allowed">+</button>
+                    <input type="email" id="input-microsoft.com" placeholder="Add Microsoft Email" class="flex-1 bg-gray-700 border border-gray-600 rounded px-2 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                    <button onclick="addAdminUser('microsoft.com')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">+</button>
                 </div>
             </div>
         </div>
