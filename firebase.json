@@ -20,12 +20,11 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "rewrites": [{
+      "redirects": [ {
         "source": "**",
-        "run": {
-          "serviceId": "project-test"
-        }
-      }]
+        "destination": "https://jcp-tech.cloud",
+        "type": 301
+      } ]
     },
     {
       "target": "old",

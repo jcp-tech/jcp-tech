@@ -1,3 +1,5 @@
+{
+  "hosting": [
     {
       "target": "prod",
       "ignore": [
@@ -12,3 +14,37 @@
         }
       }]
     },
+    {
+      "target": "test",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [{
+        "source": "**",
+        "run": {
+          "serviceId": "project-test"
+        }
+      }]
+    },
+    {
+      "target": "old",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    },
+    {
+      "target": "backup",
+      "public": "public",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ]
+    }
+  ]
+}
