@@ -1,0 +1,94 @@
+name: Testing - Make Sure Deployments will Work
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  SERVICE_NAME: project-test
+  REGION: us-central1
+  GAR_LOCATION: us-central1
+  REPOSITORY: cloud-run-source-deploy
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./RENDER
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+      - name: Lint with flake8
+        run: |
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./RENDER
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest httpx
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+      - name: Test with pytest
+        run: |
+          export PYTHONPATH=$PYTHONPATH:$(pwd)
+          python -m pytest
+
+  cleanup:
+    needs: [lint, test]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Debug Needs Context
+        run: echo "${{ toJSON(needs) }}"
+
+      - name: Create Pull Request on Success
+        if: needs.lint.result == 'success' && needs.test.result == 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_EXISTS=$(gh pr list --head master --base main --json number --jq 'length')
+          if [ "$PR_EXISTS" -eq 0 ]; then
+            gh pr create --base main --head master --title "Merge master to main" --body "Automated PR after successful test deployment."
+          else
+            echo "PR already exists, skipping creation."
+          fi
+
+      - name: Close Pull Request on Failure
+        if: needs.lint.result == 'failure' || needs.test.result == 'failure'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          PR_NUMBER=$(gh pr list --head master --base main --state open --json number --jq '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Closing PR #$PR_NUMBER due to workflow failure"
+            gh pr close "$PR_NUMBER" --comment "Workflow failed (Lint, Test, or Deploy). Closing PR to prevent merging."
+          else
+            echo "No open PR found to close."
+          fi
