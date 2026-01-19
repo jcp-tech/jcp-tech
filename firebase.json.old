@@ -7,11 +7,12 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "redirects": [ {
+      "rewrites": [{
         "source": "**",
-        "destination": "https://jcp-tech.cloud",
-        "type": 301
-      } ]
+        "run": {
+          "serviceId": "portfolio"
+        }
+      }]
     },
     {
       "target": "test",
@@ -20,11 +21,12 @@
         "**/.*",
         "**/node_modules/**"
       ],
-      "redirects": [ {
+      "rewrites": [{
         "source": "**",
-        "destination": "https://jcp-tech.cloud",
-        "type": 301
-      } ]
+        "run": {
+          "serviceId": "project-test"
+        }
+      }]
     },
     {
       "target": "old",
