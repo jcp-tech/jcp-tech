@@ -1,0 +1,14 @@
+    {
+      "target": "prod",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [{
+        "source": "**",
+        "run": {
+          "serviceId": "portfolio"
+        }
+      }]
+    },
