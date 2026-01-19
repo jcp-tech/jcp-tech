@@ -28,7 +28,7 @@ jobs:
                   script: |
                       set -e
 
-                      PROJECT_ROOT="/home/Django-Unchained/jcp-tech"
+                      PROJECT_ROOT="/home/Django-Unchained/jcp-tech/RENDER"
 
                       echo "Checking if project directory exists..."
                       if [ ! -d "$PROJECT_ROOT" ]; then
