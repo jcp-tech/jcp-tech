@@ -1,0 +1,9 @@
+services:
+  jcp-tech-app:
+    build: .
+    container_name: jcp_tech_app
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    restart: always
