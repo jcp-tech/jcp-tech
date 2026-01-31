@@ -25,7 +25,7 @@ async def read_root(request: Request):
     from app.tools.data import get_portfolio_data, get_developer_profile_data
 
     # Fetch fresh data from Firebase
-    portfolio_data = get_portfolio_data()
+    portfolio_data = get_portfolio_data(include_all_categories=False)
 
     # Get developer profile data (code & terminal output)
     code_base, line_count, terminal_output = get_developer_profile_data()

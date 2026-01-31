@@ -280,62 +280,61 @@ window.addEventListener("keydown", (e) => {
 const filterProjects = (category) => {
   // Update active button state
   const buttons = document.querySelectorAll(".filter-btn");
+  
+  const inactiveClasses = [
+    "bg-white",
+    "dark:bg-[var(--bg-surface-subtle)]",
+    "border-gray-200",
+    "dark:border-[var(--border-subtle)]",
+    "hover:bg-gray-50",
+    "dark:hover:bg-[var(--bg-surface-medium)]",
+    "text-gray-600",
+    "dark:text-[var(--text-body)]"
+  ];
+  
+  const activeClasses = [
+    "bg-primary/10",
+    "border-primary",
+    "text-primary",
+    "font-bold"
+  ];
+
   buttons.forEach((btn) => {
     if (btn.dataset.filter === category) {
-      btn.classList.add(
-        "bg-primary/10",
-        "border-primary",
-        "text-primary",
-        "font-bold"
-      );
-      btn.classList.remove(
-        "bg-white",
-        "dark:bg-white/5",
-        "border-gray-200",
-        "dark:border-white/10",
-        "hover:bg-gray-50",
-        "dark:hover:bg-white/10",
-        "text-gray-600",
-        "dark:text-white/80"
-      );
+      btn.classList.remove(...inactiveClasses);
+      btn.classList.add(...activeClasses);
     } else {
-      btn.classList.remove(
-        "bg-primary/10",
-        "border-primary",
-        "text-primary",
-        "font-bold"
-      );
-      btn.classList.add(
-        "bg-white",
-        "dark:bg-white/5",
-        "border-gray-200",
-        "dark:border-white/10",
-        "hover:bg-gray-50",
-        "dark:hover:bg-white/10",
-        "text-gray-600",
-        "dark:text-white/80"
-      );
+      btn.classList.remove(...activeClasses);
+      btn.classList.add(...inactiveClasses);
     }
   });
 
   // Filter grid items
   const projects = document.querySelectorAll(".project-card");
   projects.forEach((project) => {
-    const tags = JSON.parse(project.dataset.tags || "[]");
+    let tags = [];
+    try {
+        tags = JSON.parse(project.dataset.tags || "[]");
+    } catch (e) {
+        console.error("Error parsing tags", e);
+    }
     const isFeatured = project.dataset.featured === "true";
+    let shouldShow = false;
 
     if (category === "Featured") {
-      if (isFeatured) {
-        project.classList.remove("hidden");
-      } else {
-        project.classList.add("hidden");
-      }
+      if (isFeatured) shouldShow = true;
     } else {
-      if (project.dataset.category === category || tags.includes(category)) {
-        project.classList.remove("hidden");
-      } else {
-        project.classList.add("hidden");
+      if (project.dataset.category === category) {
+        shouldShow = true;
       }
+    }
+
+    if (shouldShow) {
+        project.classList.remove("hidden");
+        project.classList.add("flex");
+    } else {
+        project.classList.add("hidden");
+        project.classList.remove("flex");
     }
   });
 };

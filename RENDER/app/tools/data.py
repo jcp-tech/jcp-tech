@@ -294,7 +294,7 @@ def generate_css_gradient(config):
     return "none"
 
 
-def get_portfolio_data():
+def get_portfolio_data(include_all_categories=False):
     """Fetch all portfolio data from Firebase."""
     print("Attempting to load data from Firebase...")
 
@@ -379,12 +379,15 @@ def get_portfolio_data():
         active_projects = [
             project for project in projects if project.get('active')]
         data["PROJECTS"] = active_projects
-        available_categories = set()
-        for projectz in active_projects:
-            available_categories.add(projectz.get('category'))
         project_categories = projects_doc.get('categories', [])
-        data["PROJECT_CATEGORIES"] = [category.get('name') for category in project_categories if category.get(
-            'name') in available_categories and category.get('active')]  # NOTE the category.get('active') is not used cause it's Disabled.
+        if include_all_categories:
+            data["PROJECT_CATEGORIES"] = [category.get('name') for category in project_categories if category.get('active') is not False]
+        else:
+            available_categories = set()
+            for projectz in active_projects:
+                print(projectz.get('category'))
+                available_categories.add(projectz.get('category'))
+            data["PROJECT_CATEGORIES"] = [category.get('name') for category in project_categories if category.get('name') in available_categories and category.get('active') is not False]
         print("Loaded all PROJECTS and Related from Firestore.")
 
         # SKILLS
