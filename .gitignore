@@ -115,3 +115,4 @@ ignore/
 # REMOVE UNNESSARY SINCE TRANSFER FROM STATIC TO DYNAMIC HOSTING
 /backup/
 /ARCHITECTURE.md
+RENDER/changes/Modifying Projects Form and Backend.md

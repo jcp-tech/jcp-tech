@@ -321,21 +321,29 @@ const filterProjects = (category) => {
   // Filter grid items
   const projects = document.querySelectorAll(".project-card");
   projects.forEach((project) => {
-    const tags = JSON.parse(project.dataset.tags || "[]");
+    let tags = [];
+    try {
+        tags = JSON.parse(project.dataset.tags || "[]");
+    } catch (e) {
+        console.error("Error parsing tags", e);
+    }
     const isFeatured = project.dataset.featured === "true";
+    let shouldShow = false;
 
     if (category === "Featured") {
-      if (isFeatured) {
-        project.classList.remove("hidden");
-      } else {
-        project.classList.add("hidden");
-      }
+      if (isFeatured) shouldShow = true;
     } else {
-      if (project.dataset.category === category || tags.includes(category)) {
-        project.classList.remove("hidden");
-      } else {
-        project.classList.add("hidden");
+      if (project.dataset.category === category) {
+        shouldShow = true;
       }
+    }
+
+    if (shouldShow) {
+        project.classList.remove("hidden");
+        project.classList.add("flex");
+    } else {
+        project.classList.add("hidden");
+        project.classList.remove("flex");
     }
   });
 };

@@ -1,70 +1,137 @@
-
 <section id="projects" class="flex flex-col gap-10 mt-24 scroll-mt-24">
   <div class="flex flex-wrap justify-between gap-4 items-end px-4 md:px-0">
     <div class="flex min-w-72 flex-col gap-2">
-      <h2 class="text-gray-900 dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em] transition-colors">
+      <h2
+        class="text-gray-900 dark:text-white text-4xl lg:text-5xl font-black leading-tight tracking-[-0.033em] transition-colors"
+      >
         Active & Selected Works
       </h2>
-      <p class="text-gray-600 dark:text-[var(--text-subtle)] text-base font-normal leading-normal transition-colors">
-        A curated collection of my projects in AI, automation, and full-stack development.
+      <p
+        class="text-gray-600 dark:text-[var(--text-subtle)] text-base font-normal leading-normal transition-colors"
+      >
+        A curated collection of my projects in AI, automation, and full-stack
+        development.
       </p>
     </div>
   </div>
   <!-- Filter Tabs -->
   <div class="flex gap-3 p-3 flex-wrap pr-4 md:px-0" id="project-filters">
     <button
-        onclick="filterProjects('Featured')"
-        class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-primary/10 border-primary text-primary font-bold"
-        data-filter="Featured"
+      onclick="filterProjects('Featured')"
+      class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-primary/10 border-primary text-primary font-bold"
+      data-filter="Featured"
     >
-        <p class="text-sm font-medium leading-normal">Featured</p>
+      <p class="text-sm font-medium leading-normal">Featured</p>
     </button>
     {% for category in project_categories %}
     <button
-        onclick="filterProjects('{{ category }}')"
-        class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-[var(--bg-surface-subtle)] border-gray-200 dark:border-[var(--border-subtle)] hover:bg-gray-50 dark:hover:bg-[var(--bg-surface-medium)] text-gray-600 dark:text-[var(--text-body)]"
-        data-filter="{{ category }}"
+      onclick="filterProjects('{{ category }}')"
+      class="filter-btn flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-lg pl-4 pr-4 cursor-pointer transition-all duration-300 border bg-white dark:bg-[var(--bg-surface-subtle)] border-gray-200 dark:border-[var(--border-subtle)] hover:bg-gray-50 dark:hover:bg-[var(--bg-surface-medium)] text-gray-600 dark:text-[var(--text-body)]"
+      data-filter="{{ category }}"
     >
-        <p class="text-sm font-medium leading-normal">{{ category }}</p>
+      <p class="text-sm font-medium leading-normal">{{ category }}</p>
     </button>
     {% endfor %}
   </div>
 
   <!-- Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0" id="projects-grid">
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 md:px-0"
+    id="projects-grid"
+  >
     {% for project in projects %}
-      <div class="project-card group relative rounded-xl overflow-hidden bg-white dark:bg-[var(--card-bg-secondary)] border border-gray-200 dark:border-[var(--border-subtle)] hover:border-primary/50 dark:hover:border-primary/80 transition-all duration-500 hover:shadow-lg dark:hover:shadow-glow will-change-transform hover:-translate-y-1" data-category="{{ project.category }}" data-featured="{{ 'true' if project.featured else 'false' }}" data-tags='{{ project.tags | tojson }}'>
-        <!-- Background Image -->
-        <div 
-            class="absolute inset-0 bg-cover bg-center transition-transform duration-700 ease-in-out group-hover:scale-110 opacity-100 dark:opacity-60 dark:group-hover:opacity-40" 
-            style="background-image: url('{{ project.image }}')"
-        ></div>
-        
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-t from-white via-white/80 to-transparent dark:from-[var(--overlay-bg)] dark:via-[color-mix(in_srgb,var(--overlay-bg),transparent_20%)] dark:to-transparent"></div>
+    <div
+      class="project-card group relative flex flex-col justify-between rounded-xl overflow-hidden bg-white dark:bg-[var(--card-bg-secondary)] border border-gray-200 dark:border-[var(--border-subtle)] hover:border-primary/50 dark:hover:border-primary/80 transition-all duration-500 hover:shadow-lg dark:hover:shadow-glow will-change-transform hover:-translate-y-1 p-6 gap-6"
+      data-category="{{ project.category }}"
+      data-featured="{{ 'true' if project.featured else 'false' }}"
+      data-tags="{{ project.tags | tojson | forceescape }}"
+    >
+      <!-- Status Badge -->
+      <div class="absolute top-4 right-4 z-10">
+        {% if not project.completed %}
+        <span
+          class="px-3 py-1 rounded-full text-xs font-bold bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border border-yellow-500/20 backdrop-blur-md"
+          >In-Progress</span
+        >
+        {% elif project.domain_url %}
+        <a
+          href="{{ project.domain_url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="px-3 py-1 rounded-full text-xs font-bold text-gray-900 bg-green-400 hover:bg-green-300 transition-all shadow-[0_0_10px_rgba(74,222,128,0.3)] hover:shadow-[0_0_15px_rgba(74,222,128,0.5)] flex items-center gap-1 z-20 cursor-pointer border border-green-400"
+        >
+          Active
+          <svg
+            class="w-3 h-3"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 6H6a2 2 0 00-2 2v10a2 2 0 00-2 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+            ></path>
+          </svg>
+        </a>
+        {% else %}
+        <span
+          class="px-3 py-1 rounded-full text-xs font-bold bg-teal-500/10 text-teal-600 dark:text-teal-400 border border-teal-500/20 backdrop-blur-md"
+          >Completed</span
+        >
+        {% endif %}
+      </div>
 
-        <!-- Content -->
-        <div class="relative flex flex-col justify-end p-6 aspect-[16/10] h-full">
-          <div class="space-y-3 transform transition-transform duration-300 group-hover:-translate-y-2">
-            <h3 class="text-gray-900 dark:text-white text-xl font-bold leading-tight drop-shadow-sm dark:drop-shadow-none">{{ project.title }}</h3>
-            <p class="text-gray-700 dark:text-gray-300 text-sm leading-normal line-clamp-3 font-medium dark:font-normal">{{ project.description }}</p>
-            <div class="flex flex-wrap gap-2 pt-2">
-              {% for tag in project.tags %}
-                <span class="text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-2 py-1 rounded-full backdrop-blur-sm">
-                  {{ tag }}
-                </span>
-              {% endfor %}
-            </div>
-          </div>
-          
-          <!-- Hover Action -->
-          <div class="absolute inset-0 flex items-center justify-center bg-white/60 dark:bg-[color-mix(in_srgb,var(--overlay-bg),transparent_40%)] backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button class="text-primary font-bold py-2 px-5 border-2 border-primary rounded-lg hover:bg-primary hover:text-white dark:hover:text-background-main transition-colors shadow-glow">
-              View Case Study
-            </button>
-          </div>
+      <div class="space-y-4">
+        <h3
+          class="text-gray-900 dark:text-white text-2xl font-bold leading-tight pr-20"
+        >
+          {{ project.title }}
+        </h3>
+        <p
+          class="text-gray-700 dark:text-[var(--text-subtle)] text-sm leading-relaxed line-clamp-4"
+        >
+          {{ project.description }}
+        </p>
+
+        <div class="flex flex-wrap gap-2">
+          {% for tag in project.tags %}
+          <span
+            class="text-xs font-bold text-primary bg-primary/10 border border-primary/20 px-2 py-1 rounded-full backdrop-blur-sm"
+          >
+            {{ tag }}
+          </span>
+          {% endfor %}
         </div>
       </div>
+
+      <!-- Actions -->
+      <div class="pt-2 flex items-center gap-3">
+        {% if project.github_url %}
+        <a
+          href="{{ project.github_url }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors text-sm font-bold border border-gray-200 dark:border-gray-700"
+        >
+          <svg
+            class="w-4 h-4"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.943 0-1.091.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.597 1.028 2.688 0 3.848-2.339 4.687-4.566 4.935.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"
+              clip-rule="evenodd"
+            ></path>
+          </svg>
+          View GitHub
+        </a>
+        {% endif %}
+      </div>
+    </div>
     {% endfor %}
   </div>
 </section>

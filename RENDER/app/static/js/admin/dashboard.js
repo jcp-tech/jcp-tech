@@ -234,7 +234,9 @@ export async function handleSave(eventOrSection, payloadIfManual) {
             title: item.querySelector('[data-field="title"]').value,
             category: item.querySelector('[data-field="category"]').value,
             description: item.querySelector('[data-field="description"]').value,
-            image: item.querySelector('[data-field="image"]').value,
+            github_url: item.querySelector('[data-field="github_url"]').value,
+            domain_url: item.querySelector('[data-field="domain_url"]').value,
+            completed: item.querySelector('[data-field="completed"]').value === 'true',
             tags: item.querySelector('[data-field="tags"]').value.split(',').map(t => t.trim()).filter(t => t),
             featured: item.querySelector('[data-field="featured"]').checked,
             active: item.querySelector('[data-field="active"]').checked

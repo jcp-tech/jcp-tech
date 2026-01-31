@@ -81,7 +81,7 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
         # For now, let's re-raise to show the standard error page or JSON
         raise e
 
-    portfolio_data = get_portfolio_data()
+    portfolio_data = get_portfolio_data(include_all_categories=True)
     color_config = portfolio_data.get("COLOR_CONFIG", {})
 
     datetime_str = datetime.now().strftime("%d%m%Y%H%M%S")
@@ -89,7 +89,7 @@ async def admin_dashboard(request: Request, user: dict = Depends(get_current_use
     return templates.TemplateResponse("admin/dashboard.html", {
         "request": request,
         "user": user,
-        "debug": False,  # Set to False in production & True in development for debugging js more easily!
+        "debug": False, # Set to False in production & True in development for debugging js more easily!
         "session_id": datetime_str,
         "project_categories": portfolio_data.get("PROJECT_CATEGORIES", []),
         "color_config": color_config

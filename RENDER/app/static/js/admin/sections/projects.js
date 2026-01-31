@@ -30,18 +30,32 @@ export function renderProjects(data) {
                     <textarea data-field="description" rows="2" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">${item.description || ''}</textarea>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Image URL</label>
-                        <input type="text" data-field="image" value="${item.image || ''}" oninput="this.closest('.group').querySelector('img').src = this.value" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                        <div class="mt-2 h-32 bg-gray-900 rounded border border-gray-700 overflow-hidden flex items-center justify-center">
-                            <img src="${item.image || ''}" class="h-full w-auto object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'; this.style.display='block'">
-                            <span class="text-xs text-gray-500 ${item.image ? 'hidden' : ''}">No Image</span>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">GitHub URL <span class="text-gray-600">(optional)</span></label>
+                            <input type="text" data-field="github_url" value="${item.github_url || ''}" placeholder="https://github.com/..." class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">Main Domain URL <span class="text-gray-600">(optional)</span></label>
+                            <input type="text" data-field="domain_url" value="${item.domain_url || ''}" placeholder="https://example.com" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                         </div>
                     </div>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-xs text-gray-500 mb-1">Tags (comma separated)</label>
                             <input type="text" data-field="tags" value="${(item.tags || []).join(', ')}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">Status</label>
+                            <div class="flex bg-gray-700 rounded overflow-hidden border border-gray-600">
+                                <button type="button" data-status="completed" onclick="this.closest('.group').querySelector('[data-field=completed]').value='true'; this.classList.add('bg-green-600','text-white'); this.classList.remove('text-gray-400'); this.nextElementSibling.classList.remove('bg-yellow-600','text-white'); this.nextElementSibling.classList.add('text-gray-400');" class="flex-1 px-3 py-1 text-sm transition-colors ${item.completed ? 'bg-green-600 text-white' : 'text-gray-400'}">
+                                    Completed
+                                </button>
+                                <button type="button" data-status="in_progress" onclick="this.closest('.group').querySelector('[data-field=completed]').value='false'; this.classList.add('bg-yellow-600','text-white'); this.classList.remove('text-gray-400'); this.previousElementSibling.classList.remove('bg-green-600','text-white'); this.previousElementSibling.classList.add('text-gray-400');" class="flex-1 px-3 py-1 text-sm transition-colors ${!item.completed ? 'bg-yellow-600 text-white' : 'text-gray-400'}">
+                                    In-Progress
+                                </button>
+                            </div>
+                            <input type="hidden" data-field="completed" value="${item.completed ? 'true' : 'false'}">
                         </div>
                         <div class="flex items-center space-x-4">
                             <div class="flex items-center">
@@ -117,18 +131,32 @@ export function addProjectItem() {
                     <textarea data-field="description" rows="2" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs text-gray-500 mb-1">Image URL</label>
-                        <input type="text" data-field="image" oninput="this.closest('.group').querySelector('img').src = this.value" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
-                        <div class="mt-2 h-32 bg-gray-900 rounded border border-gray-700 overflow-hidden flex items-center justify-center">
-                            <img src="" class="h-full w-auto object-cover hidden" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                            <span class="text-xs text-gray-500">No Image</span>
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">GitHub URL <span class="text-gray-600">(optional)</span></label>
+                            <input type="text" data-field="github_url" placeholder="https://github.com/..." class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">Main Domain URL <span class="text-gray-600">(optional)</span></label>
+                            <input type="text" data-field="domain_url" placeholder="https://example.com" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
                         </div>
                     </div>
                     <div class="space-y-4">
                         <div>
                             <label class="block text-xs text-gray-500 mb-1">Tags (comma separated)</label>
                             <input type="text" data-field="tags" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">Status</label>
+                            <div class="flex bg-gray-700 rounded overflow-hidden border border-gray-600">
+                                <button type="button" data-status="completed" onclick="this.closest('.group').querySelector('[data-field=completed]').value='true'; this.classList.add('bg-green-600','text-white'); this.classList.remove('text-gray-400'); this.nextElementSibling.classList.remove('bg-yellow-600','text-white'); this.nextElementSibling.classList.add('text-gray-400');" class="flex-1 px-3 py-1 text-sm transition-colors text-gray-400">
+                                    Completed
+                                </button>
+                                <button type="button" data-status="in_progress" onclick="this.closest('.group').querySelector('[data-field=completed]').value='false'; this.classList.add('bg-yellow-600','text-white'); this.classList.remove('text-gray-400'); this.previousElementSibling.classList.remove('bg-green-600','text-white'); this.previousElementSibling.classList.add('text-gray-400');" class="flex-1 px-3 py-1 text-sm transition-colors bg-yellow-600 text-white">
+                                    In-Progress
+                                </button>
+                            </div>
+                            <input type="hidden" data-field="completed" value="false">
                         </div>
                         <div class="flex items-center space-x-4">
                             <div class="flex items-center">
