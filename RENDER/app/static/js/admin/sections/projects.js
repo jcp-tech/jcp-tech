@@ -26,8 +26,8 @@ export function renderProjects(data) {
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">Description</label>
-                    <textarea data-field="description" rows="2" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500">${item.description || ''}</textarea>
+                    <label class="flex justify-between items-center text-xs text-gray-500 mb-1"><span>Description</span><span class="char-count ${(item.description||'').length>195?'text-amber-500':''}">${(item.description||'').length}/195</span></label>
+                    <textarea data-field="description" rows="2" oninput="const l=this.value.length;const c=this.previousElementSibling.querySelector('.char-count');c.innerText=l+'/195';if(l>195){this.classList.add('ring-2','ring-amber-500');c.classList.add('text-amber-500')}else{this.classList.remove('ring-2','ring-amber-500');c.classList.remove('text-amber-500')}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500 ${(item.description || '').length > 195 ? 'ring-2 ring-amber-500' : ''}">${item.description || ''}</textarea>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-4">
@@ -127,8 +127,8 @@ export function addProjectItem() {
                     </div>
                 </div>
                 <div>
-                    <label class="block text-xs text-gray-500 mb-1">Description</label>
-                    <textarea data-field="description" rows="2" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
+                    <label class="flex justify-between items-center text-xs text-gray-500 mb-1"><span>Description</span><span class="char-count">0/195</span></label>
+                    <textarea data-field="description" rows="2" oninput="const l=this.value.length;const c=this.previousElementSibling.querySelector('.char-count');c.innerText=l+'/195';if(l>195){this.classList.add('ring-2','ring-amber-500');c.classList.add('text-amber-500')}else{this.classList.remove('ring-2','ring-amber-500');c.classList.remove('text-amber-500')}" class="w-full bg-gray-700 border border-gray-600 rounded px-3 py-1 text-sm text-white focus:outline-none focus:border-blue-500"></textarea>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="space-y-4">
